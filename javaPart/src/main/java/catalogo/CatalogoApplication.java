@@ -1,6 +1,7 @@
 package catalogo;
 
 import catalogo.Resources.Encomendas;
+import catalogo.Resources.Producoes;
 import catalogo.Resources.Utilizadores;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -26,6 +27,8 @@ public class CatalogoApplication extends Application<CatalogoConfiguration> {
         HashMap encomendas = new HashMap();
         environment.jersey().register(
                 new Encomendas(configuration.template, configuration.defaultName, encomendas));
+        environment.jersey().register(
+                new Producoes(configuration.template, configuration.defaultName, producoes));
         //environment.healthChecks().register("template",
           //      new Producoes(configuration.template));
         environment.jersey().register(
