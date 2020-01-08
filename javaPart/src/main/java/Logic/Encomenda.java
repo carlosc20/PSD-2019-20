@@ -1,8 +1,6 @@
-package catalogo.Representations;
+package Logic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.List;
 
 public class Encomenda {
     private String nome;

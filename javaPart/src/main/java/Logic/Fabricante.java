@@ -1,4 +1,4 @@
-package catalogo.Representations;
+package Logic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,6 +13,10 @@ public class Fabricante extends Utilizador{
     public Fabricante(Utilizador utilizador) {
         super(utilizador);
         producoes= new ArrayList<>();
+    }
+
+    public void addProducao(Producao p){
+        this.producoes.add(p);
     }
 
     @JsonProperty

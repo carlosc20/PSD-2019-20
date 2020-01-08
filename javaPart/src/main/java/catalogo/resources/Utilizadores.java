@@ -1,8 +1,8 @@
 package catalogo.Resources;
 
-import catalogo.Representations.Fabricante;
-import catalogo.Representations.Importador;
-import catalogo.Representations.Utilizador;
+import Logic.Fabricante;
+import Logic.Importador;
+import Logic.Utilizador;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -47,7 +47,7 @@ public class Utilizadores {
             return Response.status(400).build();
         utilizadores.put(utilizador.getNome(), new Importador(utilizador));
         encomendas.put(utilizador.getNome(), new ArrayList());
-        return Response.ok().build();
+        return Response.ok(utilizador).build();
     }
 
     @POST
@@ -57,6 +57,6 @@ public class Utilizadores {
             return Response.status(400).build();
         utilizadores.put(utilizador.getNome(), new Fabricante(utilizador));
         producoes.put(utilizador.getNome(), new ArrayList());
-        return Response.ok().build();
+        return Response.ok(utilizador).build();
     }
 }

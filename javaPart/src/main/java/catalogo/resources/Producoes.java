@@ -1,7 +1,7 @@
 package catalogo.Resources;
 
-import catalogo.Representations.Periodo;
-import catalogo.Representations.Producao;
+import Logic.Periodo;
+import Logic.Producao;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

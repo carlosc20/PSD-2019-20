@@ -1,4 +1,4 @@
-package catalogo.Representations;
+package Logic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

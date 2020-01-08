@@ -1,7 +1,7 @@
 package catalogo.Resources;
 
 
-import catalogo.Representations.Encomenda;
+import Logic.Encomenda;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
