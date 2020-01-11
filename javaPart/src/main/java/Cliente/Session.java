@@ -5,6 +5,12 @@ public class Session {
     private String password;
     private int tipo;
 
+    public Session(String nome, String password, int tipo) {
+        this.nome = nome;
+        this.password = password;
+        this.tipo = tipo;
+    }
+
     public String getNome() {
         return nome;
     }
