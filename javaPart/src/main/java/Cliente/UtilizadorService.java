@@ -1,6 +1,6 @@
 package Cliente;
 
-public class UtilizadorService {
+public abstract class UtilizadorService {
 
     private String nome;
     private String password;
@@ -10,7 +10,13 @@ public class UtilizadorService {
         password = session.getPassword();
     }
 
-    void setNotificacoesNegocios(boolean on) {
-        // TODO
+    public String getNome() {
+        return nome;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+
 }

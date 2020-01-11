@@ -1,7 +1,10 @@
 package Cliente;
 
+import ProtoBuffers.Protos;
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
+
 import java.time.Duration;
 
 public class FabricanteService extends UtilizadorService{
@@ -16,10 +19,30 @@ public class FabricanteService extends UtilizadorService{
         socket.connect(server);
     }
 
+    void fazerOfertaProducao(String produto, int quantMin, int quantMax, int precoUniMin, Duration tempoFinal) throws Exception {
+        // TODO enviar tempo atual e +duracao
+        Protos.OfertaProducao request = Protos.OfertaProducao.newBuilder()
+                .setNome(this.getNome())
+                .setPassword(this.getPassword())
+                .setProduto(produto)
+                .setQuantMax(quantMax)
+                .setQuantMin(quantMin)
+                .setPrecoUniMin(precoUniMin)
+                .build();
+        socket.send(request.toByteArray(), 0);
+        waitForReply();
+    }
 
-    void fazerOfertaProducao(String produto, int quantMin, int quantMax, int precoUniMin, Duration duracao) {
-        socket.send("ola", 0);
-        // TODO
+    private void waitForReply() throws Exception {
         byte[] reply = socket.recv(0);
+        try {
+            Protos.OperationResponse response = Protos.OperationResponse.parseFrom(reply);
+            int code = response.getCode();
+            if(code != 0)
+                throw new Exception();
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
     }
 }

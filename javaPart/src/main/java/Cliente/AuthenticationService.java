@@ -30,13 +30,12 @@ public class AuthenticationService {
         try {
             LoginResponse response = LoginResponse.parseFrom(reply);
             LoginResponse.TipoUtilizador tipo = response.getTipo();
-            int t = -1;
             if(tipo == LoginResponse.TipoUtilizador.FABRICANTE) {
-                t = 0;
+                return  new Session(username, password, 0);
             } else if(tipo == LoginResponse.TipoUtilizador.IMPORTADOR) {
-                t = 1;
+                return  new Session(username, password, 1);
             }
-            return  new Session(username, password, t);
+            return null;
 
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
