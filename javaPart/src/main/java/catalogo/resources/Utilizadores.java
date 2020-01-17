@@ -41,7 +41,7 @@ public class Utilizadores {
     }
 
     @POST
-    @Path("/importador")
+    @Path("/IMPORTADOR")
     public Response postImportador(Utilizador utilizador) {
         if(utilizadores.containsKey(utilizador.getNome()))
             return Response.status(400).build();
@@ -51,7 +51,7 @@ public class Utilizadores {
     }
 
     @POST
-    @Path("/fabricante")
+    @Path("/FABRICANTE")
     public Response postFabricante(Utilizador utilizador) {
         if(utilizadores.containsKey(utilizador.getNome()))
             return Response.status(400).build();

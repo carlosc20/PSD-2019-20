@@ -28,7 +28,7 @@ public class Negociador {
                     switch (request.getRequestCase().getNumber()){
                         case OperationRequest.PRODUCAO_FIELD_NUMBER:
                             OfertaProducaoRequest producao = request.getProducao();
-                            // TODO vai buscar prefs de sub fabricante e avisa os subscritos
+                            // TODO vai buscar prefs de sub FABRICANTE e avisa os subscritos
                             //  envia para catalogo
                             new Thread(() -> {
                                 try {

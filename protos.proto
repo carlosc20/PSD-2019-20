@@ -12,6 +12,7 @@ message LoginResponse {
   enum TipoUtilizador {
     FABRICANTE = 0;
     IMPORTADOR = 1;
+    ERRO = 2;
   }
   TipoUtilizador tipo = 1;
 }
@@ -45,8 +46,7 @@ message OfertaProducaoRequest {
     int32 quantMin = 2;
     int32 quantMax = 3;
     int32 precoUniMin = 4;
-    int64 inicio = 5;
-    int64 fim = 6;
+    int64 duracaoS = 5;
 }
 
 // Importador
