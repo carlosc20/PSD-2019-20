@@ -1,64 +1,53 @@
 package Cliente;
 
-import ProtoBuffers.Protos;
-import com.google.protobuf.InvalidProtocolBufferException;
-import org.zeromq.ZContext;
-import org.zeromq.ZMQ;
+import ProtoBuffers.Protos.OperationRequest;
+import ProtoBuffers.Protos.SubscreverResultados;
+import ProtoBuffers.Protos.SubscreverFabricante;
+import ProtoBuffers.Protos.OfertaEncomendaRequest;
 
 public class ImportadorService extends UtilizadorService {
 
-    private ZMQ.Socket socket;
 
     public ImportadorService(Session session) {
         super(session);
-        ZContext context = new ZContext();
-        socket = context.createSocket(ZMQ.REQ);
-        String server = "tcp://localhost:";
-        socket.connect(server);
     }
 
     public void fazerOfertaEncomenda(String fabricante, String produto, int quant, int preco) throws Exception {
-        Protos.OfertaEncomenda request = Protos.OfertaEncomenda.newBuilder()
-                .setNome(this.getNome())
-                .setPassword(this.getPassword())
+        OfertaEncomendaRequest encomenda = OfertaEncomendaRequest.newBuilder()
+                .setFabricante(fabricante)
+                .setProduto(produto)
                 .setQuant(quant)
                 .setPreco(preco)
                 .build();
-        socket.send(request.toByteArray(), 0);
-        waitForReply();
+        OperationRequest request = OperationRequest.newBuilder()
+                .setNome(this.getNome())
+                .setEncomenda(encomenda)
+                .build();
+        this.sendOperation(request);
     }
 
-    public void setNotificacoesFabricante(boolean isActive, String fabricante) throws Exception {
-        Protos.SubscreverFabricante request = Protos.SubscreverFabricante.newBuilder()
-                .setNome(this.getNome())
-                .setPassword(this.getPassword())
+    public void setNotificacoesFabricante(boolean on, String fabricante) throws Exception {
+        SubscreverFabricante subFabricante = SubscreverFabricante.newBuilder()
                 .setFabricante(fabricante)
-                .setIsActive(isActive)
+                .setIsActive(on)
                 .build();
-        socket.send(request.toByteArray(), 0);
-        waitForReply();
+        OperationRequest request = OperationRequest.newBuilder()
+                .setNome(this.getNome())
+                .setSubFabricante(subFabricante)
+                .build();
+        this.sendOperation(request);
     }
 
     void setNotificacoesResultados(boolean on) throws Exception {
-        Protos.SubscreverResultados request = Protos.SubscreverResultados.newBuilder()
-                .setNome(this.getNome())
-                .setPassword(this.getPassword())
+        SubscreverResultados subResultados = SubscreverResultados.newBuilder()
+                .setIsActive(on)
                 .build();
-        socket.send(request.toByteArray(), 0);
-        waitForReply();
+        OperationRequest request = OperationRequest.newBuilder()
+                .setNome(this.getNome())
+                .setSubResultados(subResultados)
+                .build();
+        this.sendOperation(request);
     }
 
-    private void waitForReply() throws Exception {
-        byte[] reply = socket.recv(0);
-        try {
-            Protos.OperationResponse response = Protos.OperationResponse.parseFrom(reply);
-            int code = response.getCode();
-            if(code != 0)
-                throw new Exception();
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-            throw new Exception();
-        }
-    }
 
 }

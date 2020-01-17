@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package ProtoBuffers;
+
+// Utilizador
+message LoginRequest {
+    string nome = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+  enum TipoUtilizador {
+    FABRICANTE = 0;
+    IMPORTADOR = 1;
+  }
+  TipoUtilizador tipo = 1;
+}
+
+message AuthOperationRequest {
+    string password = 1;
+    OperationRequest request = 2;
+}
+
+message OperationRequest {
+    string nome = 1;
+    oneof request {
+        OfertaProducaoRequest producao = 2;
+        OfertaEncomendaRequest encomenda = 3;
+        SubscreverFabricante subFabricante = 4;
+        SubscreverResultados subResultados = 5;
+    }
+}
+
+message OperationResponse {
+    enum ResponseStatusCode {
+        OK = 0;
+        INVALID = 1;
+    }
+    ResponseStatusCode code = 1;
+}
+
+// Fabricante
+message OfertaProducaoRequest {
+    string produto = 1;
+    int32 quantMin = 2;
+    int32 quantMax = 3;
+    int32 precoUniMin = 4;
+    int64 inicio = 5;
+    int64 fim = 6;
+}
+
+// Importador
+message OfertaEncomendaRequest {
+    string fabricante = 1;
+    string produto = 2;
+    int32 quant = 3;
+    int32 preco = 4;
+}
+
+message SubscreverFabricante {
+    string fabricante = 1;
+    bool isActive = 2;
+}
+
+message SubscreverResultados {
+    bool isActive = 1;
+}
+
