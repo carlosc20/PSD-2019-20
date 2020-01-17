@@ -8,11 +8,11 @@ import org.zeromq.ZMQ;
 public class AuthenticationService {
 
     private ZMQ.Socket socket;
+    private ZContext context;
 
-    public AuthenticationService() {
-        ZContext context = new ZContext();
+    public AuthenticationService(String server) {
+        context = new ZContext();
         socket = context.createSocket(ZMQ.REQ);
-        String server = "tcp://localhost:5555";
         socket.connect(server);
     }
 
@@ -34,9 +34,9 @@ public class AuthenticationService {
             LoginResponse response = LoginResponse.parseFrom(reply);
             LoginResponse.TipoUtilizador tipo = response.getTipo();
             if(tipo == LoginResponse.TipoUtilizador.FABRICANTE) {
-                return  new Session(username, password, FABRICANTE);
+                return  new Session(username, password, FABRICANTE, context, socket);
             } else if(tipo == LoginResponse.TipoUtilizador.IMPORTADOR) {
-                return  new Session(username, password, IMPORTADOR);
+                return  new Session(username, password, IMPORTADOR, context, socket);
             }
             return null;
 

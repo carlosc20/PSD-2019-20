@@ -8,8 +8,8 @@ import java.time.Duration;
 
 public class FabricanteService extends UtilizadorService {
 
-    public FabricanteService(Session session) {
-        super(session);
+    public FabricanteService(Session session, String server) {
+        super(session, server);
     }
 
     public void fazerOfertaProducao(String produto, int quantMin, int quantMax, int precoUniMin, Duration duracao) throws Exception {

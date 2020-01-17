@@ -10,11 +10,11 @@ import java.util.Scanner;
 
 public class Cliente {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        AuthenticationService as = new AuthenticationService();
+        AuthenticationService as = new AuthenticationService("tcp://localhost:5555");
         while(true) {
             System.out.println("Nome de utilizador:");
             String nome = scanner.nextLine();
@@ -23,23 +23,27 @@ public class Cliente {
             System.out.println("Password:");
             String password = scanner.nextLine();
 
-            Session session = as.login(nome, password);
-            if (session != null) {
-                System.out.println("Login efetuado com sucesso");
-                if (session.getTipo() == AuthenticationService.FABRICANTE) {
-                    sessaoFabricante(scanner, session);
-                } else if (session.getTipo() == AuthenticationService.IMPORTADOR) {
-                    sessaoImportador(scanner, session);
+            try {
+                Session session = as.login(nome, password);
+                if (session != null) {
+                    System.out.println("Login efetuado com sucesso");
+                    if (session.getTipo() == AuthenticationService.FABRICANTE) {
+                        sessaoFabricante(scanner, session);
+                    } else if (session.getTipo() == AuthenticationService.IMPORTADOR) {
+                        sessaoImportador(scanner, session);
+                    }
+                } else {
+                    System.out.println("Login falhou");
                 }
-            } else {
-                System.out.println("Login falhou");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
 
     private static void sessaoFabricante(Scanner scanner, Session session) {
-        FabricanteService fs = new FabricanteService(session);
+        FabricanteService fs = new FabricanteService(session, "tcp://localhost:5561");
         while (true) {
             String input = scanner.nextLine();
             if (input == null || input.equals("sair")) {
@@ -76,7 +80,7 @@ public class Cliente {
 
 
     private static void sessaoImportador(Scanner scanner, Session session) {
-        ImportadorService is = new ImportadorService(session);
+        ImportadorService is = new ImportadorService(session, "tcp://localhost:5561");
         while (true) {
             String input = scanner.nextLine();
             if (input == null || input.equals("sair")) {

@@ -8,8 +8,8 @@ import ProtoBuffers.Protos.OfertaEncomendaRequest;
 public class ImportadorService extends UtilizadorService {
 
 
-    public ImportadorService(Session session) {
-        super(session);
+    public ImportadorService(Session session, String server) {
+        super(session, server);
     }
 
     public void fazerOfertaEncomenda(String fabricante, String produto, int quant, int preco) throws Exception {
@@ -27,6 +27,7 @@ public class ImportadorService extends UtilizadorService {
     }
 
     public void setNotificacoesFabricante(boolean on, String fabricante) throws Exception {
+        // TODO usar sub
         SubscreverFabricante subFabricante = SubscreverFabricante.newBuilder()
                 .setFabricante(fabricante)
                 .setIsActive(on)
@@ -39,6 +40,7 @@ public class ImportadorService extends UtilizadorService {
     }
 
     public void setNotificacoesResultados(boolean on) throws Exception {
+        // TODO usar sub
         SubscreverResultados subResultados = SubscreverResultados.newBuilder()
                 .setIsActive(on)
                 .build();

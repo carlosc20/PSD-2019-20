@@ -14,13 +14,15 @@ public class Negociador {
 
     public static void main(String[] args) {
         try (ZContext context = new ZContext()) {
-            ZMQ.Socket socket = context.createSocket(ZMQ.REP);
-            socket.bind("tcp://*:5555");
+            ZMQ.Socket socketREP = context.createSocket(ZMQ.REP);
+            socketREP.bind("tcp://*:5555");
+            ZMQ.Socket socketPUB = context.createSocket(ZMQ.PUB);
+            socketPUB.bind("tcp://*:5561");
 
             OperationResponse reply;
 
             while (!Thread.currentThread().isInterrupted()) {
-                byte[] data = socket.recv(0);
+                byte[] data = socketREP.recv(0);
                 try {
                     OperationRequest request = OperationRequest.parseFrom(data);
                     String nome = request.getNome();
@@ -28,14 +30,14 @@ public class Negociador {
                     switch (request.getRequestCase().getNumber()){
                         case OperationRequest.PRODUCAO_FIELD_NUMBER:
                             OfertaProducaoRequest producao = request.getProducao();
-                            // TODO vai buscar prefs de sub FABRICANTE e avisa os subscritos
+                            // TODO avisa os subscritos
                             //  envia para catalogo
                             new Thread(() -> {
                                 try {
                                     Thread.sleep(1000 * 60);
 
                                      // TODO vai buscar ofertas ao catalogo, calcula resultado
-                                     //  vai buscar prefs de sub ao catalogo, envia pubs aos subscritos
+                                     //  envia pubs aos subscritos
                                      //  envia para catalogo
                                 } catch (Exception e){
                                     e.printStackTrace();
@@ -46,25 +48,17 @@ public class Negociador {
                             OfertaEncomendaRequest encomenda = request.getEncomenda();
                             // TODO vai buscar ofertas de prod ao catalogo, se existirem envia para catalogo oferta, se nao devolve erro
                             break;
-                        case OperationRequest.SUBFABRICANTE_FIELD_NUMBER:
-                            SubscreverFabricante subFabricante = request.getSubFabricante();
-                            // TODO envia para o catalogo
-                            break;
-                        case OperationRequest.SUBRESULTADOS_FIELD_NUMBER:
-                            SubscreverResultados subResultados = request.getSubResultados();
-                            // TODO envia para o catalogo
-                            break;
                     }
                     reply = OperationResponse.newBuilder()
                             .setCode(OperationResponse.ResponseStatusCode.OK)
                             .build();
                 } catch (InvalidProtocolBufferException e) {
-                    e.printStackTrace();
+                    System.err.println(e.toString());
                     reply = OperationResponse.newBuilder()
                             .setCode(OperationResponse.ResponseStatusCode.INVALID)
                             .build();
                 }
-                socket.send(reply.toByteArray(), 0);
+                socketREP.send(reply.toByteArray(), 0);
             }
         }
     }

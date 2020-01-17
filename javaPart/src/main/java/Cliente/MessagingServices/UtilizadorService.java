@@ -4,7 +4,6 @@ import ProtoBuffers.Protos.OperationResponse;
 import ProtoBuffers.Protos.AuthOperationRequest;
 import ProtoBuffers.Protos.OperationRequest;
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
 abstract class UtilizadorService {
@@ -12,17 +11,16 @@ abstract class UtilizadorService {
     private String nome;
     private String password;
 
-    private ZMQ.Socket socket;
+    private ZMQ.Socket socketREQ;
+    private ZMQ.Socket socketSUB;
 
-    UtilizadorService(Session session) {
+
+    UtilizadorService(Session session, String server) {
         nome = session.getNome();
         password = session.getPassword();
-
-        ZContext context = new ZContext();
-        socket = context.createSocket(ZMQ.REQ);
-        String server = "tcp://localhost:5555";
-        socket.connect(server);
-
+        socketREQ = session.getSocket();
+        socketSUB = session.getContext().createSocket(ZMQ.SUB);
+        socketSUB.connect(server);
     }
 
     String getNome() {
@@ -40,10 +38,10 @@ abstract class UtilizadorService {
                 .setPassword(password)
                 .setRequest(request)
                 .build();
-        socket.send(message.toByteArray(), 0);
+        socketREQ.send(message.toByteArray(), 0);
 
         // receber
-        byte[] reply = socket.recv(0);
+        byte[] reply = socketREQ.recv(0);
         try {
             OperationResponse response = OperationResponse.parseFrom(reply);
             switch (response.getCode()){
@@ -58,5 +56,14 @@ abstract class UtilizadorService {
             e.printStackTrace();
             throw new Exception();
         }
+    }
+
+
+    // bloqueante
+    // socketSUB.subscribe(ZMQ.SUBSCRIPTION_ALL);
+    // TODO o que devolver?
+    void getNotification() {
+        byte[] b = socketSUB.recv();
+        System.out.println(new String(b));
     }
 }
