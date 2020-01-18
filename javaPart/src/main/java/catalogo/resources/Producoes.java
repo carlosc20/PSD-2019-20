@@ -1,7 +1,6 @@
 package catalogo.Resources;
 
-import Logic.Periodo;
-import Logic.Producao;
+import Logic.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -11,47 +10,165 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 @Path("/producoes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class Producoes {
-    private final String template;
-    private volatile String defaultName;
-    private HashMap<String, List<Producao>> producoes;
+    private HashMap<String, Utilizador> utilizadores;
 
-    public Producoes(String template, String defaultName, HashMap<String, List<Producao>> producoes){
-        this.template = template;
-        this.defaultName = defaultName;
-        this.producoes = producoes;
+    public Producoes(HashMap<String, Utilizador> utilizadores){
+        this.utilizadores = utilizadores;
 
-        //--------------------------------Teste------
+        //------Teste------
+        Fabricante f1 = new Fabricante("Carlos", "123");
+        Fabricante f2 = new Fabricante("Daniel", "123");
+        Fabricante f3 = new Fabricante("Maria", "123");
+        Fabricante f4 = new Fabricante("Luís", "123");
+
         Periodo periodo = new Periodo(LocalDateTime.now(), LocalDateTime.now());
-        Producao p = new Producao("chouriço", 20, 40, 2.5, periodo);
-        ArrayList<Producao> l = new ArrayList<>();
-        l.add(p);
-        producoes.put("Carlos", l);
+
+        Producao p1 = new Producao("Carlos", "chouriço", 20, 40, 2.5, periodo);
+        Producao p2 = new Producao("Carlos", "linguiça", 20, 40, 1, periodo);
+        Producao p3 = new Producao("Daniel", "chouriço", 2000, 4000, 10, periodo);
+        Producao p4 = new Producao("Maria", "bolachas", 21000, 40000, 0.5, periodo);
+        Producao p5 = new Producao("Maria", "sal", 20, 40, 25, periodo);
+        Producao p6 = new Producao("Luís", "foguetes", 1, 2, 25000, periodo);
+
+        f1.addProducao("chouriço", p1);
+        f1.addProducao("linguiça", p2);
+        f2.addProducao("chouriço", p3);
+        f3.addProducao("bolachas", p4);
+        f3.addProducao("sal", p5);
+        f4.addProducao("foguetes", p6);
+
+        Encomenda e1 = new Encomenda("Marco", "Carlos", "chouriço", 1, 2.5);
+        Encomenda e2 = new Encomenda("Marco", "Daniel", "chouriço", 1, 2.5);
+
+        f1.addEncomenda("chouriço", e1);
+        f2.addEncomenda("chouriço", e2);
+
+        utilizadores.put("Carlos", f1);
+        utilizadores.put("Daniel", f2);
+        utilizadores.put("Maria", f3);
+        utilizadores.put("Luís", f4);
+    }
+
+
+    @GET
+    @Path("/{nome}/{produto}/encomendas")
+    public Response getEncomendas(@PathParam("nome") String nome, @PathParam("produto") String produto) {
+        if(utilizadores.containsKey(nome)) {
+            Fabricante f = (Fabricante) utilizadores.get(nome);
+            return Response.ok(f.getEncomendas(produto)).build();
+        }
+        return Response.status(405).build();
+    }
+
+    @GET
+    @Path("/{nome}/{produto}")
+    public Response getProducao(@PathParam("nome") String nome, @PathParam("produto") String produto) {
+        if(utilizadores.containsKey(nome)) {
+            Fabricante f = (Fabricante) utilizadores.get(nome);
+            return Response.ok(f.get(produto)).build();
+        }
+        return Response.status(405).build();
+    }
+
+    @GET
+    @Path("/{nome}/terminadas")
+    public Response getImportadorTerminadas(@PathParam("nome") String nome){
+        if(utilizadores.containsKey(nome)) {
+            Fabricante f = (Fabricante) utilizadores.get(nome);
+            return Response.ok(f.getOpTerminadas()).build();
+        }
+        return Response.status(405).build();
+    }
+
+    @GET
+    @Path("/{nome}/canceladas")
+    public Response getImportadorCanceladas(@PathParam("nome") String nome){
+        if(utilizadores.containsKey(nome)){
+            Fabricante f = (Fabricante) utilizadores.get(nome);
+            return Response.ok(f.getOpCanceladas()).build();
+        }
+        return Response.status(405).build();
     }
 
     @GET
     @Path("/{nome}")
-    public List<Producao> getEncomendasByClient(@PathParam("nome") String name){
-        return producoes.get(name);
+    public Response getFabricanteProducoes(@PathParam("nome") String nome){
+        if(utilizadores.containsKey(nome)) {
+            Fabricante f = (Fabricante) utilizadores.get(nome);
+            return Response.ok(f.getProducoes()).build();
+        }
+        return Response.status(405).build();
     }
 
     @GET
-    public HashMap<String, List<Producao>> getProducoes () {
+    public List<Producao> getProducoes () {
+        List<Producao> producoes = new ArrayList<>();
+        for(Utilizador u : utilizadores.values()){
+            if(u instanceof Fabricante){
+                Fabricante f = (Fabricante) u;
+                producoes.addAll((f.getProducoes()));
+            }
+        }
         return producoes;
     }
-    //verificar nulos
+
     @POST
-    @Path("/{nome}")
-    public Response postEncomenda(@PathParam("nome") String name, Producao producao) {
-        System.out.println("Name :" + name);
-        if(!producoes.containsKey(name))
-            return Response.status(401).build();
-        producoes.get(name).add(producao);
+    @Path("/{nome}/{produto}")
+    public Response postProducao(@PathParam("nome") String nome, @PathParam("produto") String produto, Producao p) {
+        if(utilizadores.containsKey(nome)) {
+            System.out.println("Name :" + nome);
+            Fabricante f = (Fabricante) utilizadores.get(nome);
+            f.addProducao(produto, p);
+            return Response.ok().build();
+        }
+        return Response.status(405).build();
+    }
+
+    @POST
+    @Path("/{nome}/encomenda/{produto}")
+    public Response postEncomenda(@PathParam("nome") String nome, @PathParam("produto") String produto, Encomenda encomenda) {
+        if(utilizadores.containsKey(nome)) {
+            System.out.println("Name :" + nome);
+            Fabricante f = (Fabricante) utilizadores.get(nome);
+            if(f.addEncomenda(produto,encomenda))
+                return Response.ok().build();
+            return Response.status(405).build();
+        }
+        return Response.status(405).build();
+    }
+
+    @POST
+    @Path("/{nome}/terminada")
+    public Response postTerminadasFabricante(@PathParam("nome") String nome,  Producao producao){
+        Fabricante f = (Fabricante) utilizadores.get(nome);
+        if(f == null)
+            return Response.status(405).build();
+        f.addOperacaoTerminada(producao);
         return Response.ok(producao).build();
+    }
+
+
+    @POST
+    @Path("/{nome}/cancelada")
+    public Response postCanceladasFabricante(@PathParam("nome") String nome, Producao producao){
+        Fabricante f = (Fabricante) utilizadores.get(nome);
+        if(f == null)
+            return Response.status(405).build();
+        f.addOperacaoCancelada(producao);
+        return Response.ok(producao).build();
+    }
+
+    @DELETE
+    @Path("/{nome}/{produto}")
+    public Response deleteProducao(@PathParam("nome") String nome, @PathParam("produto") String produto){
+        Fabricante f = (Fabricante) utilizadores.get(nome);
+        if(f == null)
+            return Response.status(405).build();
+        return Response.ok(f.removeProducao(produto)).build();
     }
 
 }
