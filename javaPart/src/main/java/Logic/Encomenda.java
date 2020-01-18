@@ -10,11 +10,11 @@ public class Encomenda {
 
     public Encomenda(){}
 
-    public Encomenda(String nome, String nomeProduto, int quantidade, double precoPorUnidade){
-        this.nome = nome;
-        this.nomeProduto = nomeProduto;
+    public Encomenda(String fabricante, String produto, int quantidade, double precoUni){
+        this.nome = fabricante;
+        this.nomeProduto = produto;
         this.quantidade = quantidade;
-        this.precoPorUnidade = precoPorUnidade;
+        this.precoPorUnidade = precoUni;
     }
 
     @JsonProperty

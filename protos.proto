@@ -27,8 +27,6 @@ message OperationRequest {
     oneof request {
         OfertaProducaoRequest producao = 2;
         OfertaEncomendaRequest encomenda = 3;
-        SubscreverFabricante subFabricante = 4;
-        SubscreverResultados subResultados = 5;
     }
 }
 
@@ -57,12 +55,22 @@ message OfertaEncomendaRequest {
     int32 preco = 4;
 }
 
-message SubscreverFabricante {
+// Notificações
+message NotificacaOfertaProducao {
+    string produto = 1;
+    int32 quantMin = 2;
+    int32 quantMax = 3;
+    int32 precoUniMin = 4;
+    int64 duracaoS = 5; // data final?
+}
+
+message NotificacaoResultadosImportador {
     string fabricante = 1;
-    bool isActive = 2;
+    string produto = 2;
+    int32 quant = 3;
+    int32 preco = 4;
 }
 
-message SubscreverResultados {
-    bool isActive = 1;
+message NotificacaoResultadosFabricante {
+    repeated OfertaEncomendaRequest encomendas = 1;
 }
-

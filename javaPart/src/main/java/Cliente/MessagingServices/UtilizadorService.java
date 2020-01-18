@@ -58,6 +58,13 @@ abstract class UtilizadorService {
         }
     }
 
+    void setSubscription(String topic, boolean on) {
+        if(on) {
+            socketSUB.subscribe(topic);
+        } else {
+            socketSUB.unsubscribe(topic);
+        }
+    }
 
     // bloqueante
     // socketSUB.subscribe(ZMQ.SUBSCRIPTION_ALL);
