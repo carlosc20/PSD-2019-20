@@ -24,4 +24,12 @@ public class Periodo {
     public LocalDateTime getDataFinal(){
         return dataFinal;
     }
+
+    @Override
+    public String toString() {
+        return "Periodo{" +
+                "dataInicial=" + dataInicial +
+                ", dataFinal=" + dataFinal +
+                '}';
+    }
 }

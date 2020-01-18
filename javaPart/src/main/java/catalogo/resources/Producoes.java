@@ -43,7 +43,7 @@ public class Producoes {
     public HashMap<String, List<Producao>> getProducoes () {
         return producoes;
     }
-
+    //verificar nulos
     @POST
     @Path("/{nome}")
     public Response postEncomenda(@PathParam("nome") String name, Producao producao) {

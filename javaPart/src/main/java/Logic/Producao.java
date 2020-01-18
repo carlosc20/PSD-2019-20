@@ -43,4 +43,15 @@ public class Producao {
     public Periodo getPeriodoOferta() {
         return periodoOferta;
     }
+
+    @Override
+    public String toString() {
+        return "Producao{" +
+                "nome='" + nome + '\'' +
+                ", quantidadeMin=" + quantidadeMin +
+                ", quantidadeMax=" + quantidadeMax +
+                ", precoPorUnidade=" + precoPorUnidade +
+                ", periodoOferta=" + periodoOferta.toString() +
+                '}';
+    }
 }
