@@ -1,5 +1,7 @@
 package catalogo;
 
+import Logic.Utilizador;
+import catalogo.Resources.Importacoes;
 import catalogo.Resources.Producoes;
 import catalogo.Resources.Utilizadores;
 import io.dropwizard.Application;
@@ -22,16 +24,18 @@ public class CatalogoApplication extends Application<CatalogoConfiguration> {
 
     @Override
     public void run(CatalogoConfiguration configuration, Environment environment){
-        HashMap producoes = new HashMap();
-        HashMap encomendas = new HashMap();
+        HashMap<String, Utilizador> utilizadoresHashMap = new HashMap<>();
         environment.jersey().register(
-                new Producoes(configuration.template, configuration.defaultName));
+                new Utilizadores(utilizadoresHashMap));
+        environment.jersey().register(
+                new Producoes(utilizadoresHashMap));
+        environment.jersey().register(
+                new Importacoes(utilizadoresHashMap));
         //environment.healthChecks().register("template",
           //      new Producoes(configuration.template));
-        environment.jersey().register(
-                new Utilizadores(configuration.template, configuration.defaultName, producoes, encomendas));
+
         //environment.healthChecks().register("template",
-          //      new Fabricantes(configuration.template));
+          //      new Producoes(configuration.template));
 
     }
 }

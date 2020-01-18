@@ -2,29 +2,39 @@ package Logic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class Encomenda {
-    private String nome;
-    private String nomeProduto;
+    private String importador;
+    private String fabricante;
+    private String produto;
     private int quantidade;
     private double precoPorUnidade;
 
     public Encomenda(){}
 
-    public Encomenda(String fabricante, String produto, int quantidade, double precoUni){
-        this.nome = fabricante;
-        this.nomeProduto = produto;
+    public Encomenda(String importador, String fabricante, String produto, int quantidade, double precoUni){
+        this.importador = importador;
+        this.fabricante = fabricante;
+        this.produto = produto;
         this.quantidade = quantidade;
         this.precoPorUnidade = precoUni;
     }
 
     @JsonProperty
-    public String getNome(){
-        return nome;
+    public String getNomeImportador(){
+        return importador;
     }
 
     @JsonProperty
+    public String getNomeFabricante(){
+        return fabricante;
+    }
+
+
+    @JsonProperty
     public String getNomeProduto(){
-        return nomeProduto;
+        return produto;
     }
 
     @JsonProperty
@@ -37,4 +47,12 @@ public class Encomenda {
         return precoPorUnidade;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Encomenda encomenda = (Encomenda) o;
+        return Objects.equals(fabricante, encomenda.fabricante) &&
+                Objects.equals(produto, encomenda.produto);
+    }
 }

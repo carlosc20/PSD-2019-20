@@ -13,6 +13,11 @@ public class Utilizador {
         this.password =utilizador.getPassword();
     }
 
+    public Utilizador(String nome, String password){
+        this.nome = nome;
+        this.password = password;
+    }
+
     @JsonProperty
     public String getNome(){
         return nome;

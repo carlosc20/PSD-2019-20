@@ -3,7 +3,8 @@ package Logic;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Producao {
-    private String nome;
+    private String nomeFabricante;
+    private String nomeProduto;
     private int quantidadeMin;
     private int quantidadeMax;
     private double precoPorUnidade;
@@ -11,8 +12,9 @@ public class Producao {
 
     public Producao(){}
 
-    public Producao(String nome, int quantidadeMin, int quantidadeMax, double precoPorUnidade, Periodo periodoOferta){
-        this.nome = nome;
+    public Producao(String nomeFabricante, String nomeProduto, int quantidadeMin, int quantidadeMax, double precoPorUnidade, Periodo periodoOferta){
+        this.nomeFabricante = nomeFabricante;
+        this.nomeProduto = nomeProduto;
         this.quantidadeMin = quantidadeMin;
         this.quantidadeMax = quantidadeMax;
         this.precoPorUnidade = precoPorUnidade;
@@ -20,8 +22,13 @@ public class Producao {
     }
 
     @JsonProperty
-    public String getNome() {
-        return nome;
+    public String getNomeFabricante() {
+        return nomeFabricante;
+    }
+
+    @JsonProperty
+    public String getNomeProduto() {
+        return nomeProduto;
     }
 
     @JsonProperty
@@ -47,7 +54,8 @@ public class Producao {
     @Override
     public String toString() {
         return "Producao{" +
-                "nome='" + nome + '\'' +
+                "nomeFabricante='" + nomeFabricante + '\'' +
+                "nomeProduto='" + nomeProduto + '\'' +
                 ", quantidadeMin=" + quantidadeMin +
                 ", quantidadeMax=" + quantidadeMax +
                 ", precoPorUnidade=" + precoPorUnidade +

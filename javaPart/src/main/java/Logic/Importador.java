@@ -3,51 +3,34 @@ package Logic;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
-public class Importador extends Utilizador{
-    private List<Encomenda> encomendasTerminadas;
-    private List<Encomenda> encomendasCanceladas;
-    private HashMap<UUID, Encomenda> encomendasEmCurso;
+public class Importador extends Negociador<Encomenda>{
+    private List<Encomenda> encomendasEmCurso;
 
     public Importador(){}
 
     public Importador(Utilizador utilizador){
         super(utilizador);
-        encomendasTerminadas = new ArrayList<>();
-        encomendasCanceladas = new ArrayList<>();
-        encomendasEmCurso = new HashMap<>();
+        encomendasEmCurso = new ArrayList<>();
     }
 
-    public void addEncomendaEmCurso(UUID uuid, Encomenda e){
-        this.encomendasEmCurso.put(uuid,e);
+    public Importador(String name, String password){
+        super(name, password);
+        encomendasEmCurso = new ArrayList<>();
     }
 
-    public void cancelaEncomenda(UUID uuid){
-        this.encomendasCanceladas.add(encomendasEmCurso.get(uuid));
-        encomendasEmCurso.remove(uuid);
+    public void addEncomendaEmCurso(Encomenda e){
+        encomendasEmCurso.add(e);
     }
 
-    public void terminaEncomenda(UUID uuid){
-        this.encomendasTerminadas.add(encomendasEmCurso.get(uuid));
-        encomendasEmCurso.remove(uuid);
+    public boolean removeEncomendaEmCurso(Encomenda e){
+        return encomendasEmCurso.remove(e);
     }
 
     @JsonProperty
-    public HashMap<UUID, Encomenda> getEncomendasEmCurso(){
+    public List<Encomenda> getEncomendasEmCurso(){
         return encomendasEmCurso;
-    }
-
-    @JsonProperty
-    public List<Encomenda> getEncomendasTermindas(){
-        return encomendasTerminadas;
-    }
-
-    @JsonProperty
-    public List<Encomenda> getEncomendasCanceladas(){
-        return encomendasCanceladas;
     }
 
 }
