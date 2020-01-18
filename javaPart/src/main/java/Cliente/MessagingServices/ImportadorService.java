@@ -1,8 +1,6 @@
 package Cliente.MessagingServices;
 
 import ProtoBuffers.Protos.OperationRequest;
-import ProtoBuffers.Protos.SubscreverResultados;
-import ProtoBuffers.Protos.SubscreverFabricante;
 import ProtoBuffers.Protos.OfertaEncomendaRequest;
 
 public class ImportadorService extends UtilizadorService {
@@ -26,30 +24,11 @@ public class ImportadorService extends UtilizadorService {
         this.sendOperation(request);
     }
 
-    public void setNotificacoesFabricante(boolean on, String fabricante) throws Exception {
-        // TODO usar sub
-        SubscreverFabricante subFabricante = SubscreverFabricante.newBuilder()
-                .setFabricante(fabricante)
-                .setIsActive(on)
-                .build();
-        OperationRequest request = OperationRequest.newBuilder()
-                .setNome(this.getNome())
-                .setSubFabricante(subFabricante)
-                .build();
-        this.sendOperation(request);
+    public void setNotificacoesFabricante(boolean on, String fabricante) {
+        this.setSubscription(fabricante, on);
     }
 
-    public void setNotificacoesResultados(boolean on) throws Exception {
-        // TODO usar sub
-        SubscreverResultados subResultados = SubscreverResultados.newBuilder()
-                .setIsActive(on)
-                .build();
-        OperationRequest request = OperationRequest.newBuilder()
-                .setNome(this.getNome())
-                .setSubResultados(subResultados)
-                .build();
-        this.sendOperation(request);
+    public void setNotificacoesResultados(boolean on) {
+        this.setSubscription("resultados", on);
     }
-
-
 }

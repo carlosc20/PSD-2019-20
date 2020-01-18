@@ -5,36 +5,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 public class Encomenda {
-    private String nomeImportador;
-    private String nomeFabricante;
-    private String nomeProduto;
+    private String importador;
+    private String fabricante;
+    private String produto;
     private int quantidade;
     private double precoPorUnidade;
 
     public Encomenda(){}
 
-    public Encomenda(String nomeImportador, String nomeFabricante, String nomeProduto, int quantidade, double precoPorUnidade){
-        this.nomeImportador = nomeImportador;
-        this.nomeFabricante = nomeFabricante;
-        this.nomeProduto = nomeProduto;
+    public Encomenda(String importador, String fabricante, String produto, int quantidade, double precoUni){
+        this.importador = importador;
+        this.fabricante = fabricante;
+        this.produto = produto;
         this.quantidade = quantidade;
-        this.precoPorUnidade = precoPorUnidade;
+        this.precoPorUnidade = precoUni;
     }
 
     @JsonProperty
     public String getNomeImportador(){
-        return nomeImportador;
+        return importador;
     }
 
     @JsonProperty
     public String getNomeFabricante(){
-        return nomeFabricante;
+        return fabricante;
     }
 
 
     @JsonProperty
     public String getNomeProduto(){
-        return nomeProduto;
+        return produto;
     }
 
     @JsonProperty
@@ -52,7 +52,7 @@ public class Encomenda {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Encomenda encomenda = (Encomenda) o;
-        return Objects.equals(nomeFabricante, encomenda.nomeFabricante) &&
-                Objects.equals(nomeProduto, encomenda.nomeProduto);
+        return Objects.equals(fabricante, encomenda.fabricante) &&
+                Objects.equals(produto, encomenda.produto);
     }
 }
