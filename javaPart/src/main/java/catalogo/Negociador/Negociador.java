@@ -46,7 +46,7 @@ public class Negociador {
                             socketPUB.sendMore(nome);
                             socketPUB.send(data);
                             // guarda oferta de produção no catalogo
-                            jhc.post("producoes", requestToObj(producao));
+                            jhc.post("producoes", requestToObj(producao, nome));
                             // cria thread que dorme até acabar o período de negociação
                             // UUID uuid = UUID.randomUUID();
                             long waitSeconds = producao.getDuracaoS();
@@ -66,7 +66,7 @@ public class Negociador {
                             reply = REPLY_OK;
                             break;
                         case OperationRequest.ENCOMENDA_FIELD_NUMBER:
-                            Encomenda encomenda = requestToObj(request.getEncomenda());
+                            Encomenda encomenda = requestToObj(request.getEncomenda(), nome);
                             // verifica se exista oferta de producao correspondente no catalogo
                             Producao prod = jhc.getObject("producoes", Producao.class);
                             if(prod != null) {
@@ -91,12 +91,12 @@ public class Negociador {
         }
     }
 
-    private static Encomenda requestToObj(OfertaEncomendaRequest request) {
-        return new Encomenda(request.getFabricante(), request.getProduto(), request.getQuant(), request.getPreco());
+    private static Encomenda requestToObj(OfertaEncomendaRequest request, String nome) {
+        return new Encomenda(nome, request.getFabricante(), request.getProduto(), request.getQuant(), request.getPreco());
     }
 
-    private static Producao requestToObj(OfertaProducaoRequest r) {
+    private static Producao requestToObj(OfertaProducaoRequest r, String nome) {
         //r.getDuracaoS(); // TODO periodo direito
-        return new Producao(r.getProduto(), r.getQuantMin(), r.getQuantMax(), r.getPrecoUniMin(), new Periodo());
+        return new Producao(nome, r.getProduto(), r.getQuantMin(), r.getQuantMax(), r.getPrecoUniMin(), new Periodo());
     }
 }
