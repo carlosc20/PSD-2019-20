@@ -7,12 +7,12 @@ public class Producao {
     private String nomeProduto;
     private int quantidadeMin;
     private int quantidadeMax;
-    private double precoPorUnidade;
+    private int precoPorUnidade;
     private Periodo periodoOferta;
 
     public Producao(){}
 
-    public Producao(String nomeFabricante, String nomeProduto, int quantidadeMin, int quantidadeMax, double precoPorUnidade, Periodo periodoOferta){
+    public Producao(String nomeFabricante, String nomeProduto, int quantidadeMin, int quantidadeMax, int precoPorUnidade, Periodo periodoOferta){
         this.nomeFabricante = nomeFabricante;
         this.nomeProduto = nomeProduto;
         this.quantidadeMin = quantidadeMin;
@@ -42,7 +42,7 @@ public class Producao {
     }
 
     @JsonProperty
-    public double getPrecoPorUnidade() {
+    public int getPrecoPorUnidade() {
         return precoPorUnidade;
     }
 

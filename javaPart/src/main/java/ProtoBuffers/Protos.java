@@ -2184,36 +2184,6 @@ public final class Protos {
      */
     ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendaOrBuilder();
 
-    /**
-     * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-     * @return Whether the subFabricante field is set.
-     */
-    boolean hasSubFabricante();
-    /**
-     * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-     * @return The subFabricante.
-     */
-    ProtoBuffers.Protos.SubscreverFabricante getSubFabricante();
-    /**
-     * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-     */
-    ProtoBuffers.Protos.SubscreverFabricanteOrBuilder getSubFabricanteOrBuilder();
-
-    /**
-     * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-     * @return Whether the subResultados field is set.
-     */
-    boolean hasSubResultados();
-    /**
-     * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-     * @return The subResultados.
-     */
-    ProtoBuffers.Protos.SubscreverResultados getSubResultados();
-    /**
-     * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-     */
-    ProtoBuffers.Protos.SubscreverResultadosOrBuilder getSubResultadosOrBuilder();
-
     public ProtoBuffers.Protos.OperationRequest.RequestCase getRequestCase();
   }
   /**
@@ -2296,34 +2266,6 @@ public final class Protos {
               requestCase_ = 3;
               break;
             }
-            case 34: {
-              ProtoBuffers.Protos.SubscreverFabricante.Builder subBuilder = null;
-              if (requestCase_ == 4) {
-                subBuilder = ((ProtoBuffers.Protos.SubscreverFabricante) request_).toBuilder();
-              }
-              request_ =
-                  input.readMessage(ProtoBuffers.Protos.SubscreverFabricante.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom((ProtoBuffers.Protos.SubscreverFabricante) request_);
-                request_ = subBuilder.buildPartial();
-              }
-              requestCase_ = 4;
-              break;
-            }
-            case 42: {
-              ProtoBuffers.Protos.SubscreverResultados.Builder subBuilder = null;
-              if (requestCase_ == 5) {
-                subBuilder = ((ProtoBuffers.Protos.SubscreverResultados) request_).toBuilder();
-              }
-              request_ =
-                  input.readMessage(ProtoBuffers.Protos.SubscreverResultados.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom((ProtoBuffers.Protos.SubscreverResultados) request_);
-                request_ = subBuilder.buildPartial();
-              }
-              requestCase_ = 5;
-              break;
-            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -2363,8 +2305,6 @@ public final class Protos {
             com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       PRODUCAO(2),
       ENCOMENDA(3),
-      SUBFABRICANTE(4),
-      SUBRESULTADOS(5),
       REQUEST_NOT_SET(0);
       private final int value;
       private RequestCase(int value) {
@@ -2384,8 +2324,6 @@ public final class Protos {
         switch (value) {
           case 2: return PRODUCAO;
           case 3: return ENCOMENDA;
-          case 4: return SUBFABRICANTE;
-          case 5: return SUBRESULTADOS;
           case 0: return REQUEST_NOT_SET;
           default: return null;
         }
@@ -2493,62 +2431,6 @@ public final class Protos {
       return ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance();
     }
 
-    public static final int SUBFABRICANTE_FIELD_NUMBER = 4;
-    /**
-     * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-     * @return Whether the subFabricante field is set.
-     */
-    public boolean hasSubFabricante() {
-      return requestCase_ == 4;
-    }
-    /**
-     * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-     * @return The subFabricante.
-     */
-    public ProtoBuffers.Protos.SubscreverFabricante getSubFabricante() {
-      if (requestCase_ == 4) {
-         return (ProtoBuffers.Protos.SubscreverFabricante) request_;
-      }
-      return ProtoBuffers.Protos.SubscreverFabricante.getDefaultInstance();
-    }
-    /**
-     * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-     */
-    public ProtoBuffers.Protos.SubscreverFabricanteOrBuilder getSubFabricanteOrBuilder() {
-      if (requestCase_ == 4) {
-         return (ProtoBuffers.Protos.SubscreverFabricante) request_;
-      }
-      return ProtoBuffers.Protos.SubscreverFabricante.getDefaultInstance();
-    }
-
-    public static final int SUBRESULTADOS_FIELD_NUMBER = 5;
-    /**
-     * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-     * @return Whether the subResultados field is set.
-     */
-    public boolean hasSubResultados() {
-      return requestCase_ == 5;
-    }
-    /**
-     * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-     * @return The subResultados.
-     */
-    public ProtoBuffers.Protos.SubscreverResultados getSubResultados() {
-      if (requestCase_ == 5) {
-         return (ProtoBuffers.Protos.SubscreverResultados) request_;
-      }
-      return ProtoBuffers.Protos.SubscreverResultados.getDefaultInstance();
-    }
-    /**
-     * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-     */
-    public ProtoBuffers.Protos.SubscreverResultadosOrBuilder getSubResultadosOrBuilder() {
-      if (requestCase_ == 5) {
-         return (ProtoBuffers.Protos.SubscreverResultados) request_;
-      }
-      return ProtoBuffers.Protos.SubscreverResultados.getDefaultInstance();
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2572,12 +2454,6 @@ public final class Protos {
       if (requestCase_ == 3) {
         output.writeMessage(3, (ProtoBuffers.Protos.OfertaEncomendaRequest) request_);
       }
-      if (requestCase_ == 4) {
-        output.writeMessage(4, (ProtoBuffers.Protos.SubscreverFabricante) request_);
-      }
-      if (requestCase_ == 5) {
-        output.writeMessage(5, (ProtoBuffers.Protos.SubscreverResultados) request_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -2597,14 +2473,6 @@ public final class Protos {
       if (requestCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, (ProtoBuffers.Protos.OfertaEncomendaRequest) request_);
-      }
-      if (requestCase_ == 4) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (ProtoBuffers.Protos.SubscreverFabricante) request_);
-      }
-      if (requestCase_ == 5) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, (ProtoBuffers.Protos.SubscreverResultados) request_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2633,14 +2501,6 @@ public final class Protos {
           if (!getEncomenda()
               .equals(other.getEncomenda())) return false;
           break;
-        case 4:
-          if (!getSubFabricante()
-              .equals(other.getSubFabricante())) return false;
-          break;
-        case 5:
-          if (!getSubResultados()
-              .equals(other.getSubResultados())) return false;
-          break;
         case 0:
         default:
       }
@@ -2665,14 +2525,6 @@ public final class Protos {
         case 3:
           hash = (37 * hash) + ENCOMENDA_FIELD_NUMBER;
           hash = (53 * hash) + getEncomenda().hashCode();
-          break;
-        case 4:
-          hash = (37 * hash) + SUBFABRICANTE_FIELD_NUMBER;
-          hash = (53 * hash) + getSubFabricante().hashCode();
-          break;
-        case 5:
-          hash = (37 * hash) + SUBRESULTADOS_FIELD_NUMBER;
-          hash = (53 * hash) + getSubResultados().hashCode();
           break;
         case 0:
         default:
@@ -2855,20 +2707,6 @@ public final class Protos {
             result.request_ = encomendaBuilder_.build();
           }
         }
-        if (requestCase_ == 4) {
-          if (subFabricanteBuilder_ == null) {
-            result.request_ = request_;
-          } else {
-            result.request_ = subFabricanteBuilder_.build();
-          }
-        }
-        if (requestCase_ == 5) {
-          if (subResultadosBuilder_ == null) {
-            result.request_ = request_;
-          } else {
-            result.request_ = subResultadosBuilder_.build();
-          }
-        }
         result.requestCase_ = requestCase_;
         onBuilt();
         return result;
@@ -2929,14 +2767,6 @@ public final class Protos {
           }
           case ENCOMENDA: {
             mergeEncomenda(other.getEncomenda());
-            break;
-          }
-          case SUBFABRICANTE: {
-            mergeSubFabricante(other.getSubFabricante());
-            break;
-          }
-          case SUBRESULTADOS: {
-            mergeSubResultados(other.getSubResultados());
             break;
           }
           case REQUEST_NOT_SET: {
@@ -3337,282 +3167,6 @@ public final class Protos {
         requestCase_ = 3;
         onChanged();;
         return encomendaBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
-          ProtoBuffers.Protos.SubscreverFabricante, ProtoBuffers.Protos.SubscreverFabricante.Builder, ProtoBuffers.Protos.SubscreverFabricanteOrBuilder> subFabricanteBuilder_;
-      /**
-       * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-       * @return Whether the subFabricante field is set.
-       */
-      public boolean hasSubFabricante() {
-        return requestCase_ == 4;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-       * @return The subFabricante.
-       */
-      public ProtoBuffers.Protos.SubscreverFabricante getSubFabricante() {
-        if (subFabricanteBuilder_ == null) {
-          if (requestCase_ == 4) {
-            return (ProtoBuffers.Protos.SubscreverFabricante) request_;
-          }
-          return ProtoBuffers.Protos.SubscreverFabricante.getDefaultInstance();
-        } else {
-          if (requestCase_ == 4) {
-            return subFabricanteBuilder_.getMessage();
-          }
-          return ProtoBuffers.Protos.SubscreverFabricante.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-       */
-      public Builder setSubFabricante(ProtoBuffers.Protos.SubscreverFabricante value) {
-        if (subFabricanteBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          request_ = value;
-          onChanged();
-        } else {
-          subFabricanteBuilder_.setMessage(value);
-        }
-        requestCase_ = 4;
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-       */
-      public Builder setSubFabricante(
-          ProtoBuffers.Protos.SubscreverFabricante.Builder builderForValue) {
-        if (subFabricanteBuilder_ == null) {
-          request_ = builderForValue.build();
-          onChanged();
-        } else {
-          subFabricanteBuilder_.setMessage(builderForValue.build());
-        }
-        requestCase_ = 4;
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-       */
-      public Builder mergeSubFabricante(ProtoBuffers.Protos.SubscreverFabricante value) {
-        if (subFabricanteBuilder_ == null) {
-          if (requestCase_ == 4 &&
-              request_ != ProtoBuffers.Protos.SubscreverFabricante.getDefaultInstance()) {
-            request_ = ProtoBuffers.Protos.SubscreverFabricante.newBuilder((ProtoBuffers.Protos.SubscreverFabricante) request_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            request_ = value;
-          }
-          onChanged();
-        } else {
-          if (requestCase_ == 4) {
-            subFabricanteBuilder_.mergeFrom(value);
-          }
-          subFabricanteBuilder_.setMessage(value);
-        }
-        requestCase_ = 4;
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-       */
-      public Builder clearSubFabricante() {
-        if (subFabricanteBuilder_ == null) {
-          if (requestCase_ == 4) {
-            requestCase_ = 0;
-            request_ = null;
-            onChanged();
-          }
-        } else {
-          if (requestCase_ == 4) {
-            requestCase_ = 0;
-            request_ = null;
-          }
-          subFabricanteBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-       */
-      public ProtoBuffers.Protos.SubscreverFabricante.Builder getSubFabricanteBuilder() {
-        return getSubFabricanteFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-       */
-      public ProtoBuffers.Protos.SubscreverFabricanteOrBuilder getSubFabricanteOrBuilder() {
-        if ((requestCase_ == 4) && (subFabricanteBuilder_ != null)) {
-          return subFabricanteBuilder_.getMessageOrBuilder();
-        } else {
-          if (requestCase_ == 4) {
-            return (ProtoBuffers.Protos.SubscreverFabricante) request_;
-          }
-          return ProtoBuffers.Protos.SubscreverFabricante.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverFabricante subFabricante = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          ProtoBuffers.Protos.SubscreverFabricante, ProtoBuffers.Protos.SubscreverFabricante.Builder, ProtoBuffers.Protos.SubscreverFabricanteOrBuilder> 
-          getSubFabricanteFieldBuilder() {
-        if (subFabricanteBuilder_ == null) {
-          if (!(requestCase_ == 4)) {
-            request_ = ProtoBuffers.Protos.SubscreverFabricante.getDefaultInstance();
-          }
-          subFabricanteBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              ProtoBuffers.Protos.SubscreverFabricante, ProtoBuffers.Protos.SubscreverFabricante.Builder, ProtoBuffers.Protos.SubscreverFabricanteOrBuilder>(
-                  (ProtoBuffers.Protos.SubscreverFabricante) request_,
-                  getParentForChildren(),
-                  isClean());
-          request_ = null;
-        }
-        requestCase_ = 4;
-        onChanged();;
-        return subFabricanteBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
-          ProtoBuffers.Protos.SubscreverResultados, ProtoBuffers.Protos.SubscreverResultados.Builder, ProtoBuffers.Protos.SubscreverResultadosOrBuilder> subResultadosBuilder_;
-      /**
-       * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-       * @return Whether the subResultados field is set.
-       */
-      public boolean hasSubResultados() {
-        return requestCase_ == 5;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-       * @return The subResultados.
-       */
-      public ProtoBuffers.Protos.SubscreverResultados getSubResultados() {
-        if (subResultadosBuilder_ == null) {
-          if (requestCase_ == 5) {
-            return (ProtoBuffers.Protos.SubscreverResultados) request_;
-          }
-          return ProtoBuffers.Protos.SubscreverResultados.getDefaultInstance();
-        } else {
-          if (requestCase_ == 5) {
-            return subResultadosBuilder_.getMessage();
-          }
-          return ProtoBuffers.Protos.SubscreverResultados.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-       */
-      public Builder setSubResultados(ProtoBuffers.Protos.SubscreverResultados value) {
-        if (subResultadosBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          request_ = value;
-          onChanged();
-        } else {
-          subResultadosBuilder_.setMessage(value);
-        }
-        requestCase_ = 5;
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-       */
-      public Builder setSubResultados(
-          ProtoBuffers.Protos.SubscreverResultados.Builder builderForValue) {
-        if (subResultadosBuilder_ == null) {
-          request_ = builderForValue.build();
-          onChanged();
-        } else {
-          subResultadosBuilder_.setMessage(builderForValue.build());
-        }
-        requestCase_ = 5;
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-       */
-      public Builder mergeSubResultados(ProtoBuffers.Protos.SubscreverResultados value) {
-        if (subResultadosBuilder_ == null) {
-          if (requestCase_ == 5 &&
-              request_ != ProtoBuffers.Protos.SubscreverResultados.getDefaultInstance()) {
-            request_ = ProtoBuffers.Protos.SubscreverResultados.newBuilder((ProtoBuffers.Protos.SubscreverResultados) request_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            request_ = value;
-          }
-          onChanged();
-        } else {
-          if (requestCase_ == 5) {
-            subResultadosBuilder_.mergeFrom(value);
-          }
-          subResultadosBuilder_.setMessage(value);
-        }
-        requestCase_ = 5;
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-       */
-      public Builder clearSubResultados() {
-        if (subResultadosBuilder_ == null) {
-          if (requestCase_ == 5) {
-            requestCase_ = 0;
-            request_ = null;
-            onChanged();
-          }
-        } else {
-          if (requestCase_ == 5) {
-            requestCase_ = 0;
-            request_ = null;
-          }
-          subResultadosBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-       */
-      public ProtoBuffers.Protos.SubscreverResultados.Builder getSubResultadosBuilder() {
-        return getSubResultadosFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-       */
-      public ProtoBuffers.Protos.SubscreverResultadosOrBuilder getSubResultadosOrBuilder() {
-        if ((requestCase_ == 5) && (subResultadosBuilder_ != null)) {
-          return subResultadosBuilder_.getMessageOrBuilder();
-        } else {
-          if (requestCase_ == 5) {
-            return (ProtoBuffers.Protos.SubscreverResultados) request_;
-          }
-          return ProtoBuffers.Protos.SubscreverResultados.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.ProtoBuffers.SubscreverResultados subResultados = 5;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          ProtoBuffers.Protos.SubscreverResultados, ProtoBuffers.Protos.SubscreverResultados.Builder, ProtoBuffers.Protos.SubscreverResultadosOrBuilder> 
-          getSubResultadosFieldBuilder() {
-        if (subResultadosBuilder_ == null) {
-          if (!(requestCase_ == 5)) {
-            request_ = ProtoBuffers.Protos.SubscreverResultados.getDefaultInstance();
-          }
-          subResultadosBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              ProtoBuffers.Protos.SubscreverResultados, ProtoBuffers.Protos.SubscreverResultados.Builder, ProtoBuffers.Protos.SubscreverResultadosOrBuilder>(
-                  (ProtoBuffers.Protos.SubscreverResultados) request_,
-                  getParentForChildren(),
-                  isClean());
-          request_ = null;
-        }
-        requestCase_ = 5;
-        onChanged();;
-        return subResultadosBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -5999,49 +5553,75 @@ public final class Protos {
 
   }
 
-  public interface SubscreverFabricanteOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ProtoBuffers.SubscreverFabricante)
+  public interface NotificacaOfertaProducaoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProtoBuffers.NotificacaOfertaProducao)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string fabricante = 1;</code>
-     * @return The fabricante.
+     * <code>string produto = 1;</code>
+     * @return The produto.
      */
-    java.lang.String getFabricante();
+    java.lang.String getProduto();
     /**
-     * <code>string fabricante = 1;</code>
-     * @return The bytes for fabricante.
+     * <code>string produto = 1;</code>
+     * @return The bytes for produto.
      */
     com.google.protobuf.ByteString
-        getFabricanteBytes();
+        getProdutoBytes();
 
     /**
-     * <code>bool isActive = 2;</code>
-     * @return The isActive.
+     * <code>int32 quantMin = 2;</code>
+     * @return The quantMin.
      */
-    boolean getIsActive();
+    int getQuantMin();
+
+    /**
+     * <code>int32 quantMax = 3;</code>
+     * @return The quantMax.
+     */
+    int getQuantMax();
+
+    /**
+     * <code>int32 precoUniMin = 4;</code>
+     * @return The precoUniMin.
+     */
+    int getPrecoUniMin();
+
+    /**
+     * <pre>
+     * data final?
+     * </pre>
+     *
+     * <code>int64 duracaoS = 5;</code>
+     * @return The duracaoS.
+     */
+    long getDuracaoS();
   }
   /**
-   * Protobuf type {@code ProtoBuffers.SubscreverFabricante}
+   * <pre>
+   * Notificações
+   * </pre>
+   *
+   * Protobuf type {@code ProtoBuffers.NotificacaOfertaProducao}
    */
-  public  static final class SubscreverFabricante extends
+  public  static final class NotificacaOfertaProducao extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ProtoBuffers.SubscreverFabricante)
-      SubscreverFabricanteOrBuilder {
+      // @@protoc_insertion_point(message_implements:ProtoBuffers.NotificacaOfertaProducao)
+      NotificacaOfertaProducaoOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use SubscreverFabricante.newBuilder() to construct.
-    private SubscreverFabricante(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use NotificacaOfertaProducao.newBuilder() to construct.
+    private NotificacaOfertaProducao(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private SubscreverFabricante() {
-      fabricante_ = "";
+    private NotificacaOfertaProducao() {
+      produto_ = "";
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new SubscreverFabricante();
+      return new NotificacaOfertaProducao();
     }
 
     @java.lang.Override
@@ -6049,7 +5629,7 @@ public final class Protos {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private SubscreverFabricante(
+    private NotificacaOfertaProducao(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6070,12 +5650,27 @@ public final class Protos {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              fabricante_ = s;
+              produto_ = s;
               break;
             }
             case 16: {
 
-              isActive_ = input.readBool();
+              quantMin_ = input.readInt32();
+              break;
+            }
+            case 24: {
+
+              quantMax_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              precoUniMin_ = input.readInt32();
+              break;
+            }
+            case 40: {
+
+              duracaoS_ = input.readInt64();
               break;
             }
             default: {
@@ -6099,61 +5694,95 @@ public final class Protos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverFabricante_descriptor;
+      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverFabricante_fieldAccessorTable
+      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ProtoBuffers.Protos.SubscreverFabricante.class, ProtoBuffers.Protos.SubscreverFabricante.Builder.class);
+              ProtoBuffers.Protos.NotificacaOfertaProducao.class, ProtoBuffers.Protos.NotificacaOfertaProducao.Builder.class);
     }
 
-    public static final int FABRICANTE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object fabricante_;
+    public static final int PRODUTO_FIELD_NUMBER = 1;
+    private volatile java.lang.Object produto_;
     /**
-     * <code>string fabricante = 1;</code>
-     * @return The fabricante.
+     * <code>string produto = 1;</code>
+     * @return The produto.
      */
-    public java.lang.String getFabricante() {
-      java.lang.Object ref = fabricante_;
+    public java.lang.String getProduto() {
+      java.lang.Object ref = produto_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        fabricante_ = s;
+        produto_ = s;
         return s;
       }
     }
     /**
-     * <code>string fabricante = 1;</code>
-     * @return The bytes for fabricante.
+     * <code>string produto = 1;</code>
+     * @return The bytes for produto.
      */
     public com.google.protobuf.ByteString
-        getFabricanteBytes() {
-      java.lang.Object ref = fabricante_;
+        getProdutoBytes() {
+      java.lang.Object ref = produto_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        fabricante_ = b;
+        produto_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int ISACTIVE_FIELD_NUMBER = 2;
-    private boolean isActive_;
+    public static final int QUANTMIN_FIELD_NUMBER = 2;
+    private int quantMin_;
     /**
-     * <code>bool isActive = 2;</code>
-     * @return The isActive.
+     * <code>int32 quantMin = 2;</code>
+     * @return The quantMin.
      */
-    public boolean getIsActive() {
-      return isActive_;
+    public int getQuantMin() {
+      return quantMin_;
+    }
+
+    public static final int QUANTMAX_FIELD_NUMBER = 3;
+    private int quantMax_;
+    /**
+     * <code>int32 quantMax = 3;</code>
+     * @return The quantMax.
+     */
+    public int getQuantMax() {
+      return quantMax_;
+    }
+
+    public static final int PRECOUNIMIN_FIELD_NUMBER = 4;
+    private int precoUniMin_;
+    /**
+     * <code>int32 precoUniMin = 4;</code>
+     * @return The precoUniMin.
+     */
+    public int getPrecoUniMin() {
+      return precoUniMin_;
+    }
+
+    public static final int DURACAOS_FIELD_NUMBER = 5;
+    private long duracaoS_;
+    /**
+     * <pre>
+     * data final?
+     * </pre>
+     *
+     * <code>int64 duracaoS = 5;</code>
+     * @return The duracaoS.
+     */
+    public long getDuracaoS() {
+      return duracaoS_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6170,11 +5799,20 @@ public final class Protos {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getFabricanteBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, fabricante_);
+      if (!getProdutoBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, produto_);
       }
-      if (isActive_ != false) {
-        output.writeBool(2, isActive_);
+      if (quantMin_ != 0) {
+        output.writeInt32(2, quantMin_);
+      }
+      if (quantMax_ != 0) {
+        output.writeInt32(3, quantMax_);
+      }
+      if (precoUniMin_ != 0) {
+        output.writeInt32(4, precoUniMin_);
+      }
+      if (duracaoS_ != 0L) {
+        output.writeInt64(5, duracaoS_);
       }
       unknownFields.writeTo(output);
     }
@@ -6185,12 +5823,24 @@ public final class Protos {
       if (size != -1) return size;
 
       size = 0;
-      if (!getFabricanteBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, fabricante_);
+      if (!getProdutoBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, produto_);
       }
-      if (isActive_ != false) {
+      if (quantMin_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(2, isActive_);
+          .computeInt32Size(2, quantMin_);
+      }
+      if (quantMax_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, quantMax_);
+      }
+      if (precoUniMin_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, precoUniMin_);
+      }
+      if (duracaoS_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(5, duracaoS_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6202,15 +5852,21 @@ public final class Protos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof ProtoBuffers.Protos.SubscreverFabricante)) {
+      if (!(obj instanceof ProtoBuffers.Protos.NotificacaOfertaProducao)) {
         return super.equals(obj);
       }
-      ProtoBuffers.Protos.SubscreverFabricante other = (ProtoBuffers.Protos.SubscreverFabricante) obj;
+      ProtoBuffers.Protos.NotificacaOfertaProducao other = (ProtoBuffers.Protos.NotificacaOfertaProducao) obj;
 
-      if (!getFabricante()
-          .equals(other.getFabricante())) return false;
-      if (getIsActive()
-          != other.getIsActive()) return false;
+      if (!getProduto()
+          .equals(other.getProduto())) return false;
+      if (getQuantMin()
+          != other.getQuantMin()) return false;
+      if (getQuantMax()
+          != other.getQuantMax()) return false;
+      if (getPrecoUniMin()
+          != other.getPrecoUniMin()) return false;
+      if (getDuracaoS()
+          != other.getDuracaoS()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -6222,79 +5878,85 @@ public final class Protos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + FABRICANTE_FIELD_NUMBER;
-      hash = (53 * hash) + getFabricante().hashCode();
-      hash = (37 * hash) + ISACTIVE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsActive());
+      hash = (37 * hash) + PRODUTO_FIELD_NUMBER;
+      hash = (53 * hash) + getProduto().hashCode();
+      hash = (37 * hash) + QUANTMIN_FIELD_NUMBER;
+      hash = (53 * hash) + getQuantMin();
+      hash = (37 * hash) + QUANTMAX_FIELD_NUMBER;
+      hash = (53 * hash) + getQuantMax();
+      hash = (37 * hash) + PRECOUNIMIN_FIELD_NUMBER;
+      hash = (53 * hash) + getPrecoUniMin();
+      hash = (37 * hash) + DURACAOS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getDuracaoS());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(byte[] data)
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(java.io.InputStream input)
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseDelimitedFrom(java.io.InputStream input)
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseDelimitedFrom(
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static ProtoBuffers.Protos.SubscreverFabricante parseFrom(
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -6307,7 +5969,7 @@ public final class Protos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(ProtoBuffers.Protos.SubscreverFabricante prototype) {
+    public static Builder newBuilder(ProtoBuffers.Protos.NotificacaOfertaProducao prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -6323,26 +5985,30 @@ public final class Protos {
       return builder;
     }
     /**
-     * Protobuf type {@code ProtoBuffers.SubscreverFabricante}
+     * <pre>
+     * Notificações
+     * </pre>
+     *
+     * Protobuf type {@code ProtoBuffers.NotificacaOfertaProducao}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ProtoBuffers.SubscreverFabricante)
-        ProtoBuffers.Protos.SubscreverFabricanteOrBuilder {
+        // @@protoc_insertion_point(builder_implements:ProtoBuffers.NotificacaOfertaProducao)
+        ProtoBuffers.Protos.NotificacaOfertaProducaoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverFabricante_descriptor;
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverFabricante_fieldAccessorTable
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                ProtoBuffers.Protos.SubscreverFabricante.class, ProtoBuffers.Protos.SubscreverFabricante.Builder.class);
+                ProtoBuffers.Protos.NotificacaOfertaProducao.class, ProtoBuffers.Protos.NotificacaOfertaProducao.Builder.class);
       }
 
-      // Construct using ProtoBuffers.Protos.SubscreverFabricante.newBuilder()
+      // Construct using ProtoBuffers.Protos.NotificacaOfertaProducao.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -6360,9 +6026,15 @@ public final class Protos {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        fabricante_ = "";
+        produto_ = "";
 
-        isActive_ = false;
+        quantMin_ = 0;
+
+        quantMax_ = 0;
+
+        precoUniMin_ = 0;
+
+        duracaoS_ = 0L;
 
         return this;
       }
@@ -6370,17 +6042,17 @@ public final class Protos {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverFabricante_descriptor;
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor;
       }
 
       @java.lang.Override
-      public ProtoBuffers.Protos.SubscreverFabricante getDefaultInstanceForType() {
-        return ProtoBuffers.Protos.SubscreverFabricante.getDefaultInstance();
+      public ProtoBuffers.Protos.NotificacaOfertaProducao getDefaultInstanceForType() {
+        return ProtoBuffers.Protos.NotificacaOfertaProducao.getDefaultInstance();
       }
 
       @java.lang.Override
-      public ProtoBuffers.Protos.SubscreverFabricante build() {
-        ProtoBuffers.Protos.SubscreverFabricante result = buildPartial();
+      public ProtoBuffers.Protos.NotificacaOfertaProducao build() {
+        ProtoBuffers.Protos.NotificacaOfertaProducao result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -6388,10 +6060,13 @@ public final class Protos {
       }
 
       @java.lang.Override
-      public ProtoBuffers.Protos.SubscreverFabricante buildPartial() {
-        ProtoBuffers.Protos.SubscreverFabricante result = new ProtoBuffers.Protos.SubscreverFabricante(this);
-        result.fabricante_ = fabricante_;
-        result.isActive_ = isActive_;
+      public ProtoBuffers.Protos.NotificacaOfertaProducao buildPartial() {
+        ProtoBuffers.Protos.NotificacaOfertaProducao result = new ProtoBuffers.Protos.NotificacaOfertaProducao(this);
+        result.produto_ = produto_;
+        result.quantMin_ = quantMin_;
+        result.quantMax_ = quantMax_;
+        result.precoUniMin_ = precoUniMin_;
+        result.duracaoS_ = duracaoS_;
         onBuilt();
         return result;
       }
@@ -6430,22 +6105,31 @@ public final class Protos {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ProtoBuffers.Protos.SubscreverFabricante) {
-          return mergeFrom((ProtoBuffers.Protos.SubscreverFabricante)other);
+        if (other instanceof ProtoBuffers.Protos.NotificacaOfertaProducao) {
+          return mergeFrom((ProtoBuffers.Protos.NotificacaOfertaProducao)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(ProtoBuffers.Protos.SubscreverFabricante other) {
-        if (other == ProtoBuffers.Protos.SubscreverFabricante.getDefaultInstance()) return this;
-        if (!other.getFabricante().isEmpty()) {
-          fabricante_ = other.fabricante_;
+      public Builder mergeFrom(ProtoBuffers.Protos.NotificacaOfertaProducao other) {
+        if (other == ProtoBuffers.Protos.NotificacaOfertaProducao.getDefaultInstance()) return this;
+        if (!other.getProduto().isEmpty()) {
+          produto_ = other.produto_;
           onChanged();
         }
-        if (other.getIsActive() != false) {
-          setIsActive(other.getIsActive());
+        if (other.getQuantMin() != 0) {
+          setQuantMin(other.getQuantMin());
+        }
+        if (other.getQuantMax() != 0) {
+          setQuantMax(other.getQuantMax());
+        }
+        if (other.getPrecoUniMin() != 0) {
+          setPrecoUniMin(other.getPrecoUniMin());
+        }
+        if (other.getDuracaoS() != 0L) {
+          setDuracaoS(other.getDuracaoS());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -6462,11 +6146,857 @@ public final class Protos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        ProtoBuffers.Protos.SubscreverFabricante parsedMessage = null;
+        ProtoBuffers.Protos.NotificacaOfertaProducao parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ProtoBuffers.Protos.SubscreverFabricante) e.getUnfinishedMessage();
+          parsedMessage = (ProtoBuffers.Protos.NotificacaOfertaProducao) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object produto_ = "";
+      /**
+       * <code>string produto = 1;</code>
+       * @return The produto.
+       */
+      public java.lang.String getProduto() {
+        java.lang.Object ref = produto_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          produto_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string produto = 1;</code>
+       * @return The bytes for produto.
+       */
+      public com.google.protobuf.ByteString
+          getProdutoBytes() {
+        java.lang.Object ref = produto_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          produto_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string produto = 1;</code>
+       * @param value The produto to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProduto(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        produto_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string produto = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProduto() {
+        
+        produto_ = getDefaultInstance().getProduto();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string produto = 1;</code>
+       * @param value The bytes for produto to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProdutoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        produto_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int quantMin_ ;
+      /**
+       * <code>int32 quantMin = 2;</code>
+       * @return The quantMin.
+       */
+      public int getQuantMin() {
+        return quantMin_;
+      }
+      /**
+       * <code>int32 quantMin = 2;</code>
+       * @param value The quantMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setQuantMin(int value) {
+        
+        quantMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 quantMin = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearQuantMin() {
+        
+        quantMin_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int quantMax_ ;
+      /**
+       * <code>int32 quantMax = 3;</code>
+       * @return The quantMax.
+       */
+      public int getQuantMax() {
+        return quantMax_;
+      }
+      /**
+       * <code>int32 quantMax = 3;</code>
+       * @param value The quantMax to set.
+       * @return This builder for chaining.
+       */
+      public Builder setQuantMax(int value) {
+        
+        quantMax_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 quantMax = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearQuantMax() {
+        
+        quantMax_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int precoUniMin_ ;
+      /**
+       * <code>int32 precoUniMin = 4;</code>
+       * @return The precoUniMin.
+       */
+      public int getPrecoUniMin() {
+        return precoUniMin_;
+      }
+      /**
+       * <code>int32 precoUniMin = 4;</code>
+       * @param value The precoUniMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPrecoUniMin(int value) {
+        
+        precoUniMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 precoUniMin = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPrecoUniMin() {
+        
+        precoUniMin_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long duracaoS_ ;
+      /**
+       * <pre>
+       * data final?
+       * </pre>
+       *
+       * <code>int64 duracaoS = 5;</code>
+       * @return The duracaoS.
+       */
+      public long getDuracaoS() {
+        return duracaoS_;
+      }
+      /**
+       * <pre>
+       * data final?
+       * </pre>
+       *
+       * <code>int64 duracaoS = 5;</code>
+       * @param value The duracaoS to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDuracaoS(long value) {
+        
+        duracaoS_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * data final?
+       * </pre>
+       *
+       * <code>int64 duracaoS = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDuracaoS() {
+        
+        duracaoS_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ProtoBuffers.NotificacaOfertaProducao)
+    }
+
+    // @@protoc_insertion_point(class_scope:ProtoBuffers.NotificacaOfertaProducao)
+    private static final ProtoBuffers.Protos.NotificacaOfertaProducao DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ProtoBuffers.Protos.NotificacaOfertaProducao();
+    }
+
+    public static ProtoBuffers.Protos.NotificacaOfertaProducao getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NotificacaOfertaProducao>
+        PARSER = new com.google.protobuf.AbstractParser<NotificacaOfertaProducao>() {
+      @java.lang.Override
+      public NotificacaOfertaProducao parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new NotificacaOfertaProducao(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<NotificacaOfertaProducao> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NotificacaOfertaProducao> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ProtoBuffers.Protos.NotificacaOfertaProducao getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface NotificacaoResultadosImportadorOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProtoBuffers.NotificacaoResultadosImportador)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string fabricante = 1;</code>
+     * @return The fabricante.
+     */
+    java.lang.String getFabricante();
+    /**
+     * <code>string fabricante = 1;</code>
+     * @return The bytes for fabricante.
+     */
+    com.google.protobuf.ByteString
+        getFabricanteBytes();
+
+    /**
+     * <code>string produto = 2;</code>
+     * @return The produto.
+     */
+    java.lang.String getProduto();
+    /**
+     * <code>string produto = 2;</code>
+     * @return The bytes for produto.
+     */
+    com.google.protobuf.ByteString
+        getProdutoBytes();
+
+    /**
+     * <code>int32 quant = 3;</code>
+     * @return The quant.
+     */
+    int getQuant();
+
+    /**
+     * <code>int32 preco = 4;</code>
+     * @return The preco.
+     */
+    int getPreco();
+  }
+  /**
+   * Protobuf type {@code ProtoBuffers.NotificacaoResultadosImportador}
+   */
+  public  static final class NotificacaoResultadosImportador extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ProtoBuffers.NotificacaoResultadosImportador)
+      NotificacaoResultadosImportadorOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use NotificacaoResultadosImportador.newBuilder() to construct.
+    private NotificacaoResultadosImportador(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private NotificacaoResultadosImportador() {
+      fabricante_ = "";
+      produto_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new NotificacaoResultadosImportador();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private NotificacaoResultadosImportador(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              fabricante_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              produto_ = s;
+              break;
+            }
+            case 24: {
+
+              quant_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              preco_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosImportador_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoBuffers.Protos.NotificacaoResultadosImportador.class, ProtoBuffers.Protos.NotificacaoResultadosImportador.Builder.class);
+    }
+
+    public static final int FABRICANTE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object fabricante_;
+    /**
+     * <code>string fabricante = 1;</code>
+     * @return The fabricante.
+     */
+    public java.lang.String getFabricante() {
+      java.lang.Object ref = fabricante_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        fabricante_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string fabricante = 1;</code>
+     * @return The bytes for fabricante.
+     */
+    public com.google.protobuf.ByteString
+        getFabricanteBytes() {
+      java.lang.Object ref = fabricante_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fabricante_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRODUTO_FIELD_NUMBER = 2;
+    private volatile java.lang.Object produto_;
+    /**
+     * <code>string produto = 2;</code>
+     * @return The produto.
+     */
+    public java.lang.String getProduto() {
+      java.lang.Object ref = produto_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        produto_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string produto = 2;</code>
+     * @return The bytes for produto.
+     */
+    public com.google.protobuf.ByteString
+        getProdutoBytes() {
+      java.lang.Object ref = produto_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        produto_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int QUANT_FIELD_NUMBER = 3;
+    private int quant_;
+    /**
+     * <code>int32 quant = 3;</code>
+     * @return The quant.
+     */
+    public int getQuant() {
+      return quant_;
+    }
+
+    public static final int PRECO_FIELD_NUMBER = 4;
+    private int preco_;
+    /**
+     * <code>int32 preco = 4;</code>
+     * @return The preco.
+     */
+    public int getPreco() {
+      return preco_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getFabricanteBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, fabricante_);
+      }
+      if (!getProdutoBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, produto_);
+      }
+      if (quant_ != 0) {
+        output.writeInt32(3, quant_);
+      }
+      if (preco_ != 0) {
+        output.writeInt32(4, preco_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getFabricanteBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, fabricante_);
+      }
+      if (!getProdutoBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, produto_);
+      }
+      if (quant_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, quant_);
+      }
+      if (preco_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, preco_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoBuffers.Protos.NotificacaoResultadosImportador)) {
+        return super.equals(obj);
+      }
+      ProtoBuffers.Protos.NotificacaoResultadosImportador other = (ProtoBuffers.Protos.NotificacaoResultadosImportador) obj;
+
+      if (!getFabricante()
+          .equals(other.getFabricante())) return false;
+      if (!getProduto()
+          .equals(other.getProduto())) return false;
+      if (getQuant()
+          != other.getQuant()) return false;
+      if (getPreco()
+          != other.getPreco()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + FABRICANTE_FIELD_NUMBER;
+      hash = (53 * hash) + getFabricante().hashCode();
+      hash = (37 * hash) + PRODUTO_FIELD_NUMBER;
+      hash = (53 * hash) + getProduto().hashCode();
+      hash = (37 * hash) + QUANT_FIELD_NUMBER;
+      hash = (53 * hash) + getQuant();
+      hash = (37 * hash) + PRECO_FIELD_NUMBER;
+      hash = (53 * hash) + getPreco();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ProtoBuffers.Protos.NotificacaoResultadosImportador prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ProtoBuffers.NotificacaoResultadosImportador}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ProtoBuffers.NotificacaoResultadosImportador)
+        ProtoBuffers.Protos.NotificacaoResultadosImportadorOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosImportador_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoBuffers.Protos.NotificacaoResultadosImportador.class, ProtoBuffers.Protos.NotificacaoResultadosImportador.Builder.class);
+      }
+
+      // Construct using ProtoBuffers.Protos.NotificacaoResultadosImportador.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fabricante_ = "";
+
+        produto_ = "";
+
+        quant_ = 0;
+
+        preco_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor;
+      }
+
+      @java.lang.Override
+      public ProtoBuffers.Protos.NotificacaoResultadosImportador getDefaultInstanceForType() {
+        return ProtoBuffers.Protos.NotificacaoResultadosImportador.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ProtoBuffers.Protos.NotificacaoResultadosImportador build() {
+        ProtoBuffers.Protos.NotificacaoResultadosImportador result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ProtoBuffers.Protos.NotificacaoResultadosImportador buildPartial() {
+        ProtoBuffers.Protos.NotificacaoResultadosImportador result = new ProtoBuffers.Protos.NotificacaoResultadosImportador(this);
+        result.fabricante_ = fabricante_;
+        result.produto_ = produto_;
+        result.quant_ = quant_;
+        result.preco_ = preco_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ProtoBuffers.Protos.NotificacaoResultadosImportador) {
+          return mergeFrom((ProtoBuffers.Protos.NotificacaoResultadosImportador)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ProtoBuffers.Protos.NotificacaoResultadosImportador other) {
+        if (other == ProtoBuffers.Protos.NotificacaoResultadosImportador.getDefaultInstance()) return this;
+        if (!other.getFabricante().isEmpty()) {
+          fabricante_ = other.fabricante_;
+          onChanged();
+        }
+        if (!other.getProduto().isEmpty()) {
+          produto_ = other.produto_;
+          onChanged();
+        }
+        if (other.getQuant() != 0) {
+          setQuant(other.getQuant());
+        }
+        if (other.getPreco() != 0) {
+          setPreco(other.getPreco());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoBuffers.Protos.NotificacaoResultadosImportador parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoBuffers.Protos.NotificacaoResultadosImportador) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6552,32 +7082,138 @@ public final class Protos {
         return this;
       }
 
-      private boolean isActive_ ;
+      private java.lang.Object produto_ = "";
       /**
-       * <code>bool isActive = 2;</code>
-       * @return The isActive.
+       * <code>string produto = 2;</code>
+       * @return The produto.
        */
-      public boolean getIsActive() {
-        return isActive_;
+      public java.lang.String getProduto() {
+        java.lang.Object ref = produto_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          produto_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>bool isActive = 2;</code>
-       * @param value The isActive to set.
+       * <code>string produto = 2;</code>
+       * @return The bytes for produto.
+       */
+      public com.google.protobuf.ByteString
+          getProdutoBytes() {
+        java.lang.Object ref = produto_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          produto_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string produto = 2;</code>
+       * @param value The produto to set.
        * @return This builder for chaining.
        */
-      public Builder setIsActive(boolean value) {
-        
-        isActive_ = value;
+      public Builder setProduto(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        produto_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>bool isActive = 2;</code>
+       * <code>string produto = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearIsActive() {
+      public Builder clearProduto() {
         
-        isActive_ = false;
+        produto_ = getDefaultInstance().getProduto();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string produto = 2;</code>
+       * @param value The bytes for produto to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProdutoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        produto_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int quant_ ;
+      /**
+       * <code>int32 quant = 3;</code>
+       * @return The quant.
+       */
+      public int getQuant() {
+        return quant_;
+      }
+      /**
+       * <code>int32 quant = 3;</code>
+       * @param value The quant to set.
+       * @return This builder for chaining.
+       */
+      public Builder setQuant(int value) {
+        
+        quant_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 quant = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearQuant() {
+        
+        quant_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int preco_ ;
+      /**
+       * <code>int32 preco = 4;</code>
+       * @return The preco.
+       */
+      public int getPreco() {
+        return preco_;
+      }
+      /**
+       * <code>int32 preco = 4;</code>
+       * @param value The preco to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPreco(int value) {
+        
+        preco_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 preco = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPreco() {
+        
+        preco_ = 0;
         onChanged();
         return this;
       }
@@ -6594,76 +7230,95 @@ public final class Protos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:ProtoBuffers.SubscreverFabricante)
+      // @@protoc_insertion_point(builder_scope:ProtoBuffers.NotificacaoResultadosImportador)
     }
 
-    // @@protoc_insertion_point(class_scope:ProtoBuffers.SubscreverFabricante)
-    private static final ProtoBuffers.Protos.SubscreverFabricante DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:ProtoBuffers.NotificacaoResultadosImportador)
+    private static final ProtoBuffers.Protos.NotificacaoResultadosImportador DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new ProtoBuffers.Protos.SubscreverFabricante();
+      DEFAULT_INSTANCE = new ProtoBuffers.Protos.NotificacaoResultadosImportador();
     }
 
-    public static ProtoBuffers.Protos.SubscreverFabricante getDefaultInstance() {
+    public static ProtoBuffers.Protos.NotificacaoResultadosImportador getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<SubscreverFabricante>
-        PARSER = new com.google.protobuf.AbstractParser<SubscreverFabricante>() {
+    private static final com.google.protobuf.Parser<NotificacaoResultadosImportador>
+        PARSER = new com.google.protobuf.AbstractParser<NotificacaoResultadosImportador>() {
       @java.lang.Override
-      public SubscreverFabricante parsePartialFrom(
+      public NotificacaoResultadosImportador parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SubscreverFabricante(input, extensionRegistry);
+        return new NotificacaoResultadosImportador(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<SubscreverFabricante> parser() {
+    public static com.google.protobuf.Parser<NotificacaoResultadosImportador> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<SubscreverFabricante> getParserForType() {
+    public com.google.protobuf.Parser<NotificacaoResultadosImportador> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public ProtoBuffers.Protos.SubscreverFabricante getDefaultInstanceForType() {
+    public ProtoBuffers.Protos.NotificacaoResultadosImportador getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface SubscreverResultadosOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ProtoBuffers.SubscreverResultados)
+  public interface NotificacaoResultadosFabricanteOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProtoBuffers.NotificacaoResultadosFabricante)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>bool isActive = 1;</code>
-     * @return The isActive.
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
      */
-    boolean getIsActive();
+    java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> 
+        getEncomendasList();
+    /**
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     */
+    ProtoBuffers.Protos.OfertaEncomendaRequest getEncomendas(int index);
+    /**
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     */
+    int getEncomendasCount();
+    /**
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     */
+    java.util.List<? extends ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> 
+        getEncomendasOrBuilderList();
+    /**
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     */
+    ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendasOrBuilder(
+        int index);
   }
   /**
-   * Protobuf type {@code ProtoBuffers.SubscreverResultados}
+   * Protobuf type {@code ProtoBuffers.NotificacaoResultadosFabricante}
    */
-  public  static final class SubscreverResultados extends
+  public  static final class NotificacaoResultadosFabricante extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ProtoBuffers.SubscreverResultados)
-      SubscreverResultadosOrBuilder {
+      // @@protoc_insertion_point(message_implements:ProtoBuffers.NotificacaoResultadosFabricante)
+      NotificacaoResultadosFabricanteOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use SubscreverResultados.newBuilder() to construct.
-    private SubscreverResultados(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use NotificacaoResultadosFabricante.newBuilder() to construct.
+    private NotificacaoResultadosFabricante(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private SubscreverResultados() {
+    private NotificacaoResultadosFabricante() {
+      encomendas_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new SubscreverResultados();
+      return new NotificacaoResultadosFabricante();
     }
 
     @java.lang.Override
@@ -6671,7 +7326,7 @@ public final class Protos {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private SubscreverResultados(
+    private NotificacaoResultadosFabricante(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6679,6 +7334,7 @@ public final class Protos {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6689,9 +7345,13 @@ public final class Protos {
             case 0:
               done = true;
               break;
-            case 8: {
-
-              isActive_ = input.readBool();
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                encomendas_ = new java.util.ArrayList<ProtoBuffers.Protos.OfertaEncomendaRequest>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              encomendas_.add(
+                  input.readMessage(ProtoBuffers.Protos.OfertaEncomendaRequest.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -6709,31 +7369,59 @@ public final class Protos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          encomendas_ = java.util.Collections.unmodifiableList(encomendas_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverResultados_descriptor;
+      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverResultados_fieldAccessorTable
+      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosFabricante_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ProtoBuffers.Protos.SubscreverResultados.class, ProtoBuffers.Protos.SubscreverResultados.Builder.class);
+              ProtoBuffers.Protos.NotificacaoResultadosFabricante.class, ProtoBuffers.Protos.NotificacaoResultadosFabricante.Builder.class);
     }
 
-    public static final int ISACTIVE_FIELD_NUMBER = 1;
-    private boolean isActive_;
+    public static final int ENCOMENDAS_FIELD_NUMBER = 1;
+    private java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> encomendas_;
     /**
-     * <code>bool isActive = 1;</code>
-     * @return The isActive.
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
      */
-    public boolean getIsActive() {
-      return isActive_;
+    public java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> getEncomendasList() {
+      return encomendas_;
+    }
+    /**
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     */
+    public java.util.List<? extends ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> 
+        getEncomendasOrBuilderList() {
+      return encomendas_;
+    }
+    /**
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     */
+    public int getEncomendasCount() {
+      return encomendas_.size();
+    }
+    /**
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     */
+    public ProtoBuffers.Protos.OfertaEncomendaRequest getEncomendas(int index) {
+      return encomendas_.get(index);
+    }
+    /**
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     */
+    public ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendasOrBuilder(
+        int index) {
+      return encomendas_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6750,8 +7438,8 @@ public final class Protos {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (isActive_ != false) {
-        output.writeBool(1, isActive_);
+      for (int i = 0; i < encomendas_.size(); i++) {
+        output.writeMessage(1, encomendas_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -6762,9 +7450,9 @@ public final class Protos {
       if (size != -1) return size;
 
       size = 0;
-      if (isActive_ != false) {
+      for (int i = 0; i < encomendas_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, isActive_);
+          .computeMessageSize(1, encomendas_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6776,13 +7464,13 @@ public final class Protos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof ProtoBuffers.Protos.SubscreverResultados)) {
+      if (!(obj instanceof ProtoBuffers.Protos.NotificacaoResultadosFabricante)) {
         return super.equals(obj);
       }
-      ProtoBuffers.Protos.SubscreverResultados other = (ProtoBuffers.Protos.SubscreverResultados) obj;
+      ProtoBuffers.Protos.NotificacaoResultadosFabricante other = (ProtoBuffers.Protos.NotificacaoResultadosFabricante) obj;
 
-      if (getIsActive()
-          != other.getIsActive()) return false;
+      if (!getEncomendasList()
+          .equals(other.getEncomendasList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -6794,77 +7482,78 @@ public final class Protos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ISACTIVE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsActive());
+      if (getEncomendasCount() > 0) {
+        hash = (37 * hash) + ENCOMENDAS_FIELD_NUMBER;
+        hash = (53 * hash) + getEncomendasList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(byte[] data)
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(java.io.InputStream input)
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseDelimitedFrom(java.io.InputStream input)
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseDelimitedFrom(
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static ProtoBuffers.Protos.SubscreverResultados parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -6877,7 +7566,7 @@ public final class Protos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(ProtoBuffers.Protos.SubscreverResultados prototype) {
+    public static Builder newBuilder(ProtoBuffers.Protos.NotificacaoResultadosFabricante prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -6893,26 +7582,26 @@ public final class Protos {
       return builder;
     }
     /**
-     * Protobuf type {@code ProtoBuffers.SubscreverResultados}
+     * Protobuf type {@code ProtoBuffers.NotificacaoResultadosFabricante}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ProtoBuffers.SubscreverResultados)
-        ProtoBuffers.Protos.SubscreverResultadosOrBuilder {
+        // @@protoc_insertion_point(builder_implements:ProtoBuffers.NotificacaoResultadosFabricante)
+        ProtoBuffers.Protos.NotificacaoResultadosFabricanteOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverResultados_descriptor;
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverResultados_fieldAccessorTable
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosFabricante_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                ProtoBuffers.Protos.SubscreverResultados.class, ProtoBuffers.Protos.SubscreverResultados.Builder.class);
+                ProtoBuffers.Protos.NotificacaoResultadosFabricante.class, ProtoBuffers.Protos.NotificacaoResultadosFabricante.Builder.class);
       }
 
-      // Construct using ProtoBuffers.Protos.SubscreverResultados.newBuilder()
+      // Construct using ProtoBuffers.Protos.NotificacaoResultadosFabricante.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -6925,30 +7614,35 @@ public final class Protos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getEncomendasFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        isActive_ = false;
-
+        if (encomendasBuilder_ == null) {
+          encomendas_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          encomendasBuilder_.clear();
+        }
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_SubscreverResultados_descriptor;
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor;
       }
 
       @java.lang.Override
-      public ProtoBuffers.Protos.SubscreverResultados getDefaultInstanceForType() {
-        return ProtoBuffers.Protos.SubscreverResultados.getDefaultInstance();
+      public ProtoBuffers.Protos.NotificacaoResultadosFabricante getDefaultInstanceForType() {
+        return ProtoBuffers.Protos.NotificacaoResultadosFabricante.getDefaultInstance();
       }
 
       @java.lang.Override
-      public ProtoBuffers.Protos.SubscreverResultados build() {
-        ProtoBuffers.Protos.SubscreverResultados result = buildPartial();
+      public ProtoBuffers.Protos.NotificacaoResultadosFabricante build() {
+        ProtoBuffers.Protos.NotificacaoResultadosFabricante result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -6956,9 +7650,18 @@ public final class Protos {
       }
 
       @java.lang.Override
-      public ProtoBuffers.Protos.SubscreverResultados buildPartial() {
-        ProtoBuffers.Protos.SubscreverResultados result = new ProtoBuffers.Protos.SubscreverResultados(this);
-        result.isActive_ = isActive_;
+      public ProtoBuffers.Protos.NotificacaoResultadosFabricante buildPartial() {
+        ProtoBuffers.Protos.NotificacaoResultadosFabricante result = new ProtoBuffers.Protos.NotificacaoResultadosFabricante(this);
+        int from_bitField0_ = bitField0_;
+        if (encomendasBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            encomendas_ = java.util.Collections.unmodifiableList(encomendas_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.encomendas_ = encomendas_;
+        } else {
+          result.encomendas_ = encomendasBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -6997,18 +7700,41 @@ public final class Protos {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ProtoBuffers.Protos.SubscreverResultados) {
-          return mergeFrom((ProtoBuffers.Protos.SubscreverResultados)other);
+        if (other instanceof ProtoBuffers.Protos.NotificacaoResultadosFabricante) {
+          return mergeFrom((ProtoBuffers.Protos.NotificacaoResultadosFabricante)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(ProtoBuffers.Protos.SubscreverResultados other) {
-        if (other == ProtoBuffers.Protos.SubscreverResultados.getDefaultInstance()) return this;
-        if (other.getIsActive() != false) {
-          setIsActive(other.getIsActive());
+      public Builder mergeFrom(ProtoBuffers.Protos.NotificacaoResultadosFabricante other) {
+        if (other == ProtoBuffers.Protos.NotificacaoResultadosFabricante.getDefaultInstance()) return this;
+        if (encomendasBuilder_ == null) {
+          if (!other.encomendas_.isEmpty()) {
+            if (encomendas_.isEmpty()) {
+              encomendas_ = other.encomendas_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureEncomendasIsMutable();
+              encomendas_.addAll(other.encomendas_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.encomendas_.isEmpty()) {
+            if (encomendasBuilder_.isEmpty()) {
+              encomendasBuilder_.dispose();
+              encomendasBuilder_ = null;
+              encomendas_ = other.encomendas_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              encomendasBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getEncomendasFieldBuilder() : null;
+            } else {
+              encomendasBuilder_.addAllMessages(other.encomendas_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -7025,11 +7751,11 @@ public final class Protos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        ProtoBuffers.Protos.SubscreverResultados parsedMessage = null;
+        ProtoBuffers.Protos.NotificacaoResultadosFabricante parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ProtoBuffers.Protos.SubscreverResultados) e.getUnfinishedMessage();
+          parsedMessage = (ProtoBuffers.Protos.NotificacaoResultadosFabricante) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -7038,35 +7764,246 @@ public final class Protos {
         }
         return this;
       }
+      private int bitField0_;
 
-      private boolean isActive_ ;
+      private java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> encomendas_ =
+        java.util.Collections.emptyList();
+      private void ensureEncomendasIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          encomendas_ = new java.util.ArrayList<ProtoBuffers.Protos.OfertaEncomendaRequest>(encomendas_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          ProtoBuffers.Protos.OfertaEncomendaRequest, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder, ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> encomendasBuilder_;
+
       /**
-       * <code>bool isActive = 1;</code>
-       * @return The isActive.
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
        */
-      public boolean getIsActive() {
-        return isActive_;
+      public java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> getEncomendasList() {
+        if (encomendasBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(encomendas_);
+        } else {
+          return encomendasBuilder_.getMessageList();
+        }
       }
       /**
-       * <code>bool isActive = 1;</code>
-       * @param value The isActive to set.
-       * @return This builder for chaining.
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
        */
-      public Builder setIsActive(boolean value) {
-        
-        isActive_ = value;
-        onChanged();
+      public int getEncomendasCount() {
+        if (encomendasBuilder_ == null) {
+          return encomendas_.size();
+        } else {
+          return encomendasBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public ProtoBuffers.Protos.OfertaEncomendaRequest getEncomendas(int index) {
+        if (encomendasBuilder_ == null) {
+          return encomendas_.get(index);
+        } else {
+          return encomendasBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public Builder setEncomendas(
+          int index, ProtoBuffers.Protos.OfertaEncomendaRequest value) {
+        if (encomendasBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEncomendasIsMutable();
+          encomendas_.set(index, value);
+          onChanged();
+        } else {
+          encomendasBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
-       * <code>bool isActive = 1;</code>
-       * @return This builder for chaining.
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
        */
-      public Builder clearIsActive() {
-        
-        isActive_ = false;
-        onChanged();
+      public Builder setEncomendas(
+          int index, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder builderForValue) {
+        if (encomendasBuilder_ == null) {
+          ensureEncomendasIsMutable();
+          encomendas_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          encomendasBuilder_.setMessage(index, builderForValue.build());
+        }
         return this;
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public Builder addEncomendas(ProtoBuffers.Protos.OfertaEncomendaRequest value) {
+        if (encomendasBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEncomendasIsMutable();
+          encomendas_.add(value);
+          onChanged();
+        } else {
+          encomendasBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public Builder addEncomendas(
+          int index, ProtoBuffers.Protos.OfertaEncomendaRequest value) {
+        if (encomendasBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEncomendasIsMutable();
+          encomendas_.add(index, value);
+          onChanged();
+        } else {
+          encomendasBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public Builder addEncomendas(
+          ProtoBuffers.Protos.OfertaEncomendaRequest.Builder builderForValue) {
+        if (encomendasBuilder_ == null) {
+          ensureEncomendasIsMutable();
+          encomendas_.add(builderForValue.build());
+          onChanged();
+        } else {
+          encomendasBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public Builder addEncomendas(
+          int index, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder builderForValue) {
+        if (encomendasBuilder_ == null) {
+          ensureEncomendasIsMutable();
+          encomendas_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          encomendasBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public Builder addAllEncomendas(
+          java.lang.Iterable<? extends ProtoBuffers.Protos.OfertaEncomendaRequest> values) {
+        if (encomendasBuilder_ == null) {
+          ensureEncomendasIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, encomendas_);
+          onChanged();
+        } else {
+          encomendasBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public Builder clearEncomendas() {
+        if (encomendasBuilder_ == null) {
+          encomendas_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          encomendasBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public Builder removeEncomendas(int index) {
+        if (encomendasBuilder_ == null) {
+          ensureEncomendasIsMutable();
+          encomendas_.remove(index);
+          onChanged();
+        } else {
+          encomendasBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public ProtoBuffers.Protos.OfertaEncomendaRequest.Builder getEncomendasBuilder(
+          int index) {
+        return getEncomendasFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendasOrBuilder(
+          int index) {
+        if (encomendasBuilder_ == null) {
+          return encomendas_.get(index);  } else {
+          return encomendasBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public java.util.List<? extends ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> 
+           getEncomendasOrBuilderList() {
+        if (encomendasBuilder_ != null) {
+          return encomendasBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(encomendas_);
+        }
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public ProtoBuffers.Protos.OfertaEncomendaRequest.Builder addEncomendasBuilder() {
+        return getEncomendasFieldBuilder().addBuilder(
+            ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public ProtoBuffers.Protos.OfertaEncomendaRequest.Builder addEncomendasBuilder(
+          int index) {
+        return getEncomendasFieldBuilder().addBuilder(
+            index, ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       */
+      public java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest.Builder> 
+           getEncomendasBuilderList() {
+        return getEncomendasFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          ProtoBuffers.Protos.OfertaEncomendaRequest, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder, ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> 
+          getEncomendasFieldBuilder() {
+        if (encomendasBuilder_ == null) {
+          encomendasBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              ProtoBuffers.Protos.OfertaEncomendaRequest, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder, ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder>(
+                  encomendas_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          encomendas_ = null;
+        }
+        return encomendasBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -7081,41 +8018,41 @@ public final class Protos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:ProtoBuffers.SubscreverResultados)
+      // @@protoc_insertion_point(builder_scope:ProtoBuffers.NotificacaoResultadosFabricante)
     }
 
-    // @@protoc_insertion_point(class_scope:ProtoBuffers.SubscreverResultados)
-    private static final ProtoBuffers.Protos.SubscreverResultados DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:ProtoBuffers.NotificacaoResultadosFabricante)
+    private static final ProtoBuffers.Protos.NotificacaoResultadosFabricante DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new ProtoBuffers.Protos.SubscreverResultados();
+      DEFAULT_INSTANCE = new ProtoBuffers.Protos.NotificacaoResultadosFabricante();
     }
 
-    public static ProtoBuffers.Protos.SubscreverResultados getDefaultInstance() {
+    public static ProtoBuffers.Protos.NotificacaoResultadosFabricante getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<SubscreverResultados>
-        PARSER = new com.google.protobuf.AbstractParser<SubscreverResultados>() {
+    private static final com.google.protobuf.Parser<NotificacaoResultadosFabricante>
+        PARSER = new com.google.protobuf.AbstractParser<NotificacaoResultadosFabricante>() {
       @java.lang.Override
-      public SubscreverResultados parsePartialFrom(
+      public NotificacaoResultadosFabricante parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SubscreverResultados(input, extensionRegistry);
+        return new NotificacaoResultadosFabricante(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<SubscreverResultados> parser() {
+    public static com.google.protobuf.Parser<NotificacaoResultadosFabricante> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<SubscreverResultados> getParserForType() {
+    public com.google.protobuf.Parser<NotificacaoResultadosFabricante> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public ProtoBuffers.Protos.SubscreverResultados getDefaultInstanceForType() {
+    public ProtoBuffers.Protos.NotificacaoResultadosFabricante getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7157,15 +8094,20 @@ public final class Protos {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ProtoBuffers_OfertaEncomendaRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ProtoBuffers_SubscreverFabricante_descriptor;
+    internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ProtoBuffers_SubscreverFabricante_fieldAccessorTable;
+      internal_static_ProtoBuffers_NotificacaOfertaProducao_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ProtoBuffers_SubscreverResultados_descriptor;
+    internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ProtoBuffers_SubscreverResultados_fieldAccessorTable;
+      internal_static_ProtoBuffers_NotificacaoResultadosImportador_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ProtoBuffers_NotificacaoResultadosFabricante_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7182,25 +8124,28 @@ public final class Protos {
       "Utilizador\022\016\n\nFABRICANTE\020\000\022\016\n\nIMPORTADOR" +
       "\020\001\022\010\n\004ERRO\020\002\"Y\n\024AuthOperationRequest\022\020\n\010" +
       "password\030\001 \001(\t\022/\n\007request\030\002 \001(\0132\036.ProtoB" +
-      "uffers.OperationRequest\"\231\002\n\020OperationReq" +
+      "uffers.OperationRequest\"\237\001\n\020OperationReq" +
       "uest\022\014\n\004nome\030\001 \001(\t\0227\n\010producao\030\002 \001(\0132#.P" +
       "rotoBuffers.OfertaProducaoRequestH\000\0229\n\te" +
       "ncomenda\030\003 \001(\0132$.ProtoBuffers.OfertaEnco" +
-      "mendaRequestH\000\022;\n\rsubFabricante\030\004 \001(\0132\"." +
-      "ProtoBuffers.SubscreverFabricanteH\000\022;\n\rs" +
-      "ubResultados\030\005 \001(\0132\".ProtoBuffers.Subscr" +
-      "everResultadosH\000B\t\n\007request\"\200\001\n\021Operatio" +
-      "nResponse\022@\n\004code\030\001 \001(\01622.ProtoBuffers.O" +
-      "perationResponse.ResponseStatusCode\")\n\022R" +
-      "esponseStatusCode\022\006\n\002OK\020\000\022\013\n\007INVALID\020\001\"s" +
-      "\n\025OfertaProducaoRequest\022\017\n\007produto\030\001 \001(\t" +
-      "\022\020\n\010quantMin\030\002 \001(\005\022\020\n\010quantMax\030\003 \001(\005\022\023\n\013" +
-      "precoUniMin\030\004 \001(\005\022\020\n\010duracaoS\030\005 \001(\003\"[\n\026O" +
-      "fertaEncomendaRequest\022\022\n\nfabricante\030\001 \001(" +
-      "\t\022\017\n\007produto\030\002 \001(\t\022\r\n\005quant\030\003 \001(\005\022\r\n\005pre" +
-      "co\030\004 \001(\005\"<\n\024SubscreverFabricante\022\022\n\nfabr" +
-      "icante\030\001 \001(\t\022\020\n\010isActive\030\002 \001(\010\"(\n\024Subscr" +
-      "everResultados\022\020\n\010isActive\030\001 \001(\010b\006proto3"
+      "mendaRequestH\000B\t\n\007request\"\200\001\n\021OperationR" +
+      "esponse\022@\n\004code\030\001 \001(\01622.ProtoBuffers.Ope" +
+      "rationResponse.ResponseStatusCode\")\n\022Res" +
+      "ponseStatusCode\022\006\n\002OK\020\000\022\013\n\007INVALID\020\001\"s\n\025" +
+      "OfertaProducaoRequest\022\017\n\007produto\030\001 \001(\t\022\020" +
+      "\n\010quantMin\030\002 \001(\005\022\020\n\010quantMax\030\003 \001(\005\022\023\n\013pr" +
+      "ecoUniMin\030\004 \001(\005\022\020\n\010duracaoS\030\005 \001(\003\"[\n\026Ofe" +
+      "rtaEncomendaRequest\022\022\n\nfabricante\030\001 \001(\t\022" +
+      "\017\n\007produto\030\002 \001(\t\022\r\n\005quant\030\003 \001(\005\022\r\n\005preco" +
+      "\030\004 \001(\005\"v\n\030NotificacaOfertaProducao\022\017\n\007pr" +
+      "oduto\030\001 \001(\t\022\020\n\010quantMin\030\002 \001(\005\022\020\n\010quantMa" +
+      "x\030\003 \001(\005\022\023\n\013precoUniMin\030\004 \001(\005\022\020\n\010duracaoS" +
+      "\030\005 \001(\003\"d\n\037NotificacaoResultadosImportado" +
+      "r\022\022\n\nfabricante\030\001 \001(\t\022\017\n\007produto\030\002 \001(\t\022\r" +
+      "\n\005quant\030\003 \001(\005\022\r\n\005preco\030\004 \001(\005\"[\n\037Notifica" +
+      "caoResultadosFabricante\0228\n\nencomendas\030\001 " +
+      "\003(\0132$.ProtoBuffers.OfertaEncomendaReques" +
+      "tb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7229,7 +8174,7 @@ public final class Protos {
     internal_static_ProtoBuffers_OperationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_OperationRequest_descriptor,
-        new java.lang.String[] { "Nome", "Producao", "Encomenda", "SubFabricante", "SubResultados", "Request", });
+        new java.lang.String[] { "Nome", "Producao", "Encomenda", "Request", });
     internal_static_ProtoBuffers_OperationResponse_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_ProtoBuffers_OperationResponse_fieldAccessorTable = new
@@ -7248,18 +8193,24 @@ public final class Protos {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_OfertaEncomendaRequest_descriptor,
         new java.lang.String[] { "Fabricante", "Produto", "Quant", "Preco", });
-    internal_static_ProtoBuffers_SubscreverFabricante_descriptor =
+    internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor =
       getDescriptor().getMessageTypes().get(7);
-    internal_static_ProtoBuffers_SubscreverFabricante_fieldAccessorTable = new
+    internal_static_ProtoBuffers_NotificacaOfertaProducao_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ProtoBuffers_SubscreverFabricante_descriptor,
-        new java.lang.String[] { "Fabricante", "IsActive", });
-    internal_static_ProtoBuffers_SubscreverResultados_descriptor =
+        internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor,
+        new java.lang.String[] { "Produto", "QuantMin", "QuantMax", "PrecoUniMin", "DuracaoS", });
+    internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor =
       getDescriptor().getMessageTypes().get(8);
-    internal_static_ProtoBuffers_SubscreverResultados_fieldAccessorTable = new
+    internal_static_ProtoBuffers_NotificacaoResultadosImportador_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ProtoBuffers_SubscreverResultados_descriptor,
-        new java.lang.String[] { "IsActive", });
+        internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor,
+        new java.lang.String[] { "Fabricante", "Produto", "Quant", "Preco", });
+    internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_ProtoBuffers_NotificacaoResultadosFabricante_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor,
+        new java.lang.String[] { "Encomendas", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

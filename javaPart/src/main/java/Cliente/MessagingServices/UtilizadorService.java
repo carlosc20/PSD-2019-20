@@ -66,8 +66,7 @@ abstract class UtilizadorService {
         }
     }
 
-    // bloqueante
-    // socketSUB.subscribe(ZMQ.SUBSCRIPTION_ALL);
+
     // TODO o que devolver?
     void getNotification() {
         byte[] b = socketSUB.recv();
