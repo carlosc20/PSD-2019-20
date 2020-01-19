@@ -33,7 +33,7 @@ public class Importacoes {
     }
 
     @GET
-    @Path("/{nome}/terminada")
+    @Path("/{nome}/terminadas")
     public Response getImportadorTerminadas(@PathParam("nome") String nome){
         if(utilizadores.containsKey(nome)) {
             Importador i = (Importador) utilizadores.get(nome);
@@ -43,7 +43,7 @@ public class Importacoes {
     }
 
     @GET
-    @Path("/{nome}/cancelada")
+    @Path("/{nome}/canceladas")
     public Response getImportadorCanceladas(@PathParam("nome") String nome){
         if(utilizadores.containsKey(nome)){
             Importador i = (Importador) utilizadores.get(nome);
@@ -59,7 +59,7 @@ public class Importacoes {
         if(i == null)
             return Response.status(405).build();
         i.addOperacaoTerminada(encomenda);
-        return Response.ok(encomenda).build();
+        return Response.status(201).build();
     }
 
     @POST
@@ -69,7 +69,7 @@ public class Importacoes {
         if(i == null)
             return Response.status(405).build();
         i.addOperacaoCancelada(encomenda);
-        return Response.ok(encomenda).build();
+        return Response.status(201).build();
     }
 
     @POST
@@ -79,7 +79,7 @@ public class Importacoes {
         if(i == null)
             return Response.status(405).build();
         i.addEncomendaEmCurso(encomenda);
-        return Response.ok().build();
+        return Response.status(201).build();
     }
 
 
