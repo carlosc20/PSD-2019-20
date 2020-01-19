@@ -1,4 +1,4 @@
-import org.zeromq.SocketType;
+import org.zeromq.ZMQ;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class ClienteTeste {
     public void start(){
         ZContext context = new ZContext();
-        ZMQ.Socket connector = context.createSocket(SocketType.REQ);
-        ZMQ.Socket rep1 = context.createSocket(SocketType.REP);
-        ZMQ.Socket rep2 = context.createSocket(SocketType.REP);
-        ZMQ.Socket rep3 = context.createSocket(SocketType.REP);
+        ZMQ.Socket connector = context.createSocket(ZMQ.REQ);
+        ZMQ.Socket rep1 = context.createSocket(ZMQ.REP);
+        ZMQ.Socket rep2 = context.createSocket(ZMQ.REP);
+        ZMQ.Socket rep3 = context.createSocket(ZMQ.REP);
         //ZMQ.Socket subscriber = context.createSocket(SocketType.SUB);
         rep1.connect("tcp://localhost:5556");
         rep1.setIdentity("X".getBytes(ZMQ.CHARSET));
