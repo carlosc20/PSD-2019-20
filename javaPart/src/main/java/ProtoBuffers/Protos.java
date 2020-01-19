@@ -6632,37 +6632,43 @@ public final class Protos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string fabricante = 1;</code>
+     * <code>bool aceite = 1;</code>
+     * @return The aceite.
+     */
+    boolean getAceite();
+
+    /**
+     * <code>string fabricante = 2;</code>
      * @return The fabricante.
      */
     java.lang.String getFabricante();
     /**
-     * <code>string fabricante = 1;</code>
+     * <code>string fabricante = 2;</code>
      * @return The bytes for fabricante.
      */
     com.google.protobuf.ByteString
         getFabricanteBytes();
 
     /**
-     * <code>string produto = 2;</code>
+     * <code>string produto = 3;</code>
      * @return The produto.
      */
     java.lang.String getProduto();
     /**
-     * <code>string produto = 2;</code>
+     * <code>string produto = 3;</code>
      * @return The bytes for produto.
      */
     com.google.protobuf.ByteString
         getProdutoBytes();
 
     /**
-     * <code>int32 quant = 3;</code>
+     * <code>int32 quant = 4;</code>
      * @return The quant.
      */
     int getQuant();
 
     /**
-     * <code>int32 preco = 4;</code>
+     * <code>int32 preco = 5;</code>
      * @return The preco.
      */
     int getPreco();
@@ -6714,24 +6720,29 @@ public final class Protos {
             case 0:
               done = true;
               break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 8: {
 
-              fabricante_ = s;
+              aceite_ = input.readBool();
               break;
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
+              fabricante_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
               produto_ = s;
               break;
             }
-            case 24: {
+            case 32: {
 
               quant_ = input.readInt32();
               break;
             }
-            case 32: {
+            case 40: {
 
               preco_ = input.readInt32();
               break;
@@ -6768,10 +6779,20 @@ public final class Protos {
               ProtoBuffers.Protos.NotificacaoResultadosImportador.class, ProtoBuffers.Protos.NotificacaoResultadosImportador.Builder.class);
     }
 
-    public static final int FABRICANTE_FIELD_NUMBER = 1;
+    public static final int ACEITE_FIELD_NUMBER = 1;
+    private boolean aceite_;
+    /**
+     * <code>bool aceite = 1;</code>
+     * @return The aceite.
+     */
+    public boolean getAceite() {
+      return aceite_;
+    }
+
+    public static final int FABRICANTE_FIELD_NUMBER = 2;
     private volatile java.lang.Object fabricante_;
     /**
-     * <code>string fabricante = 1;</code>
+     * <code>string fabricante = 2;</code>
      * @return The fabricante.
      */
     public java.lang.String getFabricante() {
@@ -6787,7 +6808,7 @@ public final class Protos {
       }
     }
     /**
-     * <code>string fabricante = 1;</code>
+     * <code>string fabricante = 2;</code>
      * @return The bytes for fabricante.
      */
     public com.google.protobuf.ByteString
@@ -6804,10 +6825,10 @@ public final class Protos {
       }
     }
 
-    public static final int PRODUTO_FIELD_NUMBER = 2;
+    public static final int PRODUTO_FIELD_NUMBER = 3;
     private volatile java.lang.Object produto_;
     /**
-     * <code>string produto = 2;</code>
+     * <code>string produto = 3;</code>
      * @return The produto.
      */
     public java.lang.String getProduto() {
@@ -6823,7 +6844,7 @@ public final class Protos {
       }
     }
     /**
-     * <code>string produto = 2;</code>
+     * <code>string produto = 3;</code>
      * @return The bytes for produto.
      */
     public com.google.protobuf.ByteString
@@ -6840,20 +6861,20 @@ public final class Protos {
       }
     }
 
-    public static final int QUANT_FIELD_NUMBER = 3;
+    public static final int QUANT_FIELD_NUMBER = 4;
     private int quant_;
     /**
-     * <code>int32 quant = 3;</code>
+     * <code>int32 quant = 4;</code>
      * @return The quant.
      */
     public int getQuant() {
       return quant_;
     }
 
-    public static final int PRECO_FIELD_NUMBER = 4;
+    public static final int PRECO_FIELD_NUMBER = 5;
     private int preco_;
     /**
-     * <code>int32 preco = 4;</code>
+     * <code>int32 preco = 5;</code>
      * @return The preco.
      */
     public int getPreco() {
@@ -6874,17 +6895,20 @@ public final class Protos {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (aceite_ != false) {
+        output.writeBool(1, aceite_);
+      }
       if (!getFabricanteBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, fabricante_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, fabricante_);
       }
       if (!getProdutoBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, produto_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, produto_);
       }
       if (quant_ != 0) {
-        output.writeInt32(3, quant_);
+        output.writeInt32(4, quant_);
       }
       if (preco_ != 0) {
-        output.writeInt32(4, preco_);
+        output.writeInt32(5, preco_);
       }
       unknownFields.writeTo(output);
     }
@@ -6895,19 +6919,23 @@ public final class Protos {
       if (size != -1) return size;
 
       size = 0;
+      if (aceite_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, aceite_);
+      }
       if (!getFabricanteBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, fabricante_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, fabricante_);
       }
       if (!getProdutoBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, produto_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, produto_);
       }
       if (quant_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, quant_);
+          .computeInt32Size(4, quant_);
       }
       if (preco_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, preco_);
+          .computeInt32Size(5, preco_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6924,6 +6952,8 @@ public final class Protos {
       }
       ProtoBuffers.Protos.NotificacaoResultadosImportador other = (ProtoBuffers.Protos.NotificacaoResultadosImportador) obj;
 
+      if (getAceite()
+          != other.getAceite()) return false;
       if (!getFabricante()
           .equals(other.getFabricante())) return false;
       if (!getProduto()
@@ -6943,6 +6973,9 @@ public final class Protos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ACEITE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAceite());
       hash = (37 * hash) + FABRICANTE_FIELD_NUMBER;
       hash = (53 * hash) + getFabricante().hashCode();
       hash = (37 * hash) + PRODUTO_FIELD_NUMBER;
@@ -7084,6 +7117,8 @@ public final class Protos {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        aceite_ = false;
+
         fabricante_ = "";
 
         produto_ = "";
@@ -7118,6 +7153,7 @@ public final class Protos {
       @java.lang.Override
       public ProtoBuffers.Protos.NotificacaoResultadosImportador buildPartial() {
         ProtoBuffers.Protos.NotificacaoResultadosImportador result = new ProtoBuffers.Protos.NotificacaoResultadosImportador(this);
+        result.aceite_ = aceite_;
         result.fabricante_ = fabricante_;
         result.produto_ = produto_;
         result.quant_ = quant_;
@@ -7170,6 +7206,9 @@ public final class Protos {
 
       public Builder mergeFrom(ProtoBuffers.Protos.NotificacaoResultadosImportador other) {
         if (other == ProtoBuffers.Protos.NotificacaoResultadosImportador.getDefaultInstance()) return this;
+        if (other.getAceite() != false) {
+          setAceite(other.getAceite());
+        }
         if (!other.getFabricante().isEmpty()) {
           fabricante_ = other.fabricante_;
           onChanged();
@@ -7213,9 +7252,39 @@ public final class Protos {
         return this;
       }
 
+      private boolean aceite_ ;
+      /**
+       * <code>bool aceite = 1;</code>
+       * @return The aceite.
+       */
+      public boolean getAceite() {
+        return aceite_;
+      }
+      /**
+       * <code>bool aceite = 1;</code>
+       * @param value The aceite to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAceite(boolean value) {
+        
+        aceite_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool aceite = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAceite() {
+        
+        aceite_ = false;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object fabricante_ = "";
       /**
-       * <code>string fabricante = 1;</code>
+       * <code>string fabricante = 2;</code>
        * @return The fabricante.
        */
       public java.lang.String getFabricante() {
@@ -7231,7 +7300,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>string fabricante = 1;</code>
+       * <code>string fabricante = 2;</code>
        * @return The bytes for fabricante.
        */
       public com.google.protobuf.ByteString
@@ -7248,7 +7317,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>string fabricante = 1;</code>
+       * <code>string fabricante = 2;</code>
        * @param value The fabricante to set.
        * @return This builder for chaining.
        */
@@ -7263,7 +7332,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>string fabricante = 1;</code>
+       * <code>string fabricante = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearFabricante() {
@@ -7273,7 +7342,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>string fabricante = 1;</code>
+       * <code>string fabricante = 2;</code>
        * @param value The bytes for fabricante to set.
        * @return This builder for chaining.
        */
@@ -7291,7 +7360,7 @@ public final class Protos {
 
       private java.lang.Object produto_ = "";
       /**
-       * <code>string produto = 2;</code>
+       * <code>string produto = 3;</code>
        * @return The produto.
        */
       public java.lang.String getProduto() {
@@ -7307,7 +7376,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>string produto = 2;</code>
+       * <code>string produto = 3;</code>
        * @return The bytes for produto.
        */
       public com.google.protobuf.ByteString
@@ -7324,7 +7393,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>string produto = 2;</code>
+       * <code>string produto = 3;</code>
        * @param value The produto to set.
        * @return This builder for chaining.
        */
@@ -7339,7 +7408,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>string produto = 2;</code>
+       * <code>string produto = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearProduto() {
@@ -7349,7 +7418,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>string produto = 2;</code>
+       * <code>string produto = 3;</code>
        * @param value The bytes for produto to set.
        * @return This builder for chaining.
        */
@@ -7367,14 +7436,14 @@ public final class Protos {
 
       private int quant_ ;
       /**
-       * <code>int32 quant = 3;</code>
+       * <code>int32 quant = 4;</code>
        * @return The quant.
        */
       public int getQuant() {
         return quant_;
       }
       /**
-       * <code>int32 quant = 3;</code>
+       * <code>int32 quant = 4;</code>
        * @param value The quant to set.
        * @return This builder for chaining.
        */
@@ -7385,7 +7454,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>int32 quant = 3;</code>
+       * <code>int32 quant = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearQuant() {
@@ -7397,14 +7466,14 @@ public final class Protos {
 
       private int preco_ ;
       /**
-       * <code>int32 preco = 4;</code>
+       * <code>int32 preco = 5;</code>
        * @return The preco.
        */
       public int getPreco() {
         return preco_;
       }
       /**
-       * <code>int32 preco = 4;</code>
+       * <code>int32 preco = 5;</code>
        * @param value The preco to set.
        * @return This builder for chaining.
        */
@@ -7415,7 +7484,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>int32 preco = 4;</code>
+       * <code>int32 preco = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearPreco() {
@@ -8347,12 +8416,13 @@ public final class Protos {
       "\030\004 \001(\005\"\215\001\n\031NotificacaoOfertaProducao\022\017\n\007" +
       "produto\030\001 \001(\t\022\020\n\010quantMin\030\002 \001(\005\022\020\n\010quant" +
       "Max\030\003 \001(\005\022\023\n\013precoUniMin\030\004 \001(\005\022\023\n\013dataIn" +
-      "icial\030\005 \001(\t\022\021\n\tdataFinal\030\006 \001(\t\"d\n\037Notifi" +
-      "cacaoResultadosImportador\022\022\n\nfabricante\030" +
-      "\001 \001(\t\022\017\n\007produto\030\002 \001(\t\022\r\n\005quant\030\003 \001(\005\022\r\n" +
-      "\005preco\030\004 \001(\005\"[\n\037NotificacaoResultadosFab" +
-      "ricante\0228\n\nencomendas\030\001 \003(\0132$.ProtoBuffe" +
-      "rs.OfertaEncomendaRequestb\006proto3"
+      "icial\030\005 \001(\t\022\021\n\tdataFinal\030\006 \001(\t\"t\n\037Notifi" +
+      "cacaoResultadosImportador\022\016\n\006aceite\030\001 \001(" +
+      "\010\022\022\n\nfabricante\030\002 \001(\t\022\017\n\007produto\030\003 \001(\t\022\r" +
+      "\n\005quant\030\004 \001(\005\022\r\n\005preco\030\005 \001(\005\"[\n\037Notifica" +
+      "caoResultadosFabricante\0228\n\nencomendas\030\001 " +
+      "\003(\0132$.ProtoBuffers.OfertaEncomendaReques" +
+      "tb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8411,7 +8481,7 @@ public final class Protos {
     internal_static_ProtoBuffers_NotificacaoResultadosImportador_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor,
-        new java.lang.String[] { "Fabricante", "Produto", "Quant", "Preco", });
+        new java.lang.String[] { "Aceite", "Fabricante", "Produto", "Quant", "Preco", });
     internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_ProtoBuffers_NotificacaoResultadosFabricante_fieldAccessorTable = new

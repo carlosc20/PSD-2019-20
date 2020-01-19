@@ -9,11 +9,11 @@ public class Encomenda {
     private String fabricante;
     private String produto;
     private int quantidade;
-    private double precoPorUnidade;
+    private int precoPorUnidade;
 
     public Encomenda(){}
 
-    public Encomenda(String importador, String fabricante, String produto, int quantidade, double precoUni){
+    public Encomenda(String importador, String fabricante, String produto, int quantidade, int precoUni){
         this.importador = importador;
         this.fabricante = fabricante;
         this.produto = produto;
@@ -43,7 +43,7 @@ public class Encomenda {
     }
 
     @JsonProperty
-    public double getPrecoPorUnidade(){
+    public int getPrecoPorUnidade(){
         return precoPorUnidade;
     }
 
