@@ -66,10 +66,11 @@ message NotificacaoOfertaProducao {
 }
 
 message NotificacaoResultadosImportador {
-    string fabricante = 1;
-    string produto = 2;
-    int32 quant = 3;
-    int32 preco = 4;
+    bool aceite = 1;
+    string fabricante = 2;
+    string produto = 3;
+    int32 quant = 4;
+    int32 preco = 5;
 }
 
 message NotificacaoResultadosFabricante {
