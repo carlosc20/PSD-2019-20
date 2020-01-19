@@ -1,11 +1,12 @@
 package Cliente;
 
-import Cliente.MessagingServices.AuthenticationService;
-import Cliente.MessagingServices.FabricanteService;
-import Cliente.MessagingServices.ImportadorService;
-import Cliente.MessagingServices.Session;
+import Cliente.MessagingServices.*;
+import Logic.Encomenda;
+import Logic.Producao;
 
 import java.time.Duration;
+import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
 
 public class Cliente {
@@ -41,9 +42,34 @@ public class Cliente {
         }
     }
 
+    private static boolean listening;
 
     private static void sessaoFabricante(Scanner scanner, Session session) {
         FabricanteService fs = new FabricanteService(session, "tcp://localhost:5561");
+
+        listening = true;
+        new Thread(() -> {
+            while (listening) {
+                try {
+                    List<Encomenda> list = fs.getNotification();
+                    System.out.println("-----NOTIFICAÇÃO-----");
+                    if(list == null) {
+                        System.out.println("Resultado: oferta cancelada (quantidade mínima não atingida)");
+                        // TODO direito
+                    } else {
+                        System.out.println("Resultado: encomendas aceites:");
+                        for (Encomenda e : list) {
+                            System.out.println("Quantidade: " + e.getQuantidade());
+                            System.out.println("Preço unitário: " + e.getPrecoPorUnidade());
+                        }
+                    }
+                    System.out.println("---------------------");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
         while (true) {
             String input = scanner.nextLine();
             if (input == null || input.equals("sair")) {
@@ -68,7 +94,7 @@ public class Cliente {
                             fs.fazerOfertaProducao(produto, quantMin, quantMax, precoUniMin, duracao_s);
                         break;
                     default:
-                        System.out.println("Comando não reconhecido");
+                        System.out.println("Comando não reconhecido. Use 'help' para ver lista de comandos");
                 }
                 System.out.println("Oferta concluída com sucesso.");
             } catch (Exception e) {
@@ -76,11 +102,53 @@ public class Cliente {
                 e.printStackTrace();
             }
         }
+        listening = false;
     }
 
 
     private static void sessaoImportador(Scanner scanner, Session session) {
         ImportadorService is = new ImportadorService(session, "tcp://localhost:5561");
+
+        listening = true;
+        new Thread(() -> {
+            while (listening) {
+                try {
+                    Notification notif = is.getNotification();
+                    switch(notif.getType()){
+                        case OFERTA_PRODUCAO:
+                            Producao producao = notif.getProducao();
+                            System.out.println("-----NOTIFICAÇÃO-----");
+                            System.out.println("Nova oferta de produção do fabricante '" + producao.getNomeFabricante() + "'");
+                            System.out.println("Produto: " + producao.getNomeProduto());
+                            System.out.println("Quantidade max:" + producao.getQuantidadeMax());
+                            System.out.println("Quantidade min:" + producao.getQuantidadeMin());
+                            System.out.println("Preço unitário min:" + producao.getPrecoPorUnidade());
+                            System.out.println("Negociação aberta até " + producao.getPeriodoOferta().getDataFinal());
+                            System.out.println("---------------------");
+                            break;
+                        case RESULTADO_NEGOCIACAO:
+                            Encomenda encomenda = notif.getEncomenda();
+                            System.out.println("-----NOTIFICAÇÃO-----");
+                            System.out.println("Negociação em que fez oferta de encomenda terminou");
+                            if(encomenda == null) {
+                                System.out.println("Resultado: oferta cancelada (quantidade mínima não atingida)");
+                            }
+                            else {
+                                System.out.println("Resultado: oferta aceite");
+                                System.out.println("Fabricante: " + encomenda.getNomeFabricante());
+                                System.out.println("Produto: " + encomenda.getQuantidade());
+                                System.out.println("Quantidade: " + encomenda.getQuantidade());
+                                System.out.println("Preço unitário: " + encomenda.getPrecoPorUnidade());
+                            }
+                            System.out.println("---------------------");
+                            break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
         while (true) {
             String input = scanner.nextLine();
             if (input == null || input.equals("sair")) {
@@ -107,29 +175,30 @@ public class Cliente {
                         int preco = Integer.parseInt(cmds[4]);
                         is.fazerOfertaEncomenda(fabricante, produto, quant, preco);
                         break;
-                    case "subFabricante":
+                    case "subfabricante":
                         if(checkNArgs(cmds, 1)) break;
                         is.setNotificacoesFabricante(true, cmds[1]);
                         break;
-                    case "unSubFabricante":
+                    case "unsubfabricante":
                         if(checkNArgs(cmds, 1)) break;
                         is.setNotificacoesFabricante(false, cmds[1]);
                         break;
-                    case "subResultados":
+                    case "subresultados":
                         is.setNotificacoesResultados(true);
                         break;
-                    case "unsubResultados":
+                    case "unsubresultados":
                         is.setNotificacoesResultados(false);
                         break;
                     default:
                         System.out.println("Comando não reconhecido. Use 'help' para ver lista de comandos");
                 }
-                System.out.println("Oferta concluída com sucesso.");
+                System.out.println("Operação concluída com sucesso.");
             } catch(Exception e) {
                 System.out.println("Erro ao executar operação.");
                 e.printStackTrace();
             }
         }
+        listening = false;
     }
 
     private static boolean checkNArgs(String[] cmds, int min) {

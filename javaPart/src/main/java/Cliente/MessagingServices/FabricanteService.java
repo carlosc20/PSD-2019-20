@@ -1,10 +1,17 @@
 package Cliente.MessagingServices;
 
-import ProtoBuffers.Protos;
+import Logic.Encomenda;
+
+import ProtoBuffers.Protos.OfertaEncomendaRequest;
+import ProtoBuffers.Protos.NotificacaoResultadosFabricante;
 import ProtoBuffers.Protos.OfertaProducaoRequest;
 import ProtoBuffers.Protos.OperationRequest;
+import com.google.protobuf.InvalidProtocolBufferException;
+
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FabricanteService extends UtilizadorService {
 
@@ -20,12 +27,29 @@ public class FabricanteService extends UtilizadorService {
                 .setPrecoUniMin(precoUniMin)
                 .setDuracaoS(duracao.getSeconds())
                 .build();
-        OperationRequest request = Protos.OperationRequest.newBuilder()
+        OperationRequest request = OperationRequest.newBuilder()
                 .setNome(this.getNome())
                 .setProducao(producao)
                 .build();
         this.sendOperation(request);
     }
 
+    public List<Encomenda> getNotification() throws Exception {
+        String topic = getTopic();
+        byte[] data = getPublication();
+        if(!topic.equals(this.getNome()))
+            throw new Exception();
+
+        try{
+            NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.parseFrom(data);
+            List<Encomenda> encomendas = new ArrayList<>();
+            for (OfertaEncomendaRequest r : n.getEncomendasList()) {
+                encomendas.add(new Encomenda(this.getNome(), r.getFabricante(), r.getProduto(), r.getQuant(), r.getPreco()));
+            }
+            return encomendas;
+        } catch (InvalidProtocolBufferException e) {
+            throw new Exception();
+        }
+    }
 
 }

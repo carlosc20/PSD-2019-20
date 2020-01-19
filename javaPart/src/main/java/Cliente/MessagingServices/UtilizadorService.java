@@ -67,9 +67,13 @@ abstract class UtilizadorService {
     }
 
 
-    // TODO o que devolver?
-    void getNotification() {
-        byte[] b = socketSUB.recv();
-        System.out.println(new String(b));
+    String getTopic() {
+        return socketSUB.recvStr();
     }
+
+    byte[] getPublication() {
+        return socketSUB.recv();
+    }
+
+
 }

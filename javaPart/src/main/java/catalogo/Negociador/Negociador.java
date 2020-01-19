@@ -3,18 +3,18 @@ package catalogo.Negociador;
 import Logic.Encomenda;
 import Logic.Periodo;
 import Logic.Producao;
-import ProtoBuffers.Protos;
 import ProtoBuffers.Protos.OperationResponse;
 import ProtoBuffers.Protos.OperationRequest;
 import ProtoBuffers.Protos.OfertaProducaoRequest;
 import ProtoBuffers.Protos.OfertaEncomendaRequest;
 import ProtoBuffers.Protos.NotificacaoResultadosFabricante;
 import ProtoBuffers.Protos.NotificacaoResultadosImportador;
-import ProtoBuffers.Protos.NotificacaOfertaProducao;
+import ProtoBuffers.Protos.NotificacaoOfertaProducao;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 public class Negociador {
@@ -50,7 +50,7 @@ public class Negociador {
                             OfertaProducaoRequest prodRequest = request.getProducao();
                             Producao producao = requestToObj(prodRequest, nome);
 
-                            NotificacaOfertaProducao notif = NotificacaOfertaProducao.newBuilder()
+                            NotificacaoOfertaProducao notif = NotificacaoOfertaProducao.newBuilder()
                                     .setProduto(prodRequest.getProduto())
                                     .setQuantMax(prodRequest.getQuantMax())
                                     .setQuantMin(prodRequest.getQuantMin())
@@ -66,12 +66,17 @@ public class Negociador {
                             new Thread(() -> {
                                 try {
                                     Thread.sleep(1000 * waitSeconds);
+                                    // vai buscar ofertas ao catalogo
+                                    Collection<Encomenda> encomendas = jhc.getCollection(
+                                            "producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/encomendas", Encomenda.class);
+                                    // TODO logica toda
+                                    // mínimo não atingido -> cancelada
+                                    // notificar fabricante e ofertas (quantidade min não atingida)
+                                    // guardar cancelada no catalogo
 
-                                    // TODO marca que terminou no catalogo -> vai buscar ofertas ao catalogo
-                                    Collection<Encomenda> encomendas = jhc.getCollection("encomendas", Encomenda.class);
-                                    //  calcula resultado
-                                    //  envia pubs aos subscritos
-                                    //  envia resutlado para catalogo
+                                    // ofertas aceites e não aceites notificadas, enviar notificaçoes
+                                    // guardar resultado para catalogo
+
                                 } catch (Exception e){
                                     e.printStackTrace();
                                 }
@@ -129,12 +134,13 @@ public class Negociador {
         }
     }
 
-    private static Encomenda requestToObj(OfertaEncomendaRequest request, String nome) {
-        return new Encomenda(nome, request.getFabricante(), request.getProduto(), request.getQuant(), request.getPreco());
+    private static Encomenda requestToObj(OfertaEncomendaRequest r, String nome) {
+        return new Encomenda(nome, r.getFabricante(), r.getProduto(), r.getQuant(), r.getPreco());
     }
 
     private static Producao requestToObj(OfertaProducaoRequest r, String nome) {
-        //r.getDuracaoS(); // TODO periodo direito
-        return new Producao(nome, r.getProduto(), r.getQuantMin(), r.getQuantMax(), r.getPrecoUniMin(), new Periodo());
+        LocalDateTime inicio = LocalDateTime.now();
+        LocalDateTime fim = inicio.plusSeconds(r.getDuracaoS());
+        return new Producao(nome, r.getProduto(), r.getQuantMin(), r.getQuantMax(), r.getPrecoUniMin(), new Periodo(inicio, fim));
     }
 }

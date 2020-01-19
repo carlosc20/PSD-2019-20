@@ -10,8 +10,6 @@ public class Producao {
     private int precoPorUnidade;
     private Periodo periodoOferta;
 
-    public Producao(){}
-
     public Producao(String nomeFabricante, String nomeProduto, int quantidadeMin, int quantidadeMax, int precoPorUnidade, Periodo periodoOferta){
         this.nomeFabricante = nomeFabricante;
         this.nomeProduto = nomeProduto;

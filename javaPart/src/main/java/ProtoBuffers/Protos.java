@@ -5553,8 +5553,8 @@ public final class Protos {
 
   }
 
-  public interface NotificacaOfertaProducaoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ProtoBuffers.NotificacaOfertaProducao)
+  public interface NotificacaoOfertaProducaoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProtoBuffers.NotificacaoOfertaProducao)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -5602,18 +5602,18 @@ public final class Protos {
    * Notificações
    * </pre>
    *
-   * Protobuf type {@code ProtoBuffers.NotificacaOfertaProducao}
+   * Protobuf type {@code ProtoBuffers.NotificacaoOfertaProducao}
    */
-  public  static final class NotificacaOfertaProducao extends
+  public  static final class NotificacaoOfertaProducao extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ProtoBuffers.NotificacaOfertaProducao)
-      NotificacaOfertaProducaoOrBuilder {
+      // @@protoc_insertion_point(message_implements:ProtoBuffers.NotificacaoOfertaProducao)
+      NotificacaoOfertaProducaoOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use NotificacaOfertaProducao.newBuilder() to construct.
-    private NotificacaOfertaProducao(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use NotificacaoOfertaProducao.newBuilder() to construct.
+    private NotificacaoOfertaProducao(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private NotificacaOfertaProducao() {
+    private NotificacaoOfertaProducao() {
       produto_ = "";
     }
 
@@ -5621,7 +5621,7 @@ public final class Protos {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new NotificacaOfertaProducao();
+      return new NotificacaoOfertaProducao();
     }
 
     @java.lang.Override
@@ -5629,7 +5629,7 @@ public final class Protos {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private NotificacaOfertaProducao(
+    private NotificacaoOfertaProducao(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5694,15 +5694,15 @@ public final class Protos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor;
+      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoOfertaProducao_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_fieldAccessorTable
+      return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoOfertaProducao_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ProtoBuffers.Protos.NotificacaOfertaProducao.class, ProtoBuffers.Protos.NotificacaOfertaProducao.Builder.class);
+              ProtoBuffers.Protos.NotificacaoOfertaProducao.class, ProtoBuffers.Protos.NotificacaoOfertaProducao.Builder.class);
     }
 
     public static final int PRODUTO_FIELD_NUMBER = 1;
@@ -5852,10 +5852,10 @@ public final class Protos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof ProtoBuffers.Protos.NotificacaOfertaProducao)) {
+      if (!(obj instanceof ProtoBuffers.Protos.NotificacaoOfertaProducao)) {
         return super.equals(obj);
       }
-      ProtoBuffers.Protos.NotificacaOfertaProducao other = (ProtoBuffers.Protos.NotificacaOfertaProducao) obj;
+      ProtoBuffers.Protos.NotificacaoOfertaProducao other = (ProtoBuffers.Protos.NotificacaoOfertaProducao) obj;
 
       if (!getProduto()
           .equals(other.getProduto())) return false;
@@ -5894,69 +5894,69 @@ public final class Protos {
       return hash;
     }
 
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(byte[] data)
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(java.io.InputStream input)
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseDelimitedFrom(java.io.InputStream input)
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseDelimitedFrom(
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao parseFrom(
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -5969,7 +5969,7 @@ public final class Protos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(ProtoBuffers.Protos.NotificacaOfertaProducao prototype) {
+    public static Builder newBuilder(ProtoBuffers.Protos.NotificacaoOfertaProducao prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -5989,26 +5989,26 @@ public final class Protos {
      * Notificações
      * </pre>
      *
-     * Protobuf type {@code ProtoBuffers.NotificacaOfertaProducao}
+     * Protobuf type {@code ProtoBuffers.NotificacaoOfertaProducao}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ProtoBuffers.NotificacaOfertaProducao)
-        ProtoBuffers.Protos.NotificacaOfertaProducaoOrBuilder {
+        // @@protoc_insertion_point(builder_implements:ProtoBuffers.NotificacaoOfertaProducao)
+        ProtoBuffers.Protos.NotificacaoOfertaProducaoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor;
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoOfertaProducao_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_fieldAccessorTable
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoOfertaProducao_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                ProtoBuffers.Protos.NotificacaOfertaProducao.class, ProtoBuffers.Protos.NotificacaOfertaProducao.Builder.class);
+                ProtoBuffers.Protos.NotificacaoOfertaProducao.class, ProtoBuffers.Protos.NotificacaoOfertaProducao.Builder.class);
       }
 
-      // Construct using ProtoBuffers.Protos.NotificacaOfertaProducao.newBuilder()
+      // Construct using ProtoBuffers.Protos.NotificacaoOfertaProducao.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -6042,17 +6042,17 @@ public final class Protos {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor;
+        return ProtoBuffers.Protos.internal_static_ProtoBuffers_NotificacaoOfertaProducao_descriptor;
       }
 
       @java.lang.Override
-      public ProtoBuffers.Protos.NotificacaOfertaProducao getDefaultInstanceForType() {
-        return ProtoBuffers.Protos.NotificacaOfertaProducao.getDefaultInstance();
+      public ProtoBuffers.Protos.NotificacaoOfertaProducao getDefaultInstanceForType() {
+        return ProtoBuffers.Protos.NotificacaoOfertaProducao.getDefaultInstance();
       }
 
       @java.lang.Override
-      public ProtoBuffers.Protos.NotificacaOfertaProducao build() {
-        ProtoBuffers.Protos.NotificacaOfertaProducao result = buildPartial();
+      public ProtoBuffers.Protos.NotificacaoOfertaProducao build() {
+        ProtoBuffers.Protos.NotificacaoOfertaProducao result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -6060,8 +6060,8 @@ public final class Protos {
       }
 
       @java.lang.Override
-      public ProtoBuffers.Protos.NotificacaOfertaProducao buildPartial() {
-        ProtoBuffers.Protos.NotificacaOfertaProducao result = new ProtoBuffers.Protos.NotificacaOfertaProducao(this);
+      public ProtoBuffers.Protos.NotificacaoOfertaProducao buildPartial() {
+        ProtoBuffers.Protos.NotificacaoOfertaProducao result = new ProtoBuffers.Protos.NotificacaoOfertaProducao(this);
         result.produto_ = produto_;
         result.quantMin_ = quantMin_;
         result.quantMax_ = quantMax_;
@@ -6105,16 +6105,16 @@ public final class Protos {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ProtoBuffers.Protos.NotificacaOfertaProducao) {
-          return mergeFrom((ProtoBuffers.Protos.NotificacaOfertaProducao)other);
+        if (other instanceof ProtoBuffers.Protos.NotificacaoOfertaProducao) {
+          return mergeFrom((ProtoBuffers.Protos.NotificacaoOfertaProducao)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(ProtoBuffers.Protos.NotificacaOfertaProducao other) {
-        if (other == ProtoBuffers.Protos.NotificacaOfertaProducao.getDefaultInstance()) return this;
+      public Builder mergeFrom(ProtoBuffers.Protos.NotificacaoOfertaProducao other) {
+        if (other == ProtoBuffers.Protos.NotificacaoOfertaProducao.getDefaultInstance()) return this;
         if (!other.getProduto().isEmpty()) {
           produto_ = other.produto_;
           onChanged();
@@ -6146,11 +6146,11 @@ public final class Protos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        ProtoBuffers.Protos.NotificacaOfertaProducao parsedMessage = null;
+        ProtoBuffers.Protos.NotificacaoOfertaProducao parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ProtoBuffers.Protos.NotificacaOfertaProducao) e.getUnfinishedMessage();
+          parsedMessage = (ProtoBuffers.Protos.NotificacaoOfertaProducao) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6380,41 +6380,41 @@ public final class Protos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:ProtoBuffers.NotificacaOfertaProducao)
+      // @@protoc_insertion_point(builder_scope:ProtoBuffers.NotificacaoOfertaProducao)
     }
 
-    // @@protoc_insertion_point(class_scope:ProtoBuffers.NotificacaOfertaProducao)
-    private static final ProtoBuffers.Protos.NotificacaOfertaProducao DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:ProtoBuffers.NotificacaoOfertaProducao)
+    private static final ProtoBuffers.Protos.NotificacaoOfertaProducao DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new ProtoBuffers.Protos.NotificacaOfertaProducao();
+      DEFAULT_INSTANCE = new ProtoBuffers.Protos.NotificacaoOfertaProducao();
     }
 
-    public static ProtoBuffers.Protos.NotificacaOfertaProducao getDefaultInstance() {
+    public static ProtoBuffers.Protos.NotificacaoOfertaProducao getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<NotificacaOfertaProducao>
-        PARSER = new com.google.protobuf.AbstractParser<NotificacaOfertaProducao>() {
+    private static final com.google.protobuf.Parser<NotificacaoOfertaProducao>
+        PARSER = new com.google.protobuf.AbstractParser<NotificacaoOfertaProducao>() {
       @java.lang.Override
-      public NotificacaOfertaProducao parsePartialFrom(
+      public NotificacaoOfertaProducao parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new NotificacaOfertaProducao(input, extensionRegistry);
+        return new NotificacaoOfertaProducao(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<NotificacaOfertaProducao> parser() {
+    public static com.google.protobuf.Parser<NotificacaoOfertaProducao> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<NotificacaOfertaProducao> getParserForType() {
+    public com.google.protobuf.Parser<NotificacaoOfertaProducao> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public ProtoBuffers.Protos.NotificacaOfertaProducao getDefaultInstanceForType() {
+    public ProtoBuffers.Protos.NotificacaoOfertaProducao getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -8094,10 +8094,10 @@ public final class Protos {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ProtoBuffers_OfertaEncomendaRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor;
+    internal_static_ProtoBuffers_NotificacaoOfertaProducao_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ProtoBuffers_NotificacaOfertaProducao_fieldAccessorTable;
+      internal_static_ProtoBuffers_NotificacaoOfertaProducao_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor;
   private static final 
@@ -8137,15 +8137,15 @@ public final class Protos {
       "ecoUniMin\030\004 \001(\005\022\020\n\010duracaoS\030\005 \001(\003\"[\n\026Ofe" +
       "rtaEncomendaRequest\022\022\n\nfabricante\030\001 \001(\t\022" +
       "\017\n\007produto\030\002 \001(\t\022\r\n\005quant\030\003 \001(\005\022\r\n\005preco" +
-      "\030\004 \001(\005\"v\n\030NotificacaOfertaProducao\022\017\n\007pr" +
-      "oduto\030\001 \001(\t\022\020\n\010quantMin\030\002 \001(\005\022\020\n\010quantMa" +
-      "x\030\003 \001(\005\022\023\n\013precoUniMin\030\004 \001(\005\022\020\n\010duracaoS" +
-      "\030\005 \001(\003\"d\n\037NotificacaoResultadosImportado" +
-      "r\022\022\n\nfabricante\030\001 \001(\t\022\017\n\007produto\030\002 \001(\t\022\r" +
-      "\n\005quant\030\003 \001(\005\022\r\n\005preco\030\004 \001(\005\"[\n\037Notifica" +
-      "caoResultadosFabricante\0228\n\nencomendas\030\001 " +
-      "\003(\0132$.ProtoBuffers.OfertaEncomendaReques" +
-      "tb\006proto3"
+      "\030\004 \001(\005\"w\n\031NotificacaoOfertaProducao\022\017\n\007p" +
+      "roduto\030\001 \001(\t\022\020\n\010quantMin\030\002 \001(\005\022\020\n\010quantM" +
+      "ax\030\003 \001(\005\022\023\n\013precoUniMin\030\004 \001(\005\022\020\n\010duracao" +
+      "S\030\005 \001(\003\"d\n\037NotificacaoResultadosImportad" +
+      "or\022\022\n\nfabricante\030\001 \001(\t\022\017\n\007produto\030\002 \001(\t\022" +
+      "\r\n\005quant\030\003 \001(\005\022\r\n\005preco\030\004 \001(\005\"[\n\037Notific" +
+      "acaoResultadosFabricante\0228\n\nencomendas\030\001" +
+      " \003(\0132$.ProtoBuffers.OfertaEncomendaReque" +
+      "stb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8193,11 +8193,11 @@ public final class Protos {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_OfertaEncomendaRequest_descriptor,
         new java.lang.String[] { "Fabricante", "Produto", "Quant", "Preco", });
-    internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor =
+    internal_static_ProtoBuffers_NotificacaoOfertaProducao_descriptor =
       getDescriptor().getMessageTypes().get(7);
-    internal_static_ProtoBuffers_NotificacaOfertaProducao_fieldAccessorTable = new
+    internal_static_ProtoBuffers_NotificacaoOfertaProducao_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ProtoBuffers_NotificacaOfertaProducao_descriptor,
+        internal_static_ProtoBuffers_NotificacaoOfertaProducao_descriptor,
         new java.lang.String[] { "Produto", "QuantMin", "QuantMax", "PrecoUniMin", "DuracaoS", });
     internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor =
       getDescriptor().getMessageTypes().get(8);
