@@ -1,8 +1,10 @@
 -module(frontend).
 
+-include("protos/protos.hrl").
 
 %% API exports
 -export([main/1]).
+
 
 %%====================================================================
 %% API functions
@@ -58,6 +60,7 @@ execute_job(Parent, Identity, Message, Worker) ->
     end.
 
 main(Args) ->
+    io:format("~p~n", [Args]),
     application:ensure_started(chumak),
     {ok, Socket} = chumak:socket(router),
     {ok, _BindPid} = chumak:bind(Socket, tcp, "localhost", 5555),
