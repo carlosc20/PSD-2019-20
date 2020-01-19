@@ -5588,14 +5588,28 @@ public final class Protos {
     int getPrecoUniMin();
 
     /**
-     * <pre>
-     * data final?
-     * </pre>
-     *
-     * <code>int64 duracaoS = 5;</code>
-     * @return The duracaoS.
+     * <code>string dataInicial = 5;</code>
+     * @return The dataInicial.
      */
-    long getDuracaoS();
+    java.lang.String getDataInicial();
+    /**
+     * <code>string dataInicial = 5;</code>
+     * @return The bytes for dataInicial.
+     */
+    com.google.protobuf.ByteString
+        getDataInicialBytes();
+
+    /**
+     * <code>string dataFinal = 6;</code>
+     * @return The dataFinal.
+     */
+    java.lang.String getDataFinal();
+    /**
+     * <code>string dataFinal = 6;</code>
+     * @return The bytes for dataFinal.
+     */
+    com.google.protobuf.ByteString
+        getDataFinalBytes();
   }
   /**
    * <pre>
@@ -5615,6 +5629,8 @@ public final class Protos {
     }
     private NotificacaoOfertaProducao() {
       produto_ = "";
+      dataInicial_ = "";
+      dataFinal_ = "";
     }
 
     @java.lang.Override
@@ -5668,9 +5684,16 @@ public final class Protos {
               precoUniMin_ = input.readInt32();
               break;
             }
-            case 40: {
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              duracaoS_ = input.readInt64();
+              dataInicial_ = s;
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              dataFinal_ = s;
               break;
             }
             default: {
@@ -5771,18 +5794,76 @@ public final class Protos {
       return precoUniMin_;
     }
 
-    public static final int DURACAOS_FIELD_NUMBER = 5;
-    private long duracaoS_;
+    public static final int DATAINICIAL_FIELD_NUMBER = 5;
+    private volatile java.lang.Object dataInicial_;
     /**
-     * <pre>
-     * data final?
-     * </pre>
-     *
-     * <code>int64 duracaoS = 5;</code>
-     * @return The duracaoS.
+     * <code>string dataInicial = 5;</code>
+     * @return The dataInicial.
      */
-    public long getDuracaoS() {
-      return duracaoS_;
+    public java.lang.String getDataInicial() {
+      java.lang.Object ref = dataInicial_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        dataInicial_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string dataInicial = 5;</code>
+     * @return The bytes for dataInicial.
+     */
+    public com.google.protobuf.ByteString
+        getDataInicialBytes() {
+      java.lang.Object ref = dataInicial_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        dataInicial_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DATAFINAL_FIELD_NUMBER = 6;
+    private volatile java.lang.Object dataFinal_;
+    /**
+     * <code>string dataFinal = 6;</code>
+     * @return The dataFinal.
+     */
+    public java.lang.String getDataFinal() {
+      java.lang.Object ref = dataFinal_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        dataFinal_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string dataFinal = 6;</code>
+     * @return The bytes for dataFinal.
+     */
+    public com.google.protobuf.ByteString
+        getDataFinalBytes() {
+      java.lang.Object ref = dataFinal_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        dataFinal_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -5811,8 +5892,11 @@ public final class Protos {
       if (precoUniMin_ != 0) {
         output.writeInt32(4, precoUniMin_);
       }
-      if (duracaoS_ != 0L) {
-        output.writeInt64(5, duracaoS_);
+      if (!getDataInicialBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, dataInicial_);
+      }
+      if (!getDataFinalBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, dataFinal_);
       }
       unknownFields.writeTo(output);
     }
@@ -5838,9 +5922,11 @@ public final class Protos {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, precoUniMin_);
       }
-      if (duracaoS_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(5, duracaoS_);
+      if (!getDataInicialBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, dataInicial_);
+      }
+      if (!getDataFinalBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, dataFinal_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5865,8 +5951,10 @@ public final class Protos {
           != other.getQuantMax()) return false;
       if (getPrecoUniMin()
           != other.getPrecoUniMin()) return false;
-      if (getDuracaoS()
-          != other.getDuracaoS()) return false;
+      if (!getDataInicial()
+          .equals(other.getDataInicial())) return false;
+      if (!getDataFinal()
+          .equals(other.getDataFinal())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -5886,9 +5974,10 @@ public final class Protos {
       hash = (53 * hash) + getQuantMax();
       hash = (37 * hash) + PRECOUNIMIN_FIELD_NUMBER;
       hash = (53 * hash) + getPrecoUniMin();
-      hash = (37 * hash) + DURACAOS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getDuracaoS());
+      hash = (37 * hash) + DATAINICIAL_FIELD_NUMBER;
+      hash = (53 * hash) + getDataInicial().hashCode();
+      hash = (37 * hash) + DATAFINAL_FIELD_NUMBER;
+      hash = (53 * hash) + getDataFinal().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6034,7 +6123,9 @@ public final class Protos {
 
         precoUniMin_ = 0;
 
-        duracaoS_ = 0L;
+        dataInicial_ = "";
+
+        dataFinal_ = "";
 
         return this;
       }
@@ -6066,7 +6157,8 @@ public final class Protos {
         result.quantMin_ = quantMin_;
         result.quantMax_ = quantMax_;
         result.precoUniMin_ = precoUniMin_;
-        result.duracaoS_ = duracaoS_;
+        result.dataInicial_ = dataInicial_;
+        result.dataFinal_ = dataFinal_;
         onBuilt();
         return result;
       }
@@ -6128,8 +6220,13 @@ public final class Protos {
         if (other.getPrecoUniMin() != 0) {
           setPrecoUniMin(other.getPrecoUniMin());
         }
-        if (other.getDuracaoS() != 0L) {
-          setDuracaoS(other.getDuracaoS());
+        if (!other.getDataInicial().isEmpty()) {
+          dataInicial_ = other.dataInicial_;
+          onChanged();
+        }
+        if (!other.getDataFinal().isEmpty()) {
+          dataFinal_ = other.dataFinal_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -6326,44 +6423,154 @@ public final class Protos {
         return this;
       }
 
-      private long duracaoS_ ;
+      private java.lang.Object dataInicial_ = "";
       /**
-       * <pre>
-       * data final?
-       * </pre>
-       *
-       * <code>int64 duracaoS = 5;</code>
-       * @return The duracaoS.
+       * <code>string dataInicial = 5;</code>
+       * @return The dataInicial.
        */
-      public long getDuracaoS() {
-        return duracaoS_;
+      public java.lang.String getDataInicial() {
+        java.lang.Object ref = dataInicial_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          dataInicial_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <pre>
-       * data final?
-       * </pre>
-       *
-       * <code>int64 duracaoS = 5;</code>
-       * @param value The duracaoS to set.
+       * <code>string dataInicial = 5;</code>
+       * @return The bytes for dataInicial.
+       */
+      public com.google.protobuf.ByteString
+          getDataInicialBytes() {
+        java.lang.Object ref = dataInicial_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          dataInicial_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string dataInicial = 5;</code>
+       * @param value The dataInicial to set.
        * @return This builder for chaining.
        */
-      public Builder setDuracaoS(long value) {
-        
-        duracaoS_ = value;
+      public Builder setDataInicial(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        dataInicial_ = value;
         onChanged();
         return this;
       }
       /**
-       * <pre>
-       * data final?
-       * </pre>
-       *
-       * <code>int64 duracaoS = 5;</code>
+       * <code>string dataInicial = 5;</code>
        * @return This builder for chaining.
        */
-      public Builder clearDuracaoS() {
+      public Builder clearDataInicial() {
         
-        duracaoS_ = 0L;
+        dataInicial_ = getDefaultInstance().getDataInicial();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string dataInicial = 5;</code>
+       * @param value The bytes for dataInicial to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDataInicialBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        dataInicial_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object dataFinal_ = "";
+      /**
+       * <code>string dataFinal = 6;</code>
+       * @return The dataFinal.
+       */
+      public java.lang.String getDataFinal() {
+        java.lang.Object ref = dataFinal_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          dataFinal_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string dataFinal = 6;</code>
+       * @return The bytes for dataFinal.
+       */
+      public com.google.protobuf.ByteString
+          getDataFinalBytes() {
+        java.lang.Object ref = dataFinal_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          dataFinal_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string dataFinal = 6;</code>
+       * @param value The dataFinal to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDataFinal(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        dataFinal_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string dataFinal = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDataFinal() {
+        
+        dataFinal_ = getDefaultInstance().getDataFinal();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string dataFinal = 6;</code>
+       * @param value The bytes for dataFinal to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDataFinalBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        dataFinal_ = value;
         onChanged();
         return this;
       }
@@ -8137,15 +8344,15 @@ public final class Protos {
       "ecoUniMin\030\004 \001(\005\022\020\n\010duracaoS\030\005 \001(\003\"[\n\026Ofe" +
       "rtaEncomendaRequest\022\022\n\nfabricante\030\001 \001(\t\022" +
       "\017\n\007produto\030\002 \001(\t\022\r\n\005quant\030\003 \001(\005\022\r\n\005preco" +
-      "\030\004 \001(\005\"w\n\031NotificacaoOfertaProducao\022\017\n\007p" +
-      "roduto\030\001 \001(\t\022\020\n\010quantMin\030\002 \001(\005\022\020\n\010quantM" +
-      "ax\030\003 \001(\005\022\023\n\013precoUniMin\030\004 \001(\005\022\020\n\010duracao" +
-      "S\030\005 \001(\003\"d\n\037NotificacaoResultadosImportad" +
-      "or\022\022\n\nfabricante\030\001 \001(\t\022\017\n\007produto\030\002 \001(\t\022" +
-      "\r\n\005quant\030\003 \001(\005\022\r\n\005preco\030\004 \001(\005\"[\n\037Notific" +
-      "acaoResultadosFabricante\0228\n\nencomendas\030\001" +
-      " \003(\0132$.ProtoBuffers.OfertaEncomendaReque" +
-      "stb\006proto3"
+      "\030\004 \001(\005\"\215\001\n\031NotificacaoOfertaProducao\022\017\n\007" +
+      "produto\030\001 \001(\t\022\020\n\010quantMin\030\002 \001(\005\022\020\n\010quant" +
+      "Max\030\003 \001(\005\022\023\n\013precoUniMin\030\004 \001(\005\022\023\n\013dataIn" +
+      "icial\030\005 \001(\t\022\021\n\tdataFinal\030\006 \001(\t\"d\n\037Notifi" +
+      "cacaoResultadosImportador\022\022\n\nfabricante\030" +
+      "\001 \001(\t\022\017\n\007produto\030\002 \001(\t\022\r\n\005quant\030\003 \001(\005\022\r\n" +
+      "\005preco\030\004 \001(\005\"[\n\037NotificacaoResultadosFab" +
+      "ricante\0228\n\nencomendas\030\001 \003(\0132$.ProtoBuffe" +
+      "rs.OfertaEncomendaRequestb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8198,7 +8405,7 @@ public final class Protos {
     internal_static_ProtoBuffers_NotificacaoOfertaProducao_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_NotificacaoOfertaProducao_descriptor,
-        new java.lang.String[] { "Produto", "QuantMin", "QuantMax", "PrecoUniMin", "DuracaoS", });
+        new java.lang.String[] { "Produto", "QuantMin", "QuantMax", "PrecoUniMin", "DataInicial", "DataFinal", });
     internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_ProtoBuffers_NotificacaoResultadosImportador_fieldAccessorTable = new

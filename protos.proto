@@ -61,7 +61,8 @@ message NotificacaoOfertaProducao {
     int32 quantMin = 2;
     int32 quantMax = 3;
     int32 precoUniMin = 4;
-    int64 duracaoS = 5; // data final?
+    string dataInicial = 5;
+    string dataFinal = 6;
 }
 
 message NotificacaoResultadosImportador {

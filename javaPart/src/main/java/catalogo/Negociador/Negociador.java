@@ -15,6 +15,7 @@ import org.zeromq.ZMQ;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 public class Negociador {
@@ -50,14 +51,17 @@ public class Negociador {
                             OfertaProducaoRequest prodRequest = request.getProducao();
                             Producao producao = requestToObj(prodRequest, nome);
 
+                            // avisa os importadores subscritos
+                            LocalDateTime inicio = LocalDateTime.now();
+                            LocalDateTime fim = inicio.plusSeconds(prodRequest.getDuracaoS());
                             NotificacaoOfertaProducao notif = NotificacaoOfertaProducao.newBuilder()
                                     .setProduto(prodRequest.getProduto())
                                     .setQuantMax(prodRequest.getQuantMax())
                                     .setQuantMin(prodRequest.getQuantMin())
                                     .setPrecoUniMin(prodRequest.getPrecoUniMin())
-                                    .setDuracaoS(prodRequest.getDuracaoS())
+                                    .setDataInicial(inicio.format(DateTimeFormatter.ISO_DATE_TIME))
+                                    .setDataFinal(fim.format(DateTimeFormatter.ISO_DATE_TIME))
                                     .build();
-                            // avisa os importadores subscritos
                             socketPUB.sendMore(nome);
                             socketPUB.send(notif.toByteArray());
 

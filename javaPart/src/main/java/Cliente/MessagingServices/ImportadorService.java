@@ -7,7 +7,10 @@ import ProtoBuffers.Protos.NotificacaoResultadosImportador;
 import ProtoBuffers.Protos.OperationRequest;
 import ProtoBuffers.Protos.OfertaEncomendaRequest;
 import ProtoBuffers.Protos.NotificacaoOfertaProducao;
-import com.google.protobuf.InvalidProtocolBufferException;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ImportadorService extends UtilizadorService {
 
@@ -38,24 +41,21 @@ public class ImportadorService extends UtilizadorService {
     }
 
 
-    public Notification getNotification() throws Exception {
+    public Notification getNotification() throws IOException {
         String topic = getTopic();
         byte[] data = getPublication();
-        try {
-            if(topic.equals(this.getNome())) {
-                // resultado negociação
-                NotificacaoResultadosImportador n = NotificacaoResultadosImportador.parseFrom(data);
-                Encomenda encomenda = new Encomenda(this.getNome(), n.getFabricante(), n.getProduto(), n.getQuant(), n.getPreco());
-                return new Notification(encomenda);
-            } else {
-                // oferta de fabricante subscrito
-                NotificacaoOfertaProducao n = NotificacaoOfertaProducao.parseFrom(data);
-                // TODO periodo
-                Producao producao = new Producao(topic, n.getProduto(), n.getQuantMin(), n.getQuantMax(), n.getPrecoUniMin(), new Periodo());
-                return new Notification(producao);
-            }
-        } catch (InvalidProtocolBufferException e) {
-            throw new Exception();
+        if(topic.equals(this.getNome())) {
+            // resultado negociação
+            NotificacaoResultadosImportador n = NotificacaoResultadosImportador.parseFrom(data);
+            Encomenda encomenda = new Encomenda(this.getNome(), n.getFabricante(), n.getProduto(), n.getQuant(), n.getPreco());
+            return new Notification(encomenda);
+        } else {
+            // oferta de fabricante subscrito
+            NotificacaoOfertaProducao n = NotificacaoOfertaProducao.parseFrom(data);
+            LocalDateTime inicio = LocalDateTime.parse(n.getDataInicial(), DateTimeFormatter.ISO_DATE_TIME);
+            LocalDateTime fim = LocalDateTime.parse(n.getDataFinal(), DateTimeFormatter.ISO_DATE_TIME);
+            Producao producao = new Producao(topic, n.getProduto(), n.getQuantMin(), n.getQuantMax(), n.getPrecoUniMin(), new Periodo(inicio, fim));
+            return new Notification(producao);
         }
     }
 

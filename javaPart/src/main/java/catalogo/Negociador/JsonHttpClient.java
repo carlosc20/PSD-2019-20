@@ -13,20 +13,18 @@ import java.util.Collection;
 
 public class JsonHttpClient {
 
+    private HttpClient client = HttpClient.newHttpClient();
+    private final String scheme = "http";
+    private String authority;
     private ObjectMapper om;
     private ObjectWriter ow;
-    private String authority;
-    private final String scheme = "http";
-    private HttpClient client;
 
     public JsonHttpClient(String authority){
         om = new ObjectMapper();
         om.registerModule(new JavaTimeModule());
         ow = om.writer();
-        client =  HttpClient.newHttpClient();
         this.authority = authority;
     }
-
 
     private String getBodyJson(String path) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()

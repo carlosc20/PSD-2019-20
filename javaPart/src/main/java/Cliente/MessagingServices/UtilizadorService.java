@@ -3,8 +3,9 @@ package Cliente.MessagingServices;
 import ProtoBuffers.Protos.OperationResponse;
 import ProtoBuffers.Protos.AuthOperationRequest;
 import ProtoBuffers.Protos.OperationRequest;
-import com.google.protobuf.InvalidProtocolBufferException;
 import org.zeromq.ZMQ;
+
+import java.io.IOException;
 
 abstract class UtilizadorService {
 
@@ -31,8 +32,7 @@ abstract class UtilizadorService {
         return password;
     }
 
-    // TODO exceptions
-    void sendOperation(OperationRequest request) throws Exception {
+    void sendOperation(OperationRequest request) throws IOException {
         // enviar
         AuthOperationRequest message = AuthOperationRequest.newBuilder()
                 .setPassword(password)
@@ -42,19 +42,14 @@ abstract class UtilizadorService {
 
         // receber
         byte[] reply = socketREQ.recv(0);
-        try {
-            OperationResponse response = OperationResponse.parseFrom(reply);
-            switch (response.getCode()){
-                case OK:
-                    return;
-                case INVALID:
-                    throw new Exception();
-                default:
-                    throw new Exception();
-            }
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-            throw new Exception();
+        OperationResponse response = OperationResponse.parseFrom(reply);
+        switch (response.getCode()){
+            case OK:
+                return;
+            case INVALID:
+                throw new IOException();
+            default:
+                throw new IOException(); // TODO erros mais detalhados
         }
     }
 

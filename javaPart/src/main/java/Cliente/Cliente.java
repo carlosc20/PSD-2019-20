@@ -5,7 +5,6 @@ import Logic.Encomenda;
 import Logic.Producao;
 
 import java.time.Duration;
-import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -55,7 +54,7 @@ public class Cliente {
                     System.out.println("-----NOTIFICAÇÃO-----");
                     if(list == null) {
                         System.out.println("Resultado: oferta cancelada (quantidade mínima não atingida)");
-                        // TODO direito
+                        // TODO mais informação
                     } else {
                         System.out.println("Resultado: encomendas aceites:");
                         for (Encomenda e : list) {
