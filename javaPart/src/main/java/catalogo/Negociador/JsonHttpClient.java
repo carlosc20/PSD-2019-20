@@ -60,4 +60,16 @@ public class JsonHttpClient {
         HttpResponse<?> response = client.send(request, HttpResponse.BodyHandlers.discarding());
         return response.statusCode();
     }
+
+    public <T> int put(String path, T obj) throws IOException, InterruptedException {
+        String data = ow.writeValueAsString(obj);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(scheme + "://" + authority + "/" + path))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(data))
+                .build();
+
+        HttpResponse<?> response = client.send(request, HttpResponse.BodyHandlers.discarding());
+        return response.statusCode();
+    }
 }

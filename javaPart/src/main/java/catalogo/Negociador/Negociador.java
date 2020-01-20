@@ -21,7 +21,6 @@ import java.util.Collection;
 
 public class Negociador {
 
-
     private static final JsonHttpClient jhc = new JsonHttpClient("localhost:12345");
     private static ZMQ.Socket socketPUB;
 
@@ -85,7 +84,7 @@ public class Negociador {
 
     private static OperationResponse processEncomenda(Encomenda encomenda) throws IOException, InterruptedException {
         // vai buscar oferta ao catalogo
-        Producao prod = jhc.getObject("producoes", Producao.class);
+        Producao prod = jhc.getObject("producoes/" + encomenda.getNomeFabricante() + "/" + encomenda.getNomeProduto(), Producao.class);
         if(prod != null) {
             if(encomenda.getPrecoPorUnidade() < prod.getPrecoPorUnidade()) {
                 // nao atinge preco minimo
@@ -96,7 +95,7 @@ public class Negociador {
                 return REPLY_INVALID;
             }
             // tudo ok, envia para catalogo
-            int statusCode = jhc.post("encomendas", encomenda);
+            int statusCode = jhc.post("producoes/" + encomenda.getNomeFabricante() + "/" + encomenda.getNomeProduto() + "/encomendas", encomenda);
             if (statusCode >= 200 && statusCode < 300) {
                 return REPLY_OK;
             }
@@ -145,11 +144,12 @@ public class Negociador {
                 if(quantTotal < quantMin) {
                     // mínimo não atingido -> cancelada
 
-                    // notifica importadores participantes
+                    // notifica importadores participantes e guarda no catalogo
                     for (Encomenda e : encomendas) {
                         NotificacaoResultadosImportador n = encomendaToNotif(e, false);
                         socketPUB.sendMore(e.getNomeImportador());
                         socketPUB.send(n.toByteArray());
+                        jhc.put("producoes/" + e.getNomeFabricante() + "/" + e.getNomeProduto() + "/encomendas/recusadas", e);
                     }
 
                     // notifica fabricante
@@ -159,7 +159,7 @@ public class Negociador {
 
                     // guarda no catalogo
                     // TODO guardar cancelada no catalogo
-
+                    jhc.put("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/canceladas", producao);
                 } else {
                     // mínimo atingido, encomendas aceites
 
@@ -170,11 +170,13 @@ public class Negociador {
                             NotificacaoResultadosImportador n = encomendaToNotif(e, true);
                             socketPUB.sendMore(e.getNomeImportador());
                             socketPUB.send(n.toByteArray());
+                            jhc.put("producoes/" + e.getNomeFabricante() + "/" + e.getNomeProduto() + "/encomendas/aceites", e);
                             j++;
                         } else { // encomenda não aceite
                             NotificacaoResultadosImportador n = encomendaToNotif(e, false);
                             socketPUB.sendMore(e.getNomeImportador());
                             socketPUB.send(n.toByteArray());
+                            jhc.put("producoes/" + e.getNomeFabricante() + "/" + e.getNomeProduto() + "/encomendas/recusadas", e);
                         }
                     }
 
@@ -196,7 +198,7 @@ public class Negociador {
                     socketPUB.send(n.toByteArray());
 
                     // guarda resultado no catalogo
-                    // TODO guardar resultado para catalogo
+                    jhc.put("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/aceites", producao);
                 }
             } catch (Exception e){
                 e.printStackTrace();

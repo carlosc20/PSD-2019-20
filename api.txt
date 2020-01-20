@@ -5,18 +5,27 @@ GET /producoes                             -> todas as produções disponiveis
 GET /producoes/{nome}	                   -> todas as produçoes de um fabricante 
 GET /producoes/{nome}/canceladas           -> producoes canceladas de um fabricante
 GET /producoes/{nome}/terminadas           -> producoes terminadas de um fabricante
-GET /producoes/{nome}/{produto}            -> producao de determinado produto de um fabricante
-GET /producoes/{nome}/{produto}/encomendas -> encomendas de determinado produto de um fabricante
+->GET /producoes/{nome}/{produto}            -> producao de determinado produto de um fabricante
+->GET /producoes/{nome}/{produto}/encomendas -> encomendas de determinado produto de um fabricante
 GET /utilizadores 		           -> todos os utilizadores
 GET /utilizadores/{nome} 	           -> um utilizador
 
-POST /importacoes/{nome}/cancelada 	   -> coloca uma encomenda(body) cancelada
+
+
+PUT /importacoes/{nome}/cancelada 	   -> coloca uma encomenda(body) cancelada
 POST /importacoes/{nome}/emCurso           -> coloca uma encomenda(body) em curso
-POST /importacoes/{nome}/terminada         -> coloca uma encomenda(body) terminada
+PUT /importacoes/{nome}/terminada         -> coloca uma encomenda(body) terminada
 POST /producoes/{nome}/cancelada           -> coloca uma producao(body) cancelada
-POST /producoes/{nome}/encomenda/{produto} -> coloca uma producao(body) numa producao de determinado produto de um fabricate
+->POST /producoes/{nome}/encomenda/{produto} -> coloca uma producao(body) numa producao de determinado produto de um fabricate
 POST /producoes/{nome}/terminada 	   -> coloca uma producao terminada
-POST /producoes/{nome}/{produto} 	   -> coloca uma produção(body) de um produto
+->POST /producoes/{nome}/{produto} 	   -> coloca uma produção(body) de um produto
 
 DELETE  /importacoes/{nome}/emCurso 	   -> retira uma encomenda em curso, devolve a encomenda retirada
 DELETE  /producoes/{nome}/{produto} 	   -> retira uma producao de um produto, devolve a producao retirada
+
+
+POST /producoes/{nome}/{produto}/encomendas -> coloca uma encomenda(body) numa producao de determinado produto de um fabricate
+PUT /producoes/{nome}/{produto}/encomendas/aceites
+PUT /producoes/{nome}/{produto}/encomendas/recusada
+PUT /producoes/{nome}/{produto}/aceites
+PUT /producoes/{nome}/{produto}/canceladas
