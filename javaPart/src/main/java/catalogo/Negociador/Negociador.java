@@ -1,8 +1,9 @@
 package catalogo.Negociador;
 
 import Logic.Encomenda;
-import Logic.Periodo;
 import Logic.Producao;
+import Logic.Utilizador;
+import ProtoBuffers.Protos.LoginResponse;
 import ProtoBuffers.Protos.OperationResponse;
 import ProtoBuffers.Protos.OperationRequest;
 import ProtoBuffers.Protos.OfertaProducaoRequest;
@@ -33,14 +34,39 @@ public class Negociador {
 
             OperationResponse reply;
             while (!Thread.currentThread().isInterrupted()) {
+                reply = REPLY_OK;
                 byte[] data = socketREP.recv(0);
                 try {
                     OperationRequest request = OperationRequest.parseFrom(data);
                     String nome = request.getNome();
+                    String password = request.getPassword();
+                    Utilizador utilizador = jhc.getObject("utilizadores/" + nome, Utilizador.class);
+
+
                     System.out.println("=========================================================");
                     System.out.print("Recebe de " + nome + ": ");
                     switch (request.getRequestCase().getNumber()){
+                        case 0:
+                            LoginResponse.TipoUtilizador tipo = LoginResponse.TipoUtilizador.UNRECOGNIZED;
+                            if(!utilizador.getPassword().equals(password)){
+                                tipo = LoginResponse.TipoUtilizador.ERRO;
+                                break;
+                            }
+                            if(utilizador.tipo.equals("fabricante")){
+                                tipo = LoginResponse.TipoUtilizador.FABRICANTE;
+                            } else if(utilizador.tipo.equals("importador")){
+                                tipo = LoginResponse.TipoUtilizador.IMPORTADOR;
+                            }
+                            LoginResponse response = LoginResponse.newBuilder()
+                                    .setTipo(tipo)
+                                    .build();
+                            socketREP.send(response.toByteArray(), 0);
+                            continue;
                         case OperationRequest.PRODUCAO_FIELD_NUMBER: // OFERTA DE PRODUÇÃO
+                            if(!utilizador.getPassword().equals(password)){
+                                reply = REPLY_INVALID;
+                                break;
+                            }
                             System.out.println("Oferta de produção");
                             OfertaProducaoRequest prodRequest = request.getProducao();
                             Producao producao = Producao.fromProtoRequest(request);
@@ -61,13 +87,15 @@ public class Negociador {
                             periodoNegociacao(waitSeconds, producao, nome).start();
                             break;
                         case OperationRequest.ENCOMENDA_FIELD_NUMBER: // OFERTA DE ENCOMENDA
+                            if(!utilizador.getPassword().equals(password)){
+                                reply = REPLY_INVALID;
+                                break;
+                            }
                             System.out.println("Oferta de encomenda");
                             Encomenda encomenda = Encomenda.fromProtoRequest(request);
                             System.out.println(encomenda);
                             reply = processEncomenda(encomenda);
                             break;
-                        default:
-                            reply = REPLY_INVALID;
                     }
                 } catch (IOException | InterruptedException e) {
                     System.err.println(e.toString());
@@ -143,12 +171,16 @@ public class Negociador {
                     System.out.println("Nenhuma oferta de encomenda feita");
 
                     System.out.println("Notifica fabricante:");
-                    NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.newBuilder().build();
-                    socketPUB.sendMore(nomeFabricante);
+                    NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.newBuilder()
+                            .setProduto(producao.getNomeProduto())
+                            .build();
+                    String topic = "#"+nomeFabricante;
+                    socketPUB.sendMore(topic);
                     socketPUB.send(n.toByteArray());
-                    System.out.println("Enviou notificação: PUB " + nomeFabricante);
+                    System.out.println("Enviou notificação: PUB " + topic);
 
                     jhc.put("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/canceladas", producao);
+                    System.out.println("=========================================================");
                     return;
                 }
 
@@ -187,10 +219,13 @@ public class Negociador {
                     }
 
                     System.out.println("Notifica fabricante:");
-                    NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.newBuilder().build();
-                    socketPUB.sendMore(nomeFabricante);
+                    NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.newBuilder()
+                            .setProduto(producao.getNomeProduto())
+                            .build();
+                    String topic = "#"+nomeFabricante;
+                    socketPUB.sendMore(topic);
                     socketPUB.send(n.toByteArray());
-                    System.out.println("Enviou notificação: PUB " + nomeFabricante);
+                    System.out.println("Enviou notificação: PUB " + topic);
 
                     jhc.put("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/canceladas", producao);
                 } else {
@@ -227,11 +262,13 @@ public class Negociador {
                         );
                     }
                     NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.newBuilder()
+                            .setProduto(producao.getNomeProduto())
                             .addAllEncomendas(aceitesR)
                             .build();
-                    socketPUB.sendMore(nomeFabricante);
+                    String topic = "#"+nomeFabricante;
+                    socketPUB.sendMore(topic);
                     socketPUB.send(n.toByteArray());
-                    System.out.println("Enviou notificação: PUB " + nomeFabricante);
+                    System.out.println("Enviou notificação: PUB " + topic);
 
                     jhc.put("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/aceites", producao);
                 }

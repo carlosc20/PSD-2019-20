@@ -23,7 +23,7 @@ public class AuthenticationService {
     public Session login(String username, String password) throws Exception {
 
         // enviar
-        LoginRequest request = LoginRequest.newBuilder()
+        OperationRequest request = OperationRequest.newBuilder()
                 .setNome(username)
                 .setPassword(password)
                 .build();
@@ -52,14 +52,4 @@ public class AuthenticationService {
     }
 
 
-
-    // TESTE
-    public Session loginImportador(String username, String password) {
-        return new Session(username, password, IMPORTADOR, context, socket);
-    }
-
-
-    public Session loginFabricante(String username, String password) {
-        return new Session(username, password, FABRICANTE, context, socket);
-    }
 }

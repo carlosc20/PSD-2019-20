@@ -3,18 +3,18 @@ package Cliente.MessagingServices;
 import Logic.Encomenda;
 import Logic.Producao;
 
-public class Notification {
+public class ImportadorNotification {
 
     private NotificationType type;
     private Encomenda encomenda;
     private Producao producao;
 
-    public Notification(Producao producao) {
+    public ImportadorNotification(Producao producao) {
         type = NotificationType.OFERTA_PRODUCAO;
         this.producao = producao;
     }
 
-    public Notification(Encomenda encomenda) {
+    public ImportadorNotification(Encomenda encomenda) {
         type = NotificationType.RESULTADO_NEGOCIACAO;
         this.encomenda = encomenda;
     }

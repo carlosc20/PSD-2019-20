@@ -16,6 +16,7 @@ public class ImportadorService extends UtilizadorService {
 
     public ImportadorService(Session session, String server) {
         super(session, server);
+        this.setSubscription(this.getNome(), true);
     }
 
     public void fazerOfertaEncomenda(String fabricante, String produto, int quant, int preco) throws Exception {
@@ -42,21 +43,21 @@ public class ImportadorService extends UtilizadorService {
     }
 
 
-    public Notification getNotification() throws IOException {
+    public ImportadorNotification getNotification() throws IOException {
         String topic = getTopic();
         byte[] data = getPublication();
         if(topic.equals(this.getNome())) {
             // resultado negociação
             NotificacaoResultadosImportador n = NotificacaoResultadosImportador.parseFrom(data);
             Encomenda encomenda = new Encomenda(this.getNome(), n.getFabricante(), n.getProduto(), n.getQuant(), n.getPreco());
-            return new Notification(encomenda);
+            return new ImportadorNotification(encomenda);
         } else {
             // oferta de fabricante subscrito
             NotificacaoOfertaProducao n = NotificacaoOfertaProducao.parseFrom(data);
             LocalDateTime inicio = LocalDateTime.parse(n.getDataInicial(), DateTimeFormatter.ISO_DATE_TIME);
             LocalDateTime fim = LocalDateTime.parse(n.getDataFinal(), DateTimeFormatter.ISO_DATE_TIME);
             Producao producao = new Producao(topic, n.getProduto(), n.getQuantMin(), n.getQuantMax(), n.getPrecoUniMin(), new Periodo(inicio, fim));
-            return new Notification(producao);
+            return new ImportadorNotification(producao);
         }
     }
 
