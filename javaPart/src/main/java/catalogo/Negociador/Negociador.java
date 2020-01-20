@@ -28,15 +28,15 @@ public class Negociador {
     public Negociador() {}
 
     public static void main(String[] args) {
-        new Negociador().start("tcp://*:5555", "tcp://*:6666");
+        new Negociador().start("tcp://*:5556", "tcp://*:6666", "X");
     }
 
-    public void start(String addrREP, String addrPUB) {
+    public void start(String addrREP, String addrPUB, String identity) {
         try (ZContext context = new ZContext()) {
             System.out.println("REP: " + addrREP + ", PUB: " + addrPUB);
             ZMQ.Socket socketREP = context.createSocket(ZMQ.REP);
-            socketREP.connect("tcp://localhost:5556");
-            socketREP.setIdentity("X".getBytes(ZMQ.CHARSET));
+            socketREP.connect(addrREP);
+            socketREP.setIdentity(identity.getBytes(ZMQ.CHARSET));
             socketPUB = context.createSocket(ZMQ.PUB);
             socketPUB.bind(addrPUB);
 
