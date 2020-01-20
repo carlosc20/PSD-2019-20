@@ -27,9 +27,10 @@ public class ImportadorService extends UtilizadorService {
                 .build();
         OperationRequest request = OperationRequest.newBuilder()
                 .setNome(this.getNome())
+                .setPassword(this.getPassword())
                 .setEncomenda(encomenda)
                 .build();
-        this.sendOperation(request);
+        this.sendOperation(request.toByteArray());
     }
 
     public void setNotificacoesFabricante(boolean on, String fabricante) {

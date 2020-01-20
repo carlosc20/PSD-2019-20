@@ -1,8 +1,6 @@
 package Cliente.MessagingServices;
 
 import ProtoBuffers.Protos.OperationResponse;
-import ProtoBuffers.Protos.AuthOperationRequest;
-import ProtoBuffers.Protos.OperationRequest;
 import org.zeromq.ZMQ;
 
 import java.io.IOException;
@@ -32,13 +30,9 @@ abstract class UtilizadorService {
         return password;
     }
 
-    void sendOperation(OperationRequest request) throws IOException {
-        // enviar
-        AuthOperationRequest message = AuthOperationRequest.newBuilder()
-                .setPassword(password)
-                .setRequest(request)
-                .build();
-        socketREQ.send(message.toByteArray(), 0);
+
+    void sendOperation(byte[] message) throws IOException {
+        socketREQ.send(message, 0);
 
         // receber
         byte[] reply = socketREQ.recv(0);

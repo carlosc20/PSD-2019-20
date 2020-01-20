@@ -1372,772 +1372,6 @@ public final class Protos {
 
   }
 
-  public interface AuthOperationRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ProtoBuffers.AuthOperationRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string password = 1;</code>
-     * @return The password.
-     */
-    java.lang.String getPassword();
-    /**
-     * <code>string password = 1;</code>
-     * @return The bytes for password.
-     */
-    com.google.protobuf.ByteString
-        getPasswordBytes();
-
-    /**
-     * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-     * @return Whether the request field is set.
-     */
-    boolean hasRequest();
-    /**
-     * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-     * @return The request.
-     */
-    ProtoBuffers.Protos.OperationRequest getRequest();
-    /**
-     * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-     */
-    ProtoBuffers.Protos.OperationRequestOrBuilder getRequestOrBuilder();
-  }
-  /**
-   * Protobuf type {@code ProtoBuffers.AuthOperationRequest}
-   */
-  public  static final class AuthOperationRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ProtoBuffers.AuthOperationRequest)
-      AuthOperationRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use AuthOperationRequest.newBuilder() to construct.
-    private AuthOperationRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private AuthOperationRequest() {
-      password_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new AuthOperationRequest();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private AuthOperationRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              password_ = s;
-              break;
-            }
-            case 18: {
-              ProtoBuffers.Protos.OperationRequest.Builder subBuilder = null;
-              if (request_ != null) {
-                subBuilder = request_.toBuilder();
-              }
-              request_ = input.readMessage(ProtoBuffers.Protos.OperationRequest.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(request_);
-                request_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return ProtoBuffers.Protos.internal_static_ProtoBuffers_AuthOperationRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return ProtoBuffers.Protos.internal_static_ProtoBuffers_AuthOperationRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              ProtoBuffers.Protos.AuthOperationRequest.class, ProtoBuffers.Protos.AuthOperationRequest.Builder.class);
-    }
-
-    public static final int PASSWORD_FIELD_NUMBER = 1;
-    private volatile java.lang.Object password_;
-    /**
-     * <code>string password = 1;</code>
-     * @return The password.
-     */
-    public java.lang.String getPassword() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        password_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string password = 1;</code>
-     * @return The bytes for password.
-     */
-    public com.google.protobuf.ByteString
-        getPasswordBytes() {
-      java.lang.Object ref = password_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        password_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int REQUEST_FIELD_NUMBER = 2;
-    private ProtoBuffers.Protos.OperationRequest request_;
-    /**
-     * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-     * @return Whether the request field is set.
-     */
-    public boolean hasRequest() {
-      return request_ != null;
-    }
-    /**
-     * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-     * @return The request.
-     */
-    public ProtoBuffers.Protos.OperationRequest getRequest() {
-      return request_ == null ? ProtoBuffers.Protos.OperationRequest.getDefaultInstance() : request_;
-    }
-    /**
-     * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-     */
-    public ProtoBuffers.Protos.OperationRequestOrBuilder getRequestOrBuilder() {
-      return getRequest();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getPasswordBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, password_);
-      }
-      if (request_ != null) {
-        output.writeMessage(2, getRequest());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getPasswordBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, password_);
-      }
-      if (request_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getRequest());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof ProtoBuffers.Protos.AuthOperationRequest)) {
-        return super.equals(obj);
-      }
-      ProtoBuffers.Protos.AuthOperationRequest other = (ProtoBuffers.Protos.AuthOperationRequest) obj;
-
-      if (!getPassword()
-          .equals(other.getPassword())) return false;
-      if (hasRequest() != other.hasRequest()) return false;
-      if (hasRequest()) {
-        if (!getRequest()
-            .equals(other.getRequest())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
-      hash = (53 * hash) + getPassword().hashCode();
-      if (hasRequest()) {
-        hash = (37 * hash) + REQUEST_FIELD_NUMBER;
-        hash = (53 * hash) + getRequest().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ProtoBuffers.Protos.AuthOperationRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(ProtoBuffers.Protos.AuthOperationRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code ProtoBuffers.AuthOperationRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ProtoBuffers.AuthOperationRequest)
-        ProtoBuffers.Protos.AuthOperationRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_AuthOperationRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_AuthOperationRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                ProtoBuffers.Protos.AuthOperationRequest.class, ProtoBuffers.Protos.AuthOperationRequest.Builder.class);
-      }
-
-      // Construct using ProtoBuffers.Protos.AuthOperationRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        password_ = "";
-
-        if (requestBuilder_ == null) {
-          request_ = null;
-        } else {
-          request_ = null;
-          requestBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return ProtoBuffers.Protos.internal_static_ProtoBuffers_AuthOperationRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public ProtoBuffers.Protos.AuthOperationRequest getDefaultInstanceForType() {
-        return ProtoBuffers.Protos.AuthOperationRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public ProtoBuffers.Protos.AuthOperationRequest build() {
-        ProtoBuffers.Protos.AuthOperationRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public ProtoBuffers.Protos.AuthOperationRequest buildPartial() {
-        ProtoBuffers.Protos.AuthOperationRequest result = new ProtoBuffers.Protos.AuthOperationRequest(this);
-        result.password_ = password_;
-        if (requestBuilder_ == null) {
-          result.request_ = request_;
-        } else {
-          result.request_ = requestBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ProtoBuffers.Protos.AuthOperationRequest) {
-          return mergeFrom((ProtoBuffers.Protos.AuthOperationRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(ProtoBuffers.Protos.AuthOperationRequest other) {
-        if (other == ProtoBuffers.Protos.AuthOperationRequest.getDefaultInstance()) return this;
-        if (!other.getPassword().isEmpty()) {
-          password_ = other.password_;
-          onChanged();
-        }
-        if (other.hasRequest()) {
-          mergeRequest(other.getRequest());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        ProtoBuffers.Protos.AuthOperationRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ProtoBuffers.Protos.AuthOperationRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object password_ = "";
-      /**
-       * <code>string password = 1;</code>
-       * @return The password.
-       */
-      public java.lang.String getPassword() {
-        java.lang.Object ref = password_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          password_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string password = 1;</code>
-       * @return The bytes for password.
-       */
-      public com.google.protobuf.ByteString
-          getPasswordBytes() {
-        java.lang.Object ref = password_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          password_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string password = 1;</code>
-       * @param value The password to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPassword(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        password_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string password = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPassword() {
-        
-        password_ = getDefaultInstance().getPassword();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string password = 1;</code>
-       * @param value The bytes for password to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPasswordBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        password_ = value;
-        onChanged();
-        return this;
-      }
-
-      private ProtoBuffers.Protos.OperationRequest request_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          ProtoBuffers.Protos.OperationRequest, ProtoBuffers.Protos.OperationRequest.Builder, ProtoBuffers.Protos.OperationRequestOrBuilder> requestBuilder_;
-      /**
-       * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-       * @return Whether the request field is set.
-       */
-      public boolean hasRequest() {
-        return requestBuilder_ != null || request_ != null;
-      }
-      /**
-       * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-       * @return The request.
-       */
-      public ProtoBuffers.Protos.OperationRequest getRequest() {
-        if (requestBuilder_ == null) {
-          return request_ == null ? ProtoBuffers.Protos.OperationRequest.getDefaultInstance() : request_;
-        } else {
-          return requestBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-       */
-      public Builder setRequest(ProtoBuffers.Protos.OperationRequest value) {
-        if (requestBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          request_ = value;
-          onChanged();
-        } else {
-          requestBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-       */
-      public Builder setRequest(
-          ProtoBuffers.Protos.OperationRequest.Builder builderForValue) {
-        if (requestBuilder_ == null) {
-          request_ = builderForValue.build();
-          onChanged();
-        } else {
-          requestBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-       */
-      public Builder mergeRequest(ProtoBuffers.Protos.OperationRequest value) {
-        if (requestBuilder_ == null) {
-          if (request_ != null) {
-            request_ =
-              ProtoBuffers.Protos.OperationRequest.newBuilder(request_).mergeFrom(value).buildPartial();
-          } else {
-            request_ = value;
-          }
-          onChanged();
-        } else {
-          requestBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-       */
-      public Builder clearRequest() {
-        if (requestBuilder_ == null) {
-          request_ = null;
-          onChanged();
-        } else {
-          request_ = null;
-          requestBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-       */
-      public ProtoBuffers.Protos.OperationRequest.Builder getRequestBuilder() {
-        
-        onChanged();
-        return getRequestFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-       */
-      public ProtoBuffers.Protos.OperationRequestOrBuilder getRequestOrBuilder() {
-        if (requestBuilder_ != null) {
-          return requestBuilder_.getMessageOrBuilder();
-        } else {
-          return request_ == null ?
-              ProtoBuffers.Protos.OperationRequest.getDefaultInstance() : request_;
-        }
-      }
-      /**
-       * <code>.ProtoBuffers.OperationRequest request = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          ProtoBuffers.Protos.OperationRequest, ProtoBuffers.Protos.OperationRequest.Builder, ProtoBuffers.Protos.OperationRequestOrBuilder> 
-          getRequestFieldBuilder() {
-        if (requestBuilder_ == null) {
-          requestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              ProtoBuffers.Protos.OperationRequest, ProtoBuffers.Protos.OperationRequest.Builder, ProtoBuffers.Protos.OperationRequestOrBuilder>(
-                  getRequest(),
-                  getParentForChildren(),
-                  isClean());
-          request_ = null;
-        }
-        return requestBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ProtoBuffers.AuthOperationRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:ProtoBuffers.AuthOperationRequest)
-    private static final ProtoBuffers.Protos.AuthOperationRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new ProtoBuffers.Protos.AuthOperationRequest();
-    }
-
-    public static ProtoBuffers.Protos.AuthOperationRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<AuthOperationRequest>
-        PARSER = new com.google.protobuf.AbstractParser<AuthOperationRequest>() {
-      @java.lang.Override
-      public AuthOperationRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AuthOperationRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<AuthOperationRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<AuthOperationRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public ProtoBuffers.Protos.AuthOperationRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface OperationRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ProtoBuffers.OperationRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -2155,32 +1389,44 @@ public final class Protos {
         getNomeBytes();
 
     /**
-     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+     * <code>string password = 2;</code>
+     * @return The password.
+     */
+    java.lang.String getPassword();
+    /**
+     * <code>string password = 2;</code>
+     * @return The bytes for password.
+     */
+    com.google.protobuf.ByteString
+        getPasswordBytes();
+
+    /**
+     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
      * @return Whether the producao field is set.
      */
     boolean hasProducao();
     /**
-     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
      * @return The producao.
      */
     ProtoBuffers.Protos.OfertaProducaoRequest getProducao();
     /**
-     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
      */
     ProtoBuffers.Protos.OfertaProducaoRequestOrBuilder getProducaoOrBuilder();
 
     /**
-     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
      * @return Whether the encomenda field is set.
      */
     boolean hasEncomenda();
     /**
-     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
      * @return The encomenda.
      */
     ProtoBuffers.Protos.OfertaEncomendaRequest getEncomenda();
     /**
-     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
      */
     ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendaOrBuilder();
 
@@ -2200,6 +1446,7 @@ public final class Protos {
     }
     private OperationRequest() {
       nome_ = "";
+      password_ = "";
     }
 
     @java.lang.Override
@@ -2239,8 +1486,14 @@ public final class Protos {
               break;
             }
             case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              password_ = s;
+              break;
+            }
+            case 26: {
               ProtoBuffers.Protos.OfertaProducaoRequest.Builder subBuilder = null;
-              if (requestCase_ == 2) {
+              if (requestCase_ == 3) {
                 subBuilder = ((ProtoBuffers.Protos.OfertaProducaoRequest) request_).toBuilder();
               }
               request_ =
@@ -2249,12 +1502,12 @@ public final class Protos {
                 subBuilder.mergeFrom((ProtoBuffers.Protos.OfertaProducaoRequest) request_);
                 request_ = subBuilder.buildPartial();
               }
-              requestCase_ = 2;
+              requestCase_ = 3;
               break;
             }
-            case 26: {
+            case 34: {
               ProtoBuffers.Protos.OfertaEncomendaRequest.Builder subBuilder = null;
-              if (requestCase_ == 3) {
+              if (requestCase_ == 4) {
                 subBuilder = ((ProtoBuffers.Protos.OfertaEncomendaRequest) request_).toBuilder();
               }
               request_ =
@@ -2263,7 +1516,7 @@ public final class Protos {
                 subBuilder.mergeFrom((ProtoBuffers.Protos.OfertaEncomendaRequest) request_);
                 request_ = subBuilder.buildPartial();
               }
-              requestCase_ = 3;
+              requestCase_ = 4;
               break;
             }
             default: {
@@ -2303,8 +1556,8 @@ public final class Protos {
     public enum RequestCase
         implements com.google.protobuf.Internal.EnumLite,
             com.google.protobuf.AbstractMessage.InternalOneOfEnum {
-      PRODUCAO(2),
-      ENCOMENDA(3),
+      PRODUCAO(3),
+      ENCOMENDA(4),
       REQUEST_NOT_SET(0);
       private final int value;
       private RequestCase(int value) {
@@ -2322,8 +1575,8 @@ public final class Protos {
 
       public static RequestCase forNumber(int value) {
         switch (value) {
-          case 2: return PRODUCAO;
-          case 3: return ENCOMENDA;
+          case 3: return PRODUCAO;
+          case 4: return ENCOMENDA;
           case 0: return REQUEST_NOT_SET;
           default: return null;
         }
@@ -2375,57 +1628,93 @@ public final class Protos {
       }
     }
 
-    public static final int PRODUCAO_FIELD_NUMBER = 2;
+    public static final int PASSWORD_FIELD_NUMBER = 2;
+    private volatile java.lang.Object password_;
     /**
-     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+     * <code>string password = 2;</code>
+     * @return The password.
+     */
+    public java.lang.String getPassword() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        password_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string password = 2;</code>
+     * @return The bytes for password.
+     */
+    public com.google.protobuf.ByteString
+        getPasswordBytes() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        password_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRODUCAO_FIELD_NUMBER = 3;
+    /**
+     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
      * @return Whether the producao field is set.
      */
     public boolean hasProducao() {
-      return requestCase_ == 2;
+      return requestCase_ == 3;
     }
     /**
-     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
      * @return The producao.
      */
     public ProtoBuffers.Protos.OfertaProducaoRequest getProducao() {
-      if (requestCase_ == 2) {
+      if (requestCase_ == 3) {
          return (ProtoBuffers.Protos.OfertaProducaoRequest) request_;
       }
       return ProtoBuffers.Protos.OfertaProducaoRequest.getDefaultInstance();
     }
     /**
-     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+     * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
      */
     public ProtoBuffers.Protos.OfertaProducaoRequestOrBuilder getProducaoOrBuilder() {
-      if (requestCase_ == 2) {
+      if (requestCase_ == 3) {
          return (ProtoBuffers.Protos.OfertaProducaoRequest) request_;
       }
       return ProtoBuffers.Protos.OfertaProducaoRequest.getDefaultInstance();
     }
 
-    public static final int ENCOMENDA_FIELD_NUMBER = 3;
+    public static final int ENCOMENDA_FIELD_NUMBER = 4;
     /**
-     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
      * @return Whether the encomenda field is set.
      */
     public boolean hasEncomenda() {
-      return requestCase_ == 3;
+      return requestCase_ == 4;
     }
     /**
-     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
      * @return The encomenda.
      */
     public ProtoBuffers.Protos.OfertaEncomendaRequest getEncomenda() {
-      if (requestCase_ == 3) {
+      if (requestCase_ == 4) {
          return (ProtoBuffers.Protos.OfertaEncomendaRequest) request_;
       }
       return ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance();
     }
     /**
-     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+     * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
      */
     public ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendaOrBuilder() {
-      if (requestCase_ == 3) {
+      if (requestCase_ == 4) {
          return (ProtoBuffers.Protos.OfertaEncomendaRequest) request_;
       }
       return ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance();
@@ -2448,11 +1737,14 @@ public final class Protos {
       if (!getNomeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nome_);
       }
-      if (requestCase_ == 2) {
-        output.writeMessage(2, (ProtoBuffers.Protos.OfertaProducaoRequest) request_);
+      if (!getPasswordBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
       }
       if (requestCase_ == 3) {
-        output.writeMessage(3, (ProtoBuffers.Protos.OfertaEncomendaRequest) request_);
+        output.writeMessage(3, (ProtoBuffers.Protos.OfertaProducaoRequest) request_);
+      }
+      if (requestCase_ == 4) {
+        output.writeMessage(4, (ProtoBuffers.Protos.OfertaEncomendaRequest) request_);
       }
       unknownFields.writeTo(output);
     }
@@ -2466,13 +1758,16 @@ public final class Protos {
       if (!getNomeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nome_);
       }
-      if (requestCase_ == 2) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, (ProtoBuffers.Protos.OfertaProducaoRequest) request_);
+      if (!getPasswordBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
       }
       if (requestCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, (ProtoBuffers.Protos.OfertaEncomendaRequest) request_);
+          .computeMessageSize(3, (ProtoBuffers.Protos.OfertaProducaoRequest) request_);
+      }
+      if (requestCase_ == 4) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, (ProtoBuffers.Protos.OfertaEncomendaRequest) request_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2491,13 +1786,15 @@ public final class Protos {
 
       if (!getNome()
           .equals(other.getNome())) return false;
+      if (!getPassword()
+          .equals(other.getPassword())) return false;
       if (!getRequestCase().equals(other.getRequestCase())) return false;
       switch (requestCase_) {
-        case 2:
+        case 3:
           if (!getProducao()
               .equals(other.getProducao())) return false;
           break;
-        case 3:
+        case 4:
           if (!getEncomenda()
               .equals(other.getEncomenda())) return false;
           break;
@@ -2517,12 +1814,14 @@ public final class Protos {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NOME_FIELD_NUMBER;
       hash = (53 * hash) + getNome().hashCode();
+      hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
+      hash = (53 * hash) + getPassword().hashCode();
       switch (requestCase_) {
-        case 2:
+        case 3:
           hash = (37 * hash) + PRODUCAO_FIELD_NUMBER;
           hash = (53 * hash) + getProducao().hashCode();
           break;
-        case 3:
+        case 4:
           hash = (37 * hash) + ENCOMENDA_FIELD_NUMBER;
           hash = (53 * hash) + getEncomenda().hashCode();
           break;
@@ -2664,6 +1963,8 @@ public final class Protos {
         super.clear();
         nome_ = "";
 
+        password_ = "";
+
         requestCase_ = 0;
         request_ = null;
         return this;
@@ -2693,14 +1994,15 @@ public final class Protos {
       public ProtoBuffers.Protos.OperationRequest buildPartial() {
         ProtoBuffers.Protos.OperationRequest result = new ProtoBuffers.Protos.OperationRequest(this);
         result.nome_ = nome_;
-        if (requestCase_ == 2) {
+        result.password_ = password_;
+        if (requestCase_ == 3) {
           if (producaoBuilder_ == null) {
             result.request_ = request_;
           } else {
             result.request_ = producaoBuilder_.build();
           }
         }
-        if (requestCase_ == 3) {
+        if (requestCase_ == 4) {
           if (encomendaBuilder_ == null) {
             result.request_ = request_;
           } else {
@@ -2758,6 +2060,10 @@ public final class Protos {
         if (other == ProtoBuffers.Protos.OperationRequest.getDefaultInstance()) return this;
         if (!other.getNome().isEmpty()) {
           nome_ = other.nome_;
+          onChanged();
+        }
+        if (!other.getPassword().isEmpty()) {
+          password_ = other.password_;
           onChanged();
         }
         switch (other.getRequestCase()) {
@@ -2893,34 +2199,110 @@ public final class Protos {
         return this;
       }
 
+      private java.lang.Object password_ = "";
+      /**
+       * <code>string password = 2;</code>
+       * @return The password.
+       */
+      public java.lang.String getPassword() {
+        java.lang.Object ref = password_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          password_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string password = 2;</code>
+       * @return The bytes for password.
+       */
+      public com.google.protobuf.ByteString
+          getPasswordBytes() {
+        java.lang.Object ref = password_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          password_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string password = 2;</code>
+       * @param value The password to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPassword(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        password_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string password = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPassword() {
+        
+        password_ = getDefaultInstance().getPassword();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string password = 2;</code>
+       * @param value The bytes for password to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPasswordBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        password_ = value;
+        onChanged();
+        return this;
+      }
+
       private com.google.protobuf.SingleFieldBuilderV3<
           ProtoBuffers.Protos.OfertaProducaoRequest, ProtoBuffers.Protos.OfertaProducaoRequest.Builder, ProtoBuffers.Protos.OfertaProducaoRequestOrBuilder> producaoBuilder_;
       /**
-       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
        * @return Whether the producao field is set.
        */
       public boolean hasProducao() {
-        return requestCase_ == 2;
+        return requestCase_ == 3;
       }
       /**
-       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
        * @return The producao.
        */
       public ProtoBuffers.Protos.OfertaProducaoRequest getProducao() {
         if (producaoBuilder_ == null) {
-          if (requestCase_ == 2) {
+          if (requestCase_ == 3) {
             return (ProtoBuffers.Protos.OfertaProducaoRequest) request_;
           }
           return ProtoBuffers.Protos.OfertaProducaoRequest.getDefaultInstance();
         } else {
-          if (requestCase_ == 2) {
+          if (requestCase_ == 3) {
             return producaoBuilder_.getMessage();
           }
           return ProtoBuffers.Protos.OfertaProducaoRequest.getDefaultInstance();
         }
       }
       /**
-       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
        */
       public Builder setProducao(ProtoBuffers.Protos.OfertaProducaoRequest value) {
         if (producaoBuilder_ == null) {
@@ -2932,11 +2314,11 @@ public final class Protos {
         } else {
           producaoBuilder_.setMessage(value);
         }
-        requestCase_ = 2;
+        requestCase_ = 3;
         return this;
       }
       /**
-       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
        */
       public Builder setProducao(
           ProtoBuffers.Protos.OfertaProducaoRequest.Builder builderForValue) {
@@ -2946,15 +2328,15 @@ public final class Protos {
         } else {
           producaoBuilder_.setMessage(builderForValue.build());
         }
-        requestCase_ = 2;
+        requestCase_ = 3;
         return this;
       }
       /**
-       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
        */
       public Builder mergeProducao(ProtoBuffers.Protos.OfertaProducaoRequest value) {
         if (producaoBuilder_ == null) {
-          if (requestCase_ == 2 &&
+          if (requestCase_ == 3 &&
               request_ != ProtoBuffers.Protos.OfertaProducaoRequest.getDefaultInstance()) {
             request_ = ProtoBuffers.Protos.OfertaProducaoRequest.newBuilder((ProtoBuffers.Protos.OfertaProducaoRequest) request_)
                 .mergeFrom(value).buildPartial();
@@ -2963,26 +2345,26 @@ public final class Protos {
           }
           onChanged();
         } else {
-          if (requestCase_ == 2) {
+          if (requestCase_ == 3) {
             producaoBuilder_.mergeFrom(value);
           }
           producaoBuilder_.setMessage(value);
         }
-        requestCase_ = 2;
+        requestCase_ = 3;
         return this;
       }
       /**
-       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
        */
       public Builder clearProducao() {
         if (producaoBuilder_ == null) {
-          if (requestCase_ == 2) {
+          if (requestCase_ == 3) {
             requestCase_ = 0;
             request_ = null;
             onChanged();
           }
         } else {
-          if (requestCase_ == 2) {
+          if (requestCase_ == 3) {
             requestCase_ = 0;
             request_ = null;
           }
@@ -2991,32 +2373,32 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
        */
       public ProtoBuffers.Protos.OfertaProducaoRequest.Builder getProducaoBuilder() {
         return getProducaoFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
        */
       public ProtoBuffers.Protos.OfertaProducaoRequestOrBuilder getProducaoOrBuilder() {
-        if ((requestCase_ == 2) && (producaoBuilder_ != null)) {
+        if ((requestCase_ == 3) && (producaoBuilder_ != null)) {
           return producaoBuilder_.getMessageOrBuilder();
         } else {
-          if (requestCase_ == 2) {
+          if (requestCase_ == 3) {
             return (ProtoBuffers.Protos.OfertaProducaoRequest) request_;
           }
           return ProtoBuffers.Protos.OfertaProducaoRequest.getDefaultInstance();
         }
       }
       /**
-       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 2;</code>
+       * <code>.ProtoBuffers.OfertaProducaoRequest producao = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           ProtoBuffers.Protos.OfertaProducaoRequest, ProtoBuffers.Protos.OfertaProducaoRequest.Builder, ProtoBuffers.Protos.OfertaProducaoRequestOrBuilder> 
           getProducaoFieldBuilder() {
         if (producaoBuilder_ == null) {
-          if (!(requestCase_ == 2)) {
+          if (!(requestCase_ == 3)) {
             request_ = ProtoBuffers.Protos.OfertaProducaoRequest.getDefaultInstance();
           }
           producaoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -3026,7 +2408,7 @@ public final class Protos {
                   isClean());
           request_ = null;
         }
-        requestCase_ = 2;
+        requestCase_ = 3;
         onChanged();;
         return producaoBuilder_;
       }
@@ -3034,31 +2416,31 @@ public final class Protos {
       private com.google.protobuf.SingleFieldBuilderV3<
           ProtoBuffers.Protos.OfertaEncomendaRequest, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder, ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> encomendaBuilder_;
       /**
-       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
        * @return Whether the encomenda field is set.
        */
       public boolean hasEncomenda() {
-        return requestCase_ == 3;
+        return requestCase_ == 4;
       }
       /**
-       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
        * @return The encomenda.
        */
       public ProtoBuffers.Protos.OfertaEncomendaRequest getEncomenda() {
         if (encomendaBuilder_ == null) {
-          if (requestCase_ == 3) {
+          if (requestCase_ == 4) {
             return (ProtoBuffers.Protos.OfertaEncomendaRequest) request_;
           }
           return ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance();
         } else {
-          if (requestCase_ == 3) {
+          if (requestCase_ == 4) {
             return encomendaBuilder_.getMessage();
           }
           return ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance();
         }
       }
       /**
-       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
        */
       public Builder setEncomenda(ProtoBuffers.Protos.OfertaEncomendaRequest value) {
         if (encomendaBuilder_ == null) {
@@ -3070,11 +2452,11 @@ public final class Protos {
         } else {
           encomendaBuilder_.setMessage(value);
         }
-        requestCase_ = 3;
+        requestCase_ = 4;
         return this;
       }
       /**
-       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
        */
       public Builder setEncomenda(
           ProtoBuffers.Protos.OfertaEncomendaRequest.Builder builderForValue) {
@@ -3084,15 +2466,15 @@ public final class Protos {
         } else {
           encomendaBuilder_.setMessage(builderForValue.build());
         }
-        requestCase_ = 3;
+        requestCase_ = 4;
         return this;
       }
       /**
-       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
        */
       public Builder mergeEncomenda(ProtoBuffers.Protos.OfertaEncomendaRequest value) {
         if (encomendaBuilder_ == null) {
-          if (requestCase_ == 3 &&
+          if (requestCase_ == 4 &&
               request_ != ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance()) {
             request_ = ProtoBuffers.Protos.OfertaEncomendaRequest.newBuilder((ProtoBuffers.Protos.OfertaEncomendaRequest) request_)
                 .mergeFrom(value).buildPartial();
@@ -3101,26 +2483,26 @@ public final class Protos {
           }
           onChanged();
         } else {
-          if (requestCase_ == 3) {
+          if (requestCase_ == 4) {
             encomendaBuilder_.mergeFrom(value);
           }
           encomendaBuilder_.setMessage(value);
         }
-        requestCase_ = 3;
+        requestCase_ = 4;
         return this;
       }
       /**
-       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
        */
       public Builder clearEncomenda() {
         if (encomendaBuilder_ == null) {
-          if (requestCase_ == 3) {
+          if (requestCase_ == 4) {
             requestCase_ = 0;
             request_ = null;
             onChanged();
           }
         } else {
-          if (requestCase_ == 3) {
+          if (requestCase_ == 4) {
             requestCase_ = 0;
             request_ = null;
           }
@@ -3129,32 +2511,32 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
        */
       public ProtoBuffers.Protos.OfertaEncomendaRequest.Builder getEncomendaBuilder() {
         return getEncomendaFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
        */
       public ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendaOrBuilder() {
-        if ((requestCase_ == 3) && (encomendaBuilder_ != null)) {
+        if ((requestCase_ == 4) && (encomendaBuilder_ != null)) {
           return encomendaBuilder_.getMessageOrBuilder();
         } else {
-          if (requestCase_ == 3) {
+          if (requestCase_ == 4) {
             return (ProtoBuffers.Protos.OfertaEncomendaRequest) request_;
           }
           return ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance();
         }
       }
       /**
-       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 3;</code>
+       * <code>.ProtoBuffers.OfertaEncomendaRequest encomenda = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           ProtoBuffers.Protos.OfertaEncomendaRequest, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder, ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> 
           getEncomendaFieldBuilder() {
         if (encomendaBuilder_ == null) {
-          if (!(requestCase_ == 3)) {
+          if (!(requestCase_ == 4)) {
             request_ = ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance();
           }
           encomendaBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -3164,7 +2546,7 @@ public final class Protos {
                   isClean());
           request_ = null;
         }
-        requestCase_ = 3;
+        requestCase_ = 4;
         onChanged();;
         return encomendaBuilder_;
       }
@@ -8345,11 +7727,6 @@ public final class Protos {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ProtoBuffers_LoginResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ProtoBuffers_AuthOperationRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ProtoBuffers_AuthOperationRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ProtoBuffers_OperationRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -8398,31 +7775,29 @@ public final class Protos {
       "\rLoginResponse\0228\n\004tipo\030\001 \001(\0162*.ProtoBuff" +
       "ers.LoginResponse.TipoUtilizador\":\n\016Tipo" +
       "Utilizador\022\016\n\nFABRICANTE\020\000\022\016\n\nIMPORTADOR" +
-      "\020\001\022\010\n\004ERRO\020\002\"Y\n\024AuthOperationRequest\022\020\n\010" +
-      "password\030\001 \001(\t\022/\n\007request\030\002 \001(\0132\036.ProtoB" +
-      "uffers.OperationRequest\"\237\001\n\020OperationReq" +
-      "uest\022\014\n\004nome\030\001 \001(\t\0227\n\010producao\030\002 \001(\0132#.P" +
-      "rotoBuffers.OfertaProducaoRequestH\000\0229\n\te" +
-      "ncomenda\030\003 \001(\0132$.ProtoBuffers.OfertaEnco" +
-      "mendaRequestH\000B\t\n\007request\"\200\001\n\021OperationR" +
-      "esponse\022@\n\004code\030\001 \001(\01622.ProtoBuffers.Ope" +
-      "rationResponse.ResponseStatusCode\")\n\022Res" +
-      "ponseStatusCode\022\006\n\002OK\020\000\022\013\n\007INVALID\020\001\"s\n\025" +
-      "OfertaProducaoRequest\022\017\n\007produto\030\001 \001(\t\022\020" +
-      "\n\010quantMin\030\002 \001(\005\022\020\n\010quantMax\030\003 \001(\005\022\023\n\013pr" +
-      "ecoUniMin\030\004 \001(\005\022\020\n\010duracaoS\030\005 \001(\003\"[\n\026Ofe" +
-      "rtaEncomendaRequest\022\022\n\nfabricante\030\001 \001(\t\022" +
-      "\017\n\007produto\030\002 \001(\t\022\r\n\005quant\030\003 \001(\005\022\r\n\005preco" +
-      "\030\004 \001(\005\"\215\001\n\031NotificacaoOfertaProducao\022\017\n\007" +
-      "produto\030\001 \001(\t\022\020\n\010quantMin\030\002 \001(\005\022\020\n\010quant" +
-      "Max\030\003 \001(\005\022\023\n\013precoUniMin\030\004 \001(\005\022\023\n\013dataIn" +
-      "icial\030\005 \001(\t\022\021\n\tdataFinal\030\006 \001(\t\"t\n\037Notifi" +
-      "cacaoResultadosImportador\022\016\n\006aceite\030\001 \001(" +
-      "\010\022\022\n\nfabricante\030\002 \001(\t\022\017\n\007produto\030\003 \001(\t\022\r" +
-      "\n\005quant\030\004 \001(\005\022\r\n\005preco\030\005 \001(\005\"[\n\037Notifica" +
-      "caoResultadosFabricante\0228\n\nencomendas\030\001 " +
-      "\003(\0132$.ProtoBuffers.OfertaEncomendaReques" +
-      "tb\006proto3"
+      "\020\001\022\010\n\004ERRO\020\002\"\261\001\n\020OperationRequest\022\014\n\004nom" +
+      "e\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\0227\n\010producao\030\003 " +
+      "\001(\0132#.ProtoBuffers.OfertaProducaoRequest" +
+      "H\000\0229\n\tencomenda\030\004 \001(\0132$.ProtoBuffers.Ofe" +
+      "rtaEncomendaRequestH\000B\t\n\007request\"\200\001\n\021Ope" +
+      "rationResponse\022@\n\004code\030\001 \001(\01622.ProtoBuff" +
+      "ers.OperationResponse.ResponseStatusCode" +
+      "\")\n\022ResponseStatusCode\022\006\n\002OK\020\000\022\013\n\007INVALI" +
+      "D\020\001\"s\n\025OfertaProducaoRequest\022\017\n\007produto\030" +
+      "\001 \001(\t\022\020\n\010quantMin\030\002 \001(\005\022\020\n\010quantMax\030\003 \001(" +
+      "\005\022\023\n\013precoUniMin\030\004 \001(\005\022\020\n\010duracaoS\030\005 \001(\003" +
+      "\"[\n\026OfertaEncomendaRequest\022\022\n\nfabricante" +
+      "\030\001 \001(\t\022\017\n\007produto\030\002 \001(\t\022\r\n\005quant\030\003 \001(\005\022\r" +
+      "\n\005preco\030\004 \001(\005\"\215\001\n\031NotificacaoOfertaProdu" +
+      "cao\022\017\n\007produto\030\001 \001(\t\022\020\n\010quantMin\030\002 \001(\005\022\020" +
+      "\n\010quantMax\030\003 \001(\005\022\023\n\013precoUniMin\030\004 \001(\005\022\023\n" +
+      "\013dataInicial\030\005 \001(\t\022\021\n\tdataFinal\030\006 \001(\t\"t\n" +
+      "\037NotificacaoResultadosImportador\022\016\n\006acei" +
+      "te\030\001 \001(\010\022\022\n\nfabricante\030\002 \001(\t\022\017\n\007produto\030" +
+      "\003 \001(\t\022\r\n\005quant\030\004 \001(\005\022\r\n\005preco\030\005 \001(\005\"[\n\037N" +
+      "otificacaoResultadosFabricante\0228\n\nencome" +
+      "ndas\030\001 \003(\0132$.ProtoBuffers.OfertaEncomend" +
+      "aRequestb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8440,50 +7815,44 @@ public final class Protos {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_LoginResponse_descriptor,
         new java.lang.String[] { "Tipo", });
-    internal_static_ProtoBuffers_AuthOperationRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_ProtoBuffers_AuthOperationRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ProtoBuffers_AuthOperationRequest_descriptor,
-        new java.lang.String[] { "Password", "Request", });
     internal_static_ProtoBuffers_OperationRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_ProtoBuffers_OperationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_OperationRequest_descriptor,
-        new java.lang.String[] { "Nome", "Producao", "Encomenda", "Request", });
+        new java.lang.String[] { "Nome", "Password", "Producao", "Encomenda", "Request", });
     internal_static_ProtoBuffers_OperationResponse_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_ProtoBuffers_OperationResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_OperationResponse_descriptor,
         new java.lang.String[] { "Code", });
     internal_static_ProtoBuffers_OfertaProducaoRequest_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_ProtoBuffers_OfertaProducaoRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_OfertaProducaoRequest_descriptor,
         new java.lang.String[] { "Produto", "QuantMin", "QuantMax", "PrecoUniMin", "DuracaoS", });
     internal_static_ProtoBuffers_OfertaEncomendaRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_ProtoBuffers_OfertaEncomendaRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_OfertaEncomendaRequest_descriptor,
         new java.lang.String[] { "Fabricante", "Produto", "Quant", "Preco", });
     internal_static_ProtoBuffers_NotificacaoOfertaProducao_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_ProtoBuffers_NotificacaoOfertaProducao_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_NotificacaoOfertaProducao_descriptor,
         new java.lang.String[] { "Produto", "QuantMin", "QuantMax", "PrecoUniMin", "DataInicial", "DataFinal", });
     internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_ProtoBuffers_NotificacaoResultadosImportador_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_NotificacaoResultadosImportador_descriptor,
         new java.lang.String[] { "Aceite", "Fabricante", "Produto", "Quant", "Preco", });
     internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_ProtoBuffers_NotificacaoResultadosFabricante_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor,

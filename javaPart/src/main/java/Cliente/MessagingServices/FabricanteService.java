@@ -29,9 +29,10 @@ public class FabricanteService extends UtilizadorService {
                 .build();
         OperationRequest request = OperationRequest.newBuilder()
                 .setNome(this.getNome())
+                .setPassword(this.getPassword())
                 .setProducao(producao)
                 .build();
-        this.sendOperation(request);
+        this.sendOperation(request.toByteArray());
     }
 
     public List<Encomenda> getNotification() throws Exception {
