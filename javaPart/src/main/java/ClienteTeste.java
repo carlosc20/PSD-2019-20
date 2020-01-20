@@ -9,9 +9,9 @@ public class ClienteTeste {
         ZContext context = new ZContext();
         ZMQ.Socket connector1 = context.createSocket(ZMQ.REQ);
         ZMQ.Socket connector2 = context.createSocket(ZMQ.REQ);
-        ZMQ.Socket rep1 = context.createSocket(ZMQ.ROUTER);
-        ZMQ.Socket rep2 = context.createSocket(ZMQ.ROUTER);
-        ZMQ.Socket rep3 = context.createSocket(ZMQ.ROUTER);
+        ZMQ.Socket rep1 = context.createSocket(ZMQ.REP);
+        ZMQ.Socket rep2 = context.createSocket(ZMQ.REP);
+        ZMQ.Socket rep3 = context.createSocket(ZMQ.REP);
 
         ZMQ.Socket pub1 = context.createSocket(ZMQ.PUB);
         ZMQ.Socket pub2 = context.createSocket(ZMQ.PUB);
@@ -21,11 +21,11 @@ public class ClienteTeste {
 
         //ZMQ.Socket subscriber = context.createSocket(SocketType.SUB);
         rep1.connect("tcp://localhost:5556");
-        //rep1.setIdentity("X".getBytes(ZMQ.CHARSET));
+        rep1.setIdentity("X".getBytes(ZMQ.CHARSET));
         rep2.connect("tcp://localhost:5557");
-        //rep2.setIdentity("Y".getBytes(ZMQ.CHARSET));
+        rep2.setIdentity("Y".getBytes(ZMQ.CHARSET));
         rep3.connect("tcp://localhost:5558");
-        //rep3.setIdentity("Z".getBytes(ZMQ.CHARSET));
+        rep3.setIdentity("Z".getBytes(ZMQ.CHARSET));
 
         pub1.connect("tcp://localhost:6666");
         pub2.connect("tcp://localhost:6666");
@@ -56,53 +56,33 @@ public class ClienteTeste {
 
         Runnable receiving1 = () -> {
             while(true) {
-                byte[] sender = rep1.recv(0);
-                byte[] cliente = rep1.recv(0);
                 byte[] message = rep1.recv(0);
                 System.out.println("received at 1");
-                System.out.println("Sender: " + new String(sender)+ "Cliente: " + new String(cliente) +" "+ new String(message));
-                rep1.sendMore(sender);
-                rep1.sendMore(cliente);
-                rep1.send("".getBytes(), ZMQ.SNDMORE);
+                System.out.println( new String(message));
                 rep1.send("okay");
             }
         };
         Runnable receiving2 = () -> {
             while(true) {
-                byte[] sender = rep2.recv(0);
-                byte[] cliente = rep2.recv(0);
                 byte[] message = rep2.recv(0);
                 System.out.println("received at 2");
-                System.out.println("Sender: " + new String(sender)+ "Cliente: " + new String(cliente) +" "+ new String(message));
-                rep2.sendMore(sender);
-                rep2.sendMore(cliente);
-                rep2.send("".getBytes(), ZMQ.SNDMORE);
+                System.out.println(new String(message));
                 rep2.send("okay");
             }
         };
 
         Runnable receiving3 = () -> {
             while(true) {
-                byte[] sender = rep3.recv(0);
-                byte[] cliente = rep3.recv(0);
                 byte[] message = rep3.recv(0);
                 System.out.println("received at 3");
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("Sender: " + new String(sender)+ " Cliente: " + new String(cliente) +" "+ new String(message));
-                rep3.sendMore(sender);
-                rep3.sendMore(cliente);
-                rep3.send("".getBytes(), ZMQ.SNDMORE);
+                System.out.println(new String(message));
                 rep3.send("okay");
             }
         };
 
         Runnable client1 = () ->{
             while(true) {
-                connector1.setIdentity("2".getBytes(ZMQ.CHARSET));
+                connector1.setIdentity("1".getBytes(ZMQ.CHARSET));
                 connector1.send("connect1");
                 String reply = connector1.recvStr();
                 System.out.println(reply + " at client 1");

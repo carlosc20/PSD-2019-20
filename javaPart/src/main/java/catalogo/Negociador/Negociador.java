@@ -34,10 +34,10 @@ public class Negociador {
     public void start(String addrREP, String addrPUB) {
         try (ZContext context = new ZContext()) {
             System.out.println("REP: " + addrREP + ", PUB: " + addrPUB);
-            final ZMQ.Socket socketREP = context.createSocket(ZMQ.REP);
-            socketREP.bind(addrREP);
-            ZContext context2 = new ZContext();
-            socketPUB = context2.createSocket(ZMQ.PUB);
+            ZMQ.Socket socketREP = context.createSocket(ZMQ.REP);
+            socketREP.connect("tcp://localhost:5556");
+            socketREP.setIdentity("X".getBytes(ZMQ.CHARSET));
+            socketPUB = context.createSocket(ZMQ.PUB);
             socketPUB.bind(addrPUB);
 
             OperationResponse reply;

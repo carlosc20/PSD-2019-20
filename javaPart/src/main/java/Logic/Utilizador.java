@@ -35,4 +35,8 @@ public class Utilizador {
     public String getTipo() {
         return tipo;
     }
+
+    public Utilizador getUtilizador(){
+        return this;
+    }
 }

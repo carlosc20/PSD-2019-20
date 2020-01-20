@@ -26,9 +26,8 @@ worker_loop_send(Socket, Identity, Destination) ->
     %uma de cada vez
     receive
         {ClientIdentity, Message} ->
-            io:format("~p~p~n", [Identity, Message]),
             %novo processo para não empancar tudo à espera da resposta
-            chumak:send_multipart(Socket, [Destination, Identity, ClientIdentity, <<>>, Message]);
+            spawn(fun() -> chumak:send_multipart(Socket, [Destination, Identity, ClientIdentity, <<>>, Message]) end);
         _ -> io:format("~p~n", ["invalido"])
     end,
     worker_loop_send(Socket, Identity, Destination).
@@ -37,13 +36,14 @@ worker_loop_send(Socket, Identity, Destination) ->
 worker_loop_recv(Socket, Parent) ->
     %uma de cada vez
     {ok, Multipart} = chumak:recv_multipart(Socket),
+    io:format("~p~p~n", ["Worker Received", Multipart]),
     Parent ! {answer, Multipart},
     worker_loop_recv(Socket, Parent).
 
 %%processo que se encarrega de receber pedidos de clientes
 request_loop(Socket, Parent, Workers, N) ->
     {ok, [Identity, <<>>, Message]} = chumak:recv_multipart(Socket),
-    io:format("~p~n", [Message]),
+    io:format("~p~p~p~n", ["Request arrived", Identity, Message]),
     %%gera número aleatório
     case N of
         0 -> Worker = maps:get("A", Workers);
@@ -52,32 +52,16 @@ request_loop(Socket, Parent, Workers, N) ->
     end,
     Worker ! {Identity, Message},
     R = mod(N+1, 3),
-    request_loop(Socket, Parent, Workers, R). 
+    request_loop(Socket, Parent, Workers, N). 
 
 %encarrega-se de devolver respostas aos clientes
 reply_loop(Socket) -> 
     receive
         {answer, [_, _, ClientIdentity, <<>>, Message]} ->
-            io:format("~p~p~n", [ClientIdentity, Message]),
+            io:format("~p~p~p~n", ["reply", ClientIdentity, Message]),
             ok = chumak:send_multipart(Socket, [ClientIdentity, <<>>, Message])
     end,
     reply_loop(Socket).
-
-
-pub_sub()->
-    {ok, Sub} = chumak:socket(xsub),
-    {ok, _PeerPid} = chumak:bind(Sub, tcp, "localhost", 6666),
-    chumak:subscribe(Sub, "frontend"),
-    {ok, Pub} = chumak:socket(xpub),
-    {ok, _PeerPid2} = chumak:bind(Pub, tcp, "localhost", 6667),
-    pub_sub_loop(Pub,Sub).
-    
-pub_sub_loop(Pub, Sub)->
-    spawn(fun() -> {ok, Data} = chumak:recv_multipart(Sub),
-                    io:format("~p~n", [Data]) end),
-    chumak:send(Pub, <<"frontend", "OI">>),
-    %humak:send_multipart(Pub, Data),
-    pub_sub_loop(Pub,Sub).
 
 monitorReqRep(ReplyRef, RequestsRef, Socket, Reply, Workers) ->
     receive
@@ -113,3 +97,18 @@ main(Args) ->
 %%====================================================================
 %% Internal functions
 %%====================================================================
+
+pub_sub()->
+    {ok, Sub} = chumak:socket(xsub),
+    {ok, _PeerPid} = chumak:bind(Sub, tcp, "localhost", 6666),
+    chumak:subscribe(Sub, "frontend"),
+    {ok, Pub} = chumak:socket(xpub),
+    {ok, _PeerPid2} = chumak:bind(Pub, tcp, "localhost", 6667),
+    pub_sub_loop(Pub,Sub).
+    
+pub_sub_loop(Pub, Sub)->
+    spawn(fun() -> {ok, Data} = chumak:recv_multipart(Sub),
+                    io:format("~p~n", [Data]) end),
+    chumak:send(Pub, <<"frontend", "OI">>),
+    %humak:send_multipart(Pub, Data),
+    pub_sub_loop(Pub,Sub).

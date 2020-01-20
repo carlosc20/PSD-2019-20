@@ -14,6 +14,7 @@ public class AuthenticationService {
         context = new ZContext();
         socket = context.createSocket(ZMQ.REQ);
         socket.connect(server);
+        socket.setIdentity("1".getBytes(ZMQ.CHARSET));
     }
 
     public static final int IMPORTADOR = 0;
