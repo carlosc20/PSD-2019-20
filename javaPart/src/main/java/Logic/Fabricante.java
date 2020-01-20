@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class Fabricante extends Negociador<Producao>{
+public class Fabricante extends Utilizador{
     //TODO controlo de concorrência
     private HashMap<String, Producao> producaoPorProduto;
     private HashMap<String, List<Encomenda>> encomendasPorProducao;
@@ -20,13 +20,13 @@ public class Fabricante extends Negociador<Producao>{
         encomendasPorProducao = new HashMap<>();
     }
 
-    public Fabricante(String nome, String password) {
-        super(nome,password);
+    public Fabricante(String nome, String password, String tipo) {
+        super(nome,password, tipo);
         producaoPorProduto = new HashMap<>();
         encomendasPorProducao = new HashMap<>();
     }
 
-    public boolean addProducao(String produto, Producao p){
+    public synchronized boolean addProducao(String produto, Producao p){
         if(producaoPorProduto.containsKey(produto))
             return false;
         producaoPorProduto.put(produto, p);
@@ -34,13 +34,13 @@ public class Fabricante extends Negociador<Producao>{
         return true;
     }
 
-    public Producao removeProducao(String produto){
+    public synchronized Producao removeProducao(String produto){
         encomendasPorProducao.remove(produto);
         return producaoPorProduto.remove(produto);
 
     }
 
-    public boolean addEncomenda(String produto, Encomenda e){
+    public synchronized boolean addEncomenda(String produto, Encomenda e){
         if(encomendasPorProducao.containsKey(produto)) {
             List<Encomenda> encomendas = encomendasPorProducao.get(produto);
             if(encomendas == null){
@@ -54,6 +54,26 @@ public class Fabricante extends Negociador<Producao>{
         }
         return false;
     }
+
+    public synchronized List<Producao> getProducoesPorEstado(String estado){
+        ArrayList<Producao> res = new ArrayList<>();
+        for(Producao p : producaoPorProduto.values())
+            if(p.estado(estado))
+                res.add(p);
+        return res;
+    }
+
+
+    public synchronized void updateEncomenda(String produto, Encomenda encomenda){
+        List<Encomenda> enc = encomendasPorProducao.get(produto);
+        for(Encomenda e : enc)
+            if(e.equals(encomenda))
+                enc.remove(encomenda);
+        if(enc.size() == 0)
+            encomendasPorProducao.remove(produto);
+    }
+
+
 
     @JsonProperty
     public Collection<Producao> getProducoes() {

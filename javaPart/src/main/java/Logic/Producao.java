@@ -13,6 +13,7 @@ public class Producao {
     private int quantidadeMax;
     private int precoPorUnidade;
     private Periodo periodoOferta;
+    private String estado;
 
     public Producao(){
 
@@ -25,6 +26,7 @@ public class Producao {
         this.quantidadeMax = quantidadeMax;
         this.precoPorUnidade = precoPorUnidade;
         this.periodoOferta = periodoOferta;
+        this.estado = "emCurso";
     }
 
     public static Producao fromProtoRequest(Protos.OperationRequest request) {
@@ -62,6 +64,15 @@ public class Producao {
     @JsonProperty
     public Periodo getPeriodoOferta() {
         return periodoOferta;
+    }
+
+    @JsonProperty
+    public boolean estado(String e){
+        return estado.equals(e);
+    }
+    
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     @Override

@@ -27,17 +27,7 @@ public class Importacoes {
     public Response getImportadorEmCurso(@PathParam("nome") String nome){
         if(utilizadores.containsKey(nome)){
             Importador i = (Importador) utilizadores.get(nome);
-            return Response.ok(i.getEncomendasEmCurso()).build();
-        }
-        return Response.status(405).build();
-    }
-
-    @GET
-    @Path("/{nome}/terminadas")
-    public Response getImportadorTerminadas(@PathParam("nome") String nome){
-        if(utilizadores.containsKey(nome)) {
-            Importador i = (Importador) utilizadores.get(nome);
-            return Response.ok(i.getOpTerminadas()).build();
+            return Response.ok(i.getEncomendasEmCurso("emCurso")).build();
         }
         return Response.status(405).build();
     }
@@ -45,30 +35,40 @@ public class Importacoes {
     @GET
     @Path("/{nome}/canceladas")
     public Response getImportadorCanceladas(@PathParam("nome") String nome){
-        if(utilizadores.containsKey(nome)){
+        if(utilizadores.containsKey(nome)) {
             Importador i = (Importador) utilizadores.get(nome);
-            return Response.ok(i.getOpCanceladas()).build();
+            return Response.ok(i.getEncomendasEmCurso("canceladas")).build();
         }
         return Response.status(405).build();
     }
 
-    @POST
-    @Path("/{nome}/terminada")
-    public Response postTerminadasImportador(@PathParam("nome") String nome,  Encomenda encomenda){
+    @GET
+    @Path("/{nome}/aceites")
+    public Response getImportadorAceites(@PathParam("nome") String nome){
+        if(utilizadores.containsKey(nome)){
+            Importador i = (Importador) utilizadores.get(nome);
+            return Response.ok(i.getEncomendasEmCurso("aceites")).build();
+        }
+        return Response.status(405).build();
+    }
+
+    @PUT
+    @Path("/{nome}/aceites")
+    public Response postAceitesImportador(@PathParam("nome") String nome,  Encomenda encomenda){
         Importador i = (Importador) utilizadores.get(nome);
         if(i == null)
             return Response.status(405).build();
-        i.addOperacaoTerminada(encomenda);
+        i.updateEncomenda("aceite", encomenda);
         return Response.status(201).build();
     }
 
-    @POST
+    @PUT
     @Path("/{nome}/cancelada")
     public Response postCanceladasImportador(@PathParam("nome") String nome, Encomenda encomenda){
         Importador i = (Importador) utilizadores.get(nome);
         if(i == null)
             return Response.status(405).build();
-        i.addOperacaoCancelada(encomenda);
+        i.updateEncomenda("cancelada", encomenda);
         return Response.status(201).build();
     }
 
@@ -78,7 +78,7 @@ public class Importacoes {
         Importador i = (Importador) utilizadores.get(nome);
         if(i == null)
             return Response.status(405).build();
-        i.addEncomendaEmCurso(encomenda);
+        i.addEncomenda(encomenda);
         return Response.status(201).build();
     }
 
@@ -89,7 +89,8 @@ public class Importacoes {
         Importador i = (Importador) utilizadores.get(nome);
         if(i == null)
             return Response.status(405).build();
-        return Response.ok(i.removeEncomendaEmCurso(encomenda)).build();
+        i.removeEncomenda(encomenda);
+        return Response.ok().build();
     }
 
 }

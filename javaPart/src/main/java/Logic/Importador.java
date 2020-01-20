@@ -3,34 +3,54 @@ package Logic;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class Importador extends Negociador<Encomenda>{
-    private List<Encomenda> encomendasEmCurso;
+public class Importador extends Utilizador{
+    private List<Encomenda> encomendas;
 
     public Importador(){}
 
     public Importador(Utilizador utilizador){
         super(utilizador);
-        encomendasEmCurso = new ArrayList<>();
+        encomendas = new ArrayList<>();
     }
 
-    public Importador(String name, String password){
-        super(name, password);
-        encomendasEmCurso = new ArrayList<>();
+    public Importador(String name, String password, String tipo){
+        super(name, password, tipo);
+        encomendas = new ArrayList<>();
     }
 
-    public void addEncomendaEmCurso(Encomenda e){
-        encomendasEmCurso.add(e);
+    public synchronized void addEncomenda(Encomenda e){
+        encomendas.add(e);
     }
 
-    public boolean removeEncomendaEmCurso(Encomenda e){
-        return encomendasEmCurso.remove(e);
+    public synchronized List<Encomenda> getEncomendasEmCurso(String estado){
+        ArrayList<Encomenda> res = new ArrayList<>();
+        for(Encomenda e: encomendas)
+            if(e.estado(estado))
+                res.add(e);
+        return res;
     }
+
+    public synchronized void updateEncomenda(String estado, Encomenda encomenda){
+        for(Encomenda e : encomendas)
+            if(e.equals(encomenda))
+                e.setEstado(estado);
+    }
+
+    public synchronized void removeEncomenda(Encomenda encomenda){
+        for(Encomenda e : encomendas)
+            if(e.equals(encomenda))
+                encomendas.remove(encomenda);
+    }
+
+
+
 
     @JsonProperty
-    public List<Encomenda> getEncomendasEmCurso(){
-        return encomendasEmCurso;
+    public List<Encomenda> getEncomendas(){
+        return encomendas;
     }
 
 }

@@ -12,6 +12,7 @@ public class Encomenda {
     private String produto;
     private int quantidade;
     private int precoPorUnidade;
+    private String estado;
 
     public Encomenda(){}
 
@@ -21,6 +22,7 @@ public class Encomenda {
         this.produto = produto;
         this.quantidade = quantidade;
         this.precoPorUnidade = precoUni;
+        this.estado = "emCurso";
     }
 
     public static Encomenda fromProtoRequest(Protos.OperationRequest request) {
@@ -52,6 +54,15 @@ public class Encomenda {
     @JsonProperty
     public int getPrecoPorUnidade(){
         return precoPorUnidade;
+    }
+
+    @JsonProperty
+    public boolean estado(String e){
+        return estado.equals(e);
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     @Override

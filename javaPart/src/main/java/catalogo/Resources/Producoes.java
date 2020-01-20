@@ -20,10 +20,10 @@ public class Producoes {
         this.utilizadores = utilizadores;
 
         //------Teste------
-        Fabricante f1 = new Fabricante("Carlos", "123");
-        Fabricante f2 = new Fabricante("Daniel", "123");
-        Fabricante f3 = new Fabricante("Maria", "123");
-        Fabricante f4 = new Fabricante("Luís", "123");
+        Fabricante f1 = new Fabricante("Carlos", "123", "fabricante");
+        Fabricante f2 = new Fabricante("Daniel", "123", "fabricante");
+        Fabricante f3 = new Fabricante("Maria", "123", "fabricante");
+        Fabricante f4 = new Fabricante("Luís", "123", "fabricante");
 
         Periodo periodo = new Periodo(LocalDateTime.now(), LocalDateTime.now());
 
@@ -75,11 +75,11 @@ public class Producoes {
     }
 
     @GET
-    @Path("/{nome}/terminadas")
+    @Path("/{nome}/aceites")
     public Response getImportadorTerminadas(@PathParam("nome") String nome){
         if(utilizadores.containsKey(nome)) {
             Fabricante f = (Fabricante) utilizadores.get(nome);
-            return Response.ok(f.getOpTerminadas()).build();
+            return Response.ok(f.getProducoesPorEstado("aceites")).build();
         }
         return Response.status(405).build();
     }
@@ -89,7 +89,7 @@ public class Producoes {
     public Response getImportadorCanceladas(@PathParam("nome") String nome){
         if(utilizadores.containsKey(nome)){
             Fabricante f = (Fabricante) utilizadores.get(nome);
-            return Response.ok(f.getOpCanceladas()).build();
+            return Response.ok(f.getProducoesPorEstado("canceladas")).build();
         }
         return Response.status(405).build();
     }
@@ -122,33 +122,57 @@ public class Producoes {
         if(utilizadores.containsKey(nome)) {
             System.out.println("Name :" + nome);
             Fabricante f = (Fabricante) utilizadores.get(nome);
-            f.addProducao(produto, p);
-            return Response.ok().build();
+            if(f.addProducao(produto, p))
+                return Response.status(201).build();
+            return Response.status(405).build();
         }
         return Response.status(405).build();
     }
 
     @POST
-    @Path("/{nome}/encomenda/{produto}")
+    @Path("/{nome}/{produto}/encomendas")
     public Response postEncomenda(@PathParam("nome") String nome, @PathParam("produto") String produto, Encomenda encomenda) {
         if(utilizadores.containsKey(nome)) {
             System.out.println("Name :" + nome);
             Fabricante f = (Fabricante) utilizadores.get(nome);
             if(f.addEncomenda(produto,encomenda))
-                return Response.ok().build();
+                return Response.status(201).build();
             return Response.status(405).build();
         }
         return Response.status(405).build();
     }
 
-    @POST
-    @Path("/{nome}/terminada")
-    public Response postTerminadasFabricante(@PathParam("nome") String nome,  Producao producao){
+    @PUT
+    @Path("/{nome}/{produto}/encomendas/aceites")
+    public Response putEncomendaAceite(@PathParam("nome") String nome, @PathParam("produto") String produto, Encomenda e){
         Fabricante f = (Fabricante) utilizadores.get(nome);
         if(f == null)
             return Response.status(405).build();
-        f.addOperacaoTerminada(producao);
-        return Response.ok(producao).build();
+        e.setEstado("aceite");
+        f.updateEncomenda(produto, e);
+        return Response.ok().build();
+    }
+
+    @PUT
+    @Path("/{nome}/{produto}/encomendas/canceladas")
+    public Response putEncomendaCancelada(@PathParam("nome") String nome, @PathParam("produto") String produto, Encomenda e){
+        Fabricante f = (Fabricante) utilizadores.get(nome);
+        if(f == null)
+            return Response.status(405).build();
+        e.setEstado("cancelada");
+        f.updateEncomenda(produto, e);
+        return Response.ok().build();
+    }
+
+    @PUT
+    @Path("/{nome}/aceite")
+    public Response putAceitesFabricante(@PathParam("nome") String nome,  Producao producao){
+        Fabricante f = (Fabricante) utilizadores.get(nome);
+        if(f == null)
+            return Response.status(405).build();
+        producao.setEstado("aceite");
+        f.addProducao(nome, producao);
+        return Response.status(201).build();
     }
 
 
@@ -158,8 +182,9 @@ public class Producoes {
         Fabricante f = (Fabricante) utilizadores.get(nome);
         if(f == null)
             return Response.status(405).build();
-        f.addOperacaoCancelada(producao);
-        return Response.ok(producao).build();
+        producao.setEstado("cancelada");
+        f.addProducao(nome, producao);
+        return Response.status(201).build();
     }
 
     @DELETE
