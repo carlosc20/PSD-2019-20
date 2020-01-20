@@ -6933,25 +6933,37 @@ public final class Protos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>string produto = 1;</code>
+     * @return The produto.
+     */
+    java.lang.String getProduto();
+    /**
+     * <code>string produto = 1;</code>
+     * @return The bytes for produto.
+     */
+    com.google.protobuf.ByteString
+        getProdutoBytes();
+
+    /**
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> 
         getEncomendasList();
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     ProtoBuffers.Protos.OfertaEncomendaRequest getEncomendas(int index);
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     int getEncomendasCount();
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     java.util.List<? extends ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> 
         getEncomendasOrBuilderList();
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendasOrBuilder(
         int index);
@@ -6969,6 +6981,7 @@ public final class Protos {
       super(builder);
     }
     private NotificacaoResultadosFabricante() {
+      produto_ = "";
       encomendas_ = java.util.Collections.emptyList();
     }
 
@@ -7004,6 +7017,12 @@ public final class Protos {
               done = true;
               break;
             case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              produto_ = s;
+              break;
+            }
+            case 18: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 encomendas_ = new java.util.ArrayList<ProtoBuffers.Protos.OfertaEncomendaRequest>();
                 mutable_bitField0_ |= 0x00000001;
@@ -7047,35 +7066,71 @@ public final class Protos {
               ProtoBuffers.Protos.NotificacaoResultadosFabricante.class, ProtoBuffers.Protos.NotificacaoResultadosFabricante.Builder.class);
     }
 
-    public static final int ENCOMENDAS_FIELD_NUMBER = 1;
+    public static final int PRODUTO_FIELD_NUMBER = 1;
+    private volatile java.lang.Object produto_;
+    /**
+     * <code>string produto = 1;</code>
+     * @return The produto.
+     */
+    public java.lang.String getProduto() {
+      java.lang.Object ref = produto_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        produto_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string produto = 1;</code>
+     * @return The bytes for produto.
+     */
+    public com.google.protobuf.ByteString
+        getProdutoBytes() {
+      java.lang.Object ref = produto_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        produto_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ENCOMENDAS_FIELD_NUMBER = 2;
     private java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> encomendas_;
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     public java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> getEncomendasList() {
       return encomendas_;
     }
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     public java.util.List<? extends ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> 
         getEncomendasOrBuilderList() {
       return encomendas_;
     }
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     public int getEncomendasCount() {
       return encomendas_.size();
     }
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     public ProtoBuffers.Protos.OfertaEncomendaRequest getEncomendas(int index) {
       return encomendas_.get(index);
     }
     /**
-     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+     * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
      */
     public ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendasOrBuilder(
         int index) {
@@ -7096,8 +7151,11 @@ public final class Protos {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!getProdutoBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, produto_);
+      }
       for (int i = 0; i < encomendas_.size(); i++) {
-        output.writeMessage(1, encomendas_.get(i));
+        output.writeMessage(2, encomendas_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -7108,9 +7166,12 @@ public final class Protos {
       if (size != -1) return size;
 
       size = 0;
+      if (!getProdutoBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, produto_);
+      }
       for (int i = 0; i < encomendas_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, encomendas_.get(i));
+          .computeMessageSize(2, encomendas_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -7127,6 +7188,8 @@ public final class Protos {
       }
       ProtoBuffers.Protos.NotificacaoResultadosFabricante other = (ProtoBuffers.Protos.NotificacaoResultadosFabricante) obj;
 
+      if (!getProduto()
+          .equals(other.getProduto())) return false;
       if (!getEncomendasList()
           .equals(other.getEncomendasList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -7140,6 +7203,8 @@ public final class Protos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PRODUTO_FIELD_NUMBER;
+      hash = (53 * hash) + getProduto().hashCode();
       if (getEncomendasCount() > 0) {
         hash = (37 * hash) + ENCOMENDAS_FIELD_NUMBER;
         hash = (53 * hash) + getEncomendasList().hashCode();
@@ -7278,6 +7343,8 @@ public final class Protos {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        produto_ = "";
+
         if (encomendasBuilder_ == null) {
           encomendas_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000001);
@@ -7311,6 +7378,7 @@ public final class Protos {
       public ProtoBuffers.Protos.NotificacaoResultadosFabricante buildPartial() {
         ProtoBuffers.Protos.NotificacaoResultadosFabricante result = new ProtoBuffers.Protos.NotificacaoResultadosFabricante(this);
         int from_bitField0_ = bitField0_;
+        result.produto_ = produto_;
         if (encomendasBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0)) {
             encomendas_ = java.util.Collections.unmodifiableList(encomendas_);
@@ -7368,6 +7436,10 @@ public final class Protos {
 
       public Builder mergeFrom(ProtoBuffers.Protos.NotificacaoResultadosFabricante other) {
         if (other == ProtoBuffers.Protos.NotificacaoResultadosFabricante.getDefaultInstance()) return this;
+        if (!other.getProduto().isEmpty()) {
+          produto_ = other.produto_;
+          onChanged();
+        }
         if (encomendasBuilder_ == null) {
           if (!other.encomendas_.isEmpty()) {
             if (encomendas_.isEmpty()) {
@@ -7424,6 +7496,82 @@ public final class Protos {
       }
       private int bitField0_;
 
+      private java.lang.Object produto_ = "";
+      /**
+       * <code>string produto = 1;</code>
+       * @return The produto.
+       */
+      public java.lang.String getProduto() {
+        java.lang.Object ref = produto_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          produto_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string produto = 1;</code>
+       * @return The bytes for produto.
+       */
+      public com.google.protobuf.ByteString
+          getProdutoBytes() {
+        java.lang.Object ref = produto_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          produto_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string produto = 1;</code>
+       * @param value The produto to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProduto(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        produto_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string produto = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProduto() {
+        
+        produto_ = getDefaultInstance().getProduto();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string produto = 1;</code>
+       * @param value The bytes for produto to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProdutoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        produto_ = value;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> encomendas_ =
         java.util.Collections.emptyList();
       private void ensureEncomendasIsMutable() {
@@ -7437,7 +7585,7 @@ public final class Protos {
           ProtoBuffers.Protos.OfertaEncomendaRequest, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder, ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> encomendasBuilder_;
 
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest> getEncomendasList() {
         if (encomendasBuilder_ == null) {
@@ -7447,7 +7595,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public int getEncomendasCount() {
         if (encomendasBuilder_ == null) {
@@ -7457,7 +7605,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public ProtoBuffers.Protos.OfertaEncomendaRequest getEncomendas(int index) {
         if (encomendasBuilder_ == null) {
@@ -7467,7 +7615,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public Builder setEncomendas(
           int index, ProtoBuffers.Protos.OfertaEncomendaRequest value) {
@@ -7484,7 +7632,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public Builder setEncomendas(
           int index, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder builderForValue) {
@@ -7498,7 +7646,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public Builder addEncomendas(ProtoBuffers.Protos.OfertaEncomendaRequest value) {
         if (encomendasBuilder_ == null) {
@@ -7514,7 +7662,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public Builder addEncomendas(
           int index, ProtoBuffers.Protos.OfertaEncomendaRequest value) {
@@ -7531,7 +7679,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public Builder addEncomendas(
           ProtoBuffers.Protos.OfertaEncomendaRequest.Builder builderForValue) {
@@ -7545,7 +7693,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public Builder addEncomendas(
           int index, ProtoBuffers.Protos.OfertaEncomendaRequest.Builder builderForValue) {
@@ -7559,7 +7707,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public Builder addAllEncomendas(
           java.lang.Iterable<? extends ProtoBuffers.Protos.OfertaEncomendaRequest> values) {
@@ -7574,7 +7722,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public Builder clearEncomendas() {
         if (encomendasBuilder_ == null) {
@@ -7587,7 +7735,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public Builder removeEncomendas(int index) {
         if (encomendasBuilder_ == null) {
@@ -7600,14 +7748,14 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public ProtoBuffers.Protos.OfertaEncomendaRequest.Builder getEncomendasBuilder(
           int index) {
         return getEncomendasFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder getEncomendasOrBuilder(
           int index) {
@@ -7617,7 +7765,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public java.util.List<? extends ProtoBuffers.Protos.OfertaEncomendaRequestOrBuilder> 
            getEncomendasOrBuilderList() {
@@ -7628,14 +7776,14 @@ public final class Protos {
         }
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public ProtoBuffers.Protos.OfertaEncomendaRequest.Builder addEncomendasBuilder() {
         return getEncomendasFieldBuilder().addBuilder(
             ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance());
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public ProtoBuffers.Protos.OfertaEncomendaRequest.Builder addEncomendasBuilder(
           int index) {
@@ -7643,7 +7791,7 @@ public final class Protos {
             index, ProtoBuffers.Protos.OfertaEncomendaRequest.getDefaultInstance());
       }
       /**
-       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 1;</code>
+       * <code>repeated .ProtoBuffers.OfertaEncomendaRequest encomendas = 2;</code>
        */
       public java.util.List<ProtoBuffers.Protos.OfertaEncomendaRequest.Builder> 
            getEncomendasBuilderList() {
@@ -7794,10 +7942,10 @@ public final class Protos {
       "\013dataInicial\030\005 \001(\t\022\021\n\tdataFinal\030\006 \001(\t\"t\n" +
       "\037NotificacaoResultadosImportador\022\016\n\006acei" +
       "te\030\001 \001(\010\022\022\n\nfabricante\030\002 \001(\t\022\017\n\007produto\030" +
-      "\003 \001(\t\022\r\n\005quant\030\004 \001(\005\022\r\n\005preco\030\005 \001(\005\"[\n\037N" +
-      "otificacaoResultadosFabricante\0228\n\nencome" +
-      "ndas\030\001 \003(\0132$.ProtoBuffers.OfertaEncomend" +
-      "aRequestb\006proto3"
+      "\003 \001(\t\022\r\n\005quant\030\004 \001(\005\022\r\n\005preco\030\005 \001(\005\"l\n\037N" +
+      "otificacaoResultadosFabricante\022\017\n\007produt" +
+      "o\030\001 \001(\t\0228\n\nencomendas\030\002 \003(\0132$.ProtoBuffe" +
+      "rs.OfertaEncomendaRequestb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7856,7 +8004,7 @@ public final class Protos {
     internal_static_ProtoBuffers_NotificacaoResultadosFabricante_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProtoBuffers_NotificacaoResultadosFabricante_descriptor,
-        new java.lang.String[] { "Encomendas", });
+        new java.lang.String[] { "Produto", "Encomendas", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -24,7 +24,7 @@ public class Cliente {
             String password = scanner.nextLine();
 
             try {
-                Session session = as.loginFabricante(nome, password);
+                Session session = as.login(nome, password);
                 if (session != null) {
                     System.out.println("Login efetuado com sucesso");
                     if (session.getTipo() == AuthenticationService.FABRICANTE) {
@@ -45,18 +45,18 @@ public class Cliente {
 
     private static void sessaoFabricante(Scanner scanner, Session session) {
         FabricanteService fs = new FabricanteService(session, "tcp://localhost:6666");
-
         listening = true;
         new Thread(() -> {
             while (listening) {
                 try {
-                    List<Encomenda> list = fs.getNotification();
+                    FabricanteNotification notif = fs.getNotification();
                     System.out.println("-----NOTIFICAÇÃO-----");
-                    if(list == null) {
-                        System.out.println("Resultado: oferta cancelada (quantidade mínima não atingida)");
-                        // TODO mais informação
+                    List<Encomenda> list = notif.getEncomendas();
+                    String produto = notif.getProduto();
+                    if(list.size() == 0) {
+                        System.out.println("Resultado (" + produto + "): oferta cancelada (quantidade mínima não atingida)");
                     } else {
-                        System.out.println("Resultado: encomendas aceites:");
+                        System.out.println("Resultado (" + produto + "): encomendas aceites:");
                         for (Encomenda e : list) {
                             System.out.println("Quantidade: " + e.getQuantidade());
                             System.out.println("Preço unitário: " + e.getPrecoPorUnidade());
@@ -112,7 +112,7 @@ public class Cliente {
         new Thread(() -> {
             while (listening) {
                 try {
-                    Notification notif = is.getNotification();
+                    ImportadorNotification notif = is.getNotification();
                     switch(notif.getType()){
                         case OFERTA_PRODUCAO:
                             Producao producao = notif.getProducao();
