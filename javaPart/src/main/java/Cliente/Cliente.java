@@ -24,7 +24,7 @@ public class Cliente {
             String password = scanner.nextLine();
 
             try {
-                Session session = as.login(nome, password);
+                Session session = as.loginFabricante(nome, password);
                 if (session != null) {
                     System.out.println("Login efetuado com sucesso");
                     if (session.getTipo() == AuthenticationService.FABRICANTE) {
@@ -44,7 +44,7 @@ public class Cliente {
     private static boolean listening;
 
     private static void sessaoFabricante(Scanner scanner, Session session) {
-        FabricanteService fs = new FabricanteService(session, "tcp://localhost:5561");
+        FabricanteService fs = new FabricanteService(session, "tcp://localhost:6666");
 
         listening = true;
         new Thread(() -> {

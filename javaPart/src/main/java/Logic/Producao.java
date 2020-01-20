@@ -1,14 +1,22 @@
 package Logic;
 
+import ProtoBuffers.Protos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+
 public class Producao {
+
     private String nomeFabricante;
     private String nomeProduto;
     private int quantidadeMin;
     private int quantidadeMax;
     private int precoPorUnidade;
     private Periodo periodoOferta;
+
+    public Producao(){
+
+    }
 
     public Producao(String nomeFabricante, String nomeProduto, int quantidadeMin, int quantidadeMax, int precoPorUnidade, Periodo periodoOferta){
         this.nomeFabricante = nomeFabricante;
@@ -17,6 +25,13 @@ public class Producao {
         this.quantidadeMax = quantidadeMax;
         this.precoPorUnidade = precoPorUnidade;
         this.periodoOferta = periodoOferta;
+    }
+
+    public static Producao fromProtoRequest(Protos.OperationRequest request) {
+        Protos.OfertaProducaoRequest r = request.getProducao();
+        LocalDateTime inicio = LocalDateTime.now();
+        LocalDateTime fim = inicio.plusSeconds(r.getDuracaoS());
+        return new Producao(request.getNome(), r.getProduto(), r.getQuantMin(), r.getQuantMax(), r.getPrecoUniMin(), new Periodo(inicio, fim));
     }
 
     @JsonProperty
@@ -52,12 +67,12 @@ public class Producao {
     @Override
     public String toString() {
         return "Producao{" +
-                "nomeFabricante='" + nomeFabricante + '\'' +
-                "nomeProduto='" + nomeProduto + '\'' +
-                ", quantidadeMin=" + quantidadeMin +
-                ", quantidadeMax=" + quantidadeMax +
-                ", precoPorUnidade=" + precoPorUnidade +
-                ", periodoOferta=" + periodoOferta.toString() +
+                "nomeFabricante = '" + nomeFabricante + "', " +
+                "nomeProduto = '" + nomeProduto + "'" +
+                ", quantidadeMin = " + quantidadeMin +
+                ", quantidadeMax = " + quantidadeMax +
+                ", precoPorUnidade = " + precoPorUnidade +
+                ", periodoOferta = " + periodoOferta.toString() +
                 '}';
     }
 }
