@@ -45,7 +45,7 @@ public class FabricanteService extends UtilizadorService {
             NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.parseFrom(data);
             List<Encomenda> encomendas = new ArrayList<>();
             for (OfertaEncomendaRequest r : n.getEncomendasList()) {
-                encomendas.add(new Encomenda(this.getNome(), r.getFabricante(), r.getProduto(), r.getQuant(), r.getPreco()));
+                encomendas.add(new Encomenda(r.getFabricante(), this.getNome(), r.getProduto(), r.getQuant(), r.getPreco()));
             }
             return new FabricanteNotification(n.getProduto(), encomendas);
         } catch (InvalidProtocolBufferException e) {

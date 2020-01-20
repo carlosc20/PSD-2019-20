@@ -2,10 +2,7 @@ package Logic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Fabricante extends Utilizador{
     //TODO controlo de concorrência
@@ -66,9 +63,9 @@ public class Fabricante extends Utilizador{
 
     public synchronized void updateEncomenda(String produto, Encomenda encomenda){
         List<Encomenda> enc = encomendasPorProducao.get(produto);
-        for(Encomenda e : enc)
-            if(e.equals(encomenda))
-                enc.remove(encomenda);
+
+        enc.removeIf(e->e.equals(encomenda));
+
         if(enc.size() == 0)
             encomendasPorProducao.remove(produto);
     }

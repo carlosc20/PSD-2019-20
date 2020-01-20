@@ -22,13 +22,17 @@ import java.util.Collection;
 
 public class Negociador {
 
-    private static final JsonHttpClient jhc = new JsonHttpClient("localhost:12345");
-    private static ZMQ.Socket socketPUB;
+    private final JsonHttpClient jhc = new JsonHttpClient("localhost:12345");
+    private ZMQ.Socket socketPUB;
+
+    public Negociador() {}
 
     public static void main(String[] args) {
+        new Negociador().start("tcp://*:5555", "tcp://*:6666");
+    }
+
+    public void start(String addrREP, String addrPUB) {
         try (ZContext context = new ZContext()) {
-            String addrREP = "tcp://*:5555";
-            String addrPUB = "tcp://*:6666";
             System.out.println("REP: " + addrREP + ", PUB: " + addrPUB);
             final ZMQ.Socket socketREP = context.createSocket(ZMQ.REP);
             socketREP.bind(addrREP);
@@ -112,8 +116,15 @@ public class Negociador {
         }
     }
 
+    private static final OperationResponse REPLY_OK = OperationResponse.newBuilder()
+            .setCode(OperationResponse.ResponseStatusCode.OK)
+            .build();
 
-    private static OperationResponse processProducao(Producao producao) throws IOException, InterruptedException {
+    private static final OperationResponse REPLY_INVALID = OperationResponse.newBuilder()
+            .setCode(OperationResponse.ResponseStatusCode.INVALID)
+            .build();
+
+    private OperationResponse processProducao(Producao producao) throws IOException, InterruptedException {
         int statusCode = jhc.post("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto(), producao);
         if (statusCode >= 200 && statusCode < 300) {
             return REPLY_OK;
@@ -121,7 +132,7 @@ public class Negociador {
         return REPLY_INVALID;
     }
 
-    private static OperationResponse processEncomenda(Encomenda encomenda) throws IOException, InterruptedException {
+    private OperationResponse processEncomenda(Encomenda encomenda) throws IOException, InterruptedException {
         Producao prod = jhc.getObject("producoes/" + encomenda.getNomeFabricante() + "/" + encomenda.getNomeProduto(), Producao.class);
         if(prod != null) {
             System.out.println(prod);
@@ -146,16 +157,9 @@ public class Negociador {
         }
     }
 
-    private static final OperationResponse REPLY_OK = OperationResponse.newBuilder()
-            .setCode(OperationResponse.ResponseStatusCode.OK)
-            .build();
-
-    private static final OperationResponse REPLY_INVALID = OperationResponse.newBuilder()
-            .setCode(OperationResponse.ResponseStatusCode.INVALID)
-            .build();
 
 
-    private static Thread periodoNegociacao(long waitSeconds, Producao producao, String nomeFabricante) {
+    private Thread periodoNegociacao(long waitSeconds, Producao producao, String nomeFabricante) {
         return new Thread(() -> {
             try {
                 Thread.sleep(1000 * waitSeconds);
@@ -254,7 +258,7 @@ public class Negociador {
                     ArrayList<OfertaEncomendaRequest> aceitesR = new ArrayList<>();
                     for (Encomenda e : aceites) {
                         aceitesR.add(OfertaEncomendaRequest.newBuilder()
-                                .setFabricante(e.getNomeFabricante())
+                                .setFabricante(e.getNomeImportador()) // é assim
                                 .setPreco(e.getPrecoPorUnidade())
                                 .setProduto(e.getNomeProduto())
                                 .setQuant(e.getQuantidade())

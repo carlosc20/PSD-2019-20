@@ -107,7 +107,7 @@ public class Cliente {
 
 
     private static void sessaoImportador(Scanner scanner, Session session) {
-        ImportadorService is = new ImportadorService(session, "tcp://localhost:5561");
+        ImportadorService is = new ImportadorService(session, "tcp://localhost:6666");
 
         listening = true;
         new Thread(() -> {
