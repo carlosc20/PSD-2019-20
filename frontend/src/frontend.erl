@@ -14,24 +14,24 @@ mod(X,Y) when X < 0 -> Y + X rem Y;
 mod(0,Y) -> 0.
 
 
-start_worker(Identity, Port, Parent) ->
+start_worker(Identity, Destination, Port, Parent) ->
     {ok, Socket} = chumak:socket(dealer, Identity),
     {ok, _PeerPid} = chumak:bind(Socket, tcp, "localhost", Port),
     spawn(fun() -> worker_loop_recv(Socket, Parent) end),
     Iden = list_to_binary(Identity),
-    worker_loop_send(Socket, Iden).
+    worker_loop_send(Socket, Iden, Destination).
 
 
-worker_loop_send(Socket, Identity) ->
+worker_loop_send(Socket, Identity, Destination) ->
     %uma de cada vez
     receive
         {ClientIdentity, Message} ->
             io:format("~p~p~n", [Identity, Message]),
             %novo processo para não empancar tudo à espera da resposta
-            chumak:send_multipart(Socket, [ClientIdentity, Message]);
+            chumak:send_multipart(Socket, [Destination, Identity, ClientIdentity, <<>>, Message]);
         _ -> io:format("~p~n", ["invalido"])
     end,
-    worker_loop_send(Socket, Identity).
+    worker_loop_send(Socket, Identity, Destination).
 
 
 worker_loop_recv(Socket, Parent) ->
@@ -57,11 +57,11 @@ request_loop(Socket, Parent, Workers, N) ->
 %encarrega-se de devolver respostas aos clientes
 reply_loop(Socket) -> 
     receive
-        {answer, [Identity, <<>>, Message]} ->
-            io:format("~p~p~n", [Identity, Message]),
-            ok = chumak:send_multipart(Socket, [Identity, <<>>, Message])
+        {answer, [_, _, ClientIdentity, <<>>, Message]} ->
+            io:format("~p~p~n", [ClientIdentity, Message]),
+            ok = chumak:send_multipart(Socket, [ClientIdentity, <<>>, Message])
     end,
-    answer_loop(Socket).
+    reply_loop(Socket).
 
 
 pub_sub()->
@@ -84,7 +84,7 @@ monitorReqRep(ReplyRef, RequestsRef, Socket, Reply, Workers) ->
         {'DOWN', ReplyRef, process, Pid, R} ->
             io:format("Server ~p down: ~p~n", [Pid, R]),
             NewReplyRef = erlang:monitor(process, spawn(fun() -> reply_loop(Socket) end)),
-            monitorReqRep(NewReplyRef, RequestsRef, Socket, Reply, Worker);
+            monitorReqRep(NewReplyRef, RequestsRef, Socket, Reply, Workers);
         {'DOWN', RequestRef, process, Pid, R} ->
             io:format("Client ~p down: ~p~n", [Pid, R]),
             NewRequestsRef = erlang:monitor(process, spawn(fun() -> request_loop(Socket, Reply, Workers, 0) end)),
@@ -97,13 +97,13 @@ main(Args) ->
     {ok, Socket} = chumak:socket(router),
     {ok, _BindPid} = chumak:bind(Socket, tcp, "localhost", 5555),
     Reply = spawn(fun() -> reply_loop(Socket) end),    
-    Requests = spawn(fun() -> request_loop(Socket, Reply, Workers, 0) end),
-    W1 = spawn(fun() -> start_worker("A", 5556, Reply) end),
-    W2 = spawn(fun() -> start_worker("B", 5557, Reply) end),
-    W3 = spawn(fun() -> start_worker("C", 5558, Reply) end),
+    W1 = spawn(fun() -> start_worker("A", <<"X">>, 5556, Reply) end),
+    W2 = spawn(fun() -> start_worker("B", <<"Y">>, 5557, Reply) end),
+    W3 = spawn(fun() -> start_worker("C", <<"Z">>, 5558, Reply) end),
     Workers=#{"A" => W1,
               "B" => W2,
               "C" => W3},
+    Requests = spawn(fun() -> request_loop(Socket, Reply, Workers, 0) end),
     %%monitors
     RequestsRef =  erlang:monitor(process, Requests),
     ReplyRef = erlang:monitor(process, Reply),
