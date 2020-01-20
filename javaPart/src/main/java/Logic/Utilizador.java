@@ -36,7 +36,4 @@ public class Utilizador {
         return tipo;
     }
 
-    public Utilizador getUtilizador(){
-        return this;
-    }
 }

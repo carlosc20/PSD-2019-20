@@ -24,6 +24,7 @@ public class Negociador {
 
     private final JsonHttpClient jhc = new JsonHttpClient("localhost:12345");
     private ZMQ.Socket socketPUB;
+    private String identity;
 
     public Negociador() {}
 
@@ -33,6 +34,7 @@ public class Negociador {
 
     public void start(String addrREP, String addrPUB, String identity) {
         try (ZContext context = new ZContext()) {
+            this.identity = identity;
             System.out.println("REP: " + addrREP + ", PUB: " + addrPUB);
             ZMQ.Socket socketREP = context.createSocket(ZMQ.REP);
             socketREP.connect(addrREP);
@@ -45,7 +47,8 @@ public class Negociador {
                 reply = REPLY_OK;
                 byte[] data = socketREP.recv(0);
                 try {
-                    System.out.println("\n=========================================================\n");
+                    System.out.println("\n=========================================================");
+                    System.out.println(identity + "\n");
                     OperationRequest request = OperationRequest.parseFrom(data);
                     String nome = request.getNome();
                     String password = request.getPassword();
@@ -163,7 +166,8 @@ public class Negociador {
         return new Thread(() -> {
             try {
                 Thread.sleep(1000 * waitSeconds);
-                System.out.println("\n=========================================================\n");
+                System.out.println("\n=========================================================");
+                System.out.println(identity + "\n");
                 System.out.println("Período de negociação acabou");
                 Collection<Encomenda> encomendas = jhc.getCollection(
                         "producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/encomendas", Encomenda.class);
