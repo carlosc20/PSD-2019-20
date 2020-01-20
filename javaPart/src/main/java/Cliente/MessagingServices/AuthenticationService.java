@@ -28,7 +28,6 @@ public class AuthenticationService {
                 .setPassword(password)
                 .build();
         socket.send(request.toByteArray(), 0);
-        System.out.println("Sent: login request");
 
         // receber
         byte[] reply = socket.recv(0);
@@ -36,10 +35,8 @@ public class AuthenticationService {
             LoginResponse response = LoginResponse.parseFrom(reply);
             LoginResponse.TipoUtilizador tipo = response.getTipo();
             if(tipo == LoginResponse.TipoUtilizador.FABRICANTE) {
-                System.out.println("Received: login FABRICANTE");
                 return  new Session(username, password, FABRICANTE, context, socket);
             } else if(tipo == LoginResponse.TipoUtilizador.IMPORTADOR) {
-                System.out.println("Received: login IMPORTADOR");
                 return  new Session(username, password, IMPORTADOR, context, socket);
             }
             System.out.println("Received: login ERRO");

@@ -60,7 +60,7 @@ public class JsonHttpClient {
 
         HttpResponse<?> response = client.send(request, HttpResponse.BodyHandlers.discarding());
         int statusCode = response.statusCode();
-        System.out.println("POST " + scheme + "://" + authority + "/" + path + "  " + statusCode);
+        System.out.println("POST " + scheme + "://" + authority + "/" + path + " -> " + statusCode);
         return statusCode;
     }
 
@@ -74,7 +74,7 @@ public class JsonHttpClient {
 
         HttpResponse<?> response = client.send(request, HttpResponse.BodyHandlers.discarding());
         int statusCode = response.statusCode();
-        System.out.println("PUT " + scheme + "://" + authority + "/" + path + "  " + statusCode);
+        System.out.println("PUT " + scheme + "://" + authority + "/" + path + " -> " + statusCode);
         return statusCode;
     }
 }

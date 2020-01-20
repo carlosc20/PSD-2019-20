@@ -50,19 +50,20 @@ public class Cliente {
             while (listening) {
                 try {
                     FabricanteNotification notif = fs.getNotification();
-                    System.out.println("-----NOTIFICAÇÃO-----");
+                    System.out.println("---------------NOTIFICAÇÃO---------------");
                     List<Encomenda> list = notif.getEncomendas();
                     String produto = notif.getProduto();
                     if(list.size() == 0) {
-                        System.out.println("Resultado (" + produto + "): oferta cancelada (quantidade mínima não atingida)");
+                        System.out.println("Resultado (produto: " + produto + "), oferta cancelada (quantidade mínima não atingida)");
                     } else {
-                        System.out.println("Resultado (" + produto + "): encomendas aceites:");
+                        System.out.println("Resultado (produto: " + produto + "), encomendas aceites:");
                         for (Encomenda e : list) {
-                            System.out.println("Quantidade: " + e.getQuantidade());
-                            System.out.println("Preço unitário: " + e.getPrecoPorUnidade());
+                            System.out.println("- Importador: " + e.getNomeImportador());
+                            System.out.println("  Quantidade: " + e.getQuantidade());
+                            System.out.println("  Preço unitário: " + e.getPrecoPorUnidade());
                         }
                     }
-                    System.out.println("---------------------");
+                    System.out.println("-----------------------------------------");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -85,17 +86,17 @@ public class Cliente {
                 switch (cmds[0].toLowerCase()) {
                     case "oferta":
                         if(checkNArgs(cmds, 5)) break;
-                            String produto = cmds[1];
-                            int quantMin = Integer.parseInt(cmds[2]);
-                            int quantMax = Integer.parseInt(cmds[3]);
-                            int precoUniMin = Integer.parseInt(cmds[4]);
-                            Duration duracao_s = Duration.ofSeconds(Long.parseLong(cmds[5]));
-                            fs.fazerOfertaProducao(produto, quantMin, quantMax, precoUniMin, duracao_s);
+                        String produto = cmds[1];
+                        int quantMin = Integer.parseInt(cmds[2]);
+                        int quantMax = Integer.parseInt(cmds[3]);
+                        int precoUniMin = Integer.parseInt(cmds[4]);
+                        Duration duracao_s = Duration.ofSeconds(Long.parseLong(cmds[5]));
+                        fs.fazerOfertaProducao(produto, quantMin, quantMax, precoUniMin, duracao_s);
+                        System.out.println("Oferta concluída com sucesso.");
                         break;
                     default:
                         System.out.println("Comando não reconhecido. Use 'help' para ver lista de comandos");
                 }
-                System.out.println("Oferta concluída com sucesso.");
             } catch (Exception e) {
                 System.out.println("Erro ao fazer oferta.");
                 e.printStackTrace();
@@ -116,18 +117,18 @@ public class Cliente {
                     switch(notif.getType()){
                         case OFERTA_PRODUCAO:
                             Producao producao = notif.getProducao();
-                            System.out.println("-----NOTIFICAÇÃO-----");
+                            System.out.println("---------------NOTIFICAÇÃO---------------");
                             System.out.println("Nova oferta de produção do fabricante '" + producao.getNomeFabricante() + "'");
                             System.out.println("Produto: " + producao.getNomeProduto());
                             System.out.println("Quantidade max:" + producao.getQuantidadeMax());
                             System.out.println("Quantidade min:" + producao.getQuantidadeMin());
                             System.out.println("Preço unitário min:" + producao.getPrecoPorUnidade());
                             System.out.println("Negociação aberta até " + producao.getPeriodoOferta().getDataFinal());
-                            System.out.println("---------------------");
+                            System.out.println("-----------------------------------------");
                             break;
                         case RESULTADO_NEGOCIACAO:
                             Encomenda encomenda = notif.getEncomenda();
-                            System.out.println("-----NOTIFICAÇÃO-----");
+                            System.out.println("---------------NOTIFICAÇÃO---------------");
                             System.out.println("Negociação em que fez oferta de encomenda terminou");
                             if(encomenda == null) {
                                 System.out.println("Resultado: oferta cancelada (quantidade mínima não atingida)");
@@ -139,8 +140,10 @@ public class Cliente {
                                 System.out.println("Quantidade: " + encomenda.getQuantidade());
                                 System.out.println("Preço unitário: " + encomenda.getPrecoPorUnidade());
                             }
-                            System.out.println("---------------------");
+                            System.out.println("-----------------------------------------");
                             break;
+                            default:
+                                System.out.println("Erro notificação");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -173,25 +176,29 @@ public class Cliente {
                         int quant = Integer.parseInt(cmds[3]);
                         int preco = Integer.parseInt(cmds[4]);
                         is.fazerOfertaEncomenda(fabricante, produto, quant, preco);
+                        System.out.println("Oferta concluída com sucesso.");
                         break;
                     case "subfabricante":
                         if(checkNArgs(cmds, 1)) break;
                         is.setNotificacoesFabricante(true, cmds[1]);
+                        System.out.println("Operação concluída com sucesso.");
                         break;
                     case "unsubfabricante":
                         if(checkNArgs(cmds, 1)) break;
                         is.setNotificacoesFabricante(false, cmds[1]);
+                        System.out.println("Operação concluída com sucesso.");
                         break;
                     case "subresultados":
                         is.setNotificacoesResultados(true);
+                        System.out.println("Operação concluída com sucesso.");
                         break;
                     case "unsubresultados":
                         is.setNotificacoesResultados(false);
+                        System.out.println("Operação concluída com sucesso.");
                         break;
                     default:
                         System.out.println("Comando não reconhecido. Use 'help' para ver lista de comandos");
                 }
-                System.out.println("Operação concluída com sucesso.");
             } catch(Exception e) {
                 System.out.println("Erro ao executar operação.");
                 e.printStackTrace();
@@ -202,7 +209,7 @@ public class Cliente {
 
     private static boolean checkNArgs(String[] cmds, int min) {
         if (cmds.length < (min + 1)) {
-            System.out.println("Argumentos insuficientes, esse comando requere " + min + "no minimo");
+            System.out.println("Argumentos insuficientes, esse comando requere " + min + " no minimo");
             return true;
         }
         return false;

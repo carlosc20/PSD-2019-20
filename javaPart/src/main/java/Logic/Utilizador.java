@@ -31,6 +31,7 @@ public class Utilizador {
         return password;
     }
 
+    @JsonProperty
     public String getTipo() {
         return tipo;
     }

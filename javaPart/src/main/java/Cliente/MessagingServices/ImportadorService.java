@@ -46,6 +46,7 @@ public class ImportadorService extends UtilizadorService {
     public ImportadorNotification getNotification() throws IOException {
         String topic = getTopic();
         byte[] data = getPublication();
+        System.out.println("Recebi notif " + topic);
         if(topic.equals(this.getNome())) {
             // resultado negociação
             NotificacaoResultadosImportador n = NotificacaoResultadosImportador.parseFrom(data);

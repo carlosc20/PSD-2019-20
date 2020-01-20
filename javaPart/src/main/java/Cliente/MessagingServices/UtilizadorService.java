@@ -33,17 +33,14 @@ abstract class UtilizadorService {
 
     void sendOperation(byte[] message) throws IOException {
         socketREQ.send(message, 0);
-        System.out.println("Enviou: Operation");
 
         // receber
         byte[] reply = socketREQ.recv(0);
         OperationResponse response = OperationResponse.parseFrom(reply);
         switch (response.getCode()){
             case OK:
-                System.out.println("Recebeu: OK");
                 return;
             case INVALID:
-                System.out.println("Recebeu: INVALID");
                 throw new IOException();
             default:
                 throw new IOException(); // TODO erros mais detalhados

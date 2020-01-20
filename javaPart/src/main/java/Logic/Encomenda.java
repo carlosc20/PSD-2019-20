@@ -7,19 +7,19 @@ import java.util.Objects;
 
 public class Encomenda {
 
-    private String importador;
-    private String fabricante;
-    private String produto;
+    private String nomeImportador;
+    private String nomeFabricante;
+    private String nomeProduto;
     private int quantidade;
     private int precoPorUnidade;
     private String estado;
 
     public Encomenda(){}
 
-    public Encomenda(String importador, String fabricante, String produto, int quantidade, int precoUni){
-        this.importador = importador;
-        this.fabricante = fabricante;
-        this.produto = produto;
+    public Encomenda(String nomeImportador, String nomeFabricante, String nomeProduto, int quantidade, int precoUni){
+        this.nomeImportador = nomeImportador;
+        this.nomeFabricante = nomeFabricante;
+        this.nomeProduto = nomeProduto;
         this.quantidade = quantidade;
         this.precoPorUnidade = precoUni;
         this.estado = "emCurso";
@@ -32,18 +32,18 @@ public class Encomenda {
 
     @JsonProperty
     public String getNomeImportador(){
-        return importador;
+        return nomeImportador;
     }
 
     @JsonProperty
     public String getNomeFabricante(){
-        return fabricante;
+        return nomeFabricante;
     }
 
 
     @JsonProperty
     public String getNomeProduto(){
-        return produto;
+        return nomeProduto;
     }
 
     @JsonProperty
@@ -57,6 +57,8 @@ public class Encomenda {
     }
 
     @JsonProperty
+    public String getEstado() { return estado; }
+
     public boolean estado(String e){
         return estado.equals(e);
     }
@@ -70,15 +72,15 @@ public class Encomenda {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Encomenda encomenda = (Encomenda) o;
-        return Objects.equals(fabricante, encomenda.fabricante) &&
-                Objects.equals(produto, encomenda.produto);
+        return Objects.equals(nomeFabricante, encomenda.nomeFabricante) &&
+                Objects.equals(nomeProduto, encomenda.nomeProduto);
     }
 
     public String toString() {
         return "Encomenda{" +
-                "importador = '" + importador + "', " +
-                "fabricante = '" + fabricante + "', " +
-                "produto = " + produto + ", " +
+                "nomeImportador = '" + nomeImportador + "', " +
+                "nomeFabricante = '" + nomeFabricante + "', " +
+                "nomeProduto = " + nomeProduto + ", " +
                 "quantidade = " + quantidade + ", " +
                 "precoPorUnidade = " + precoPorUnidade +
                 '}';

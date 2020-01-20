@@ -26,6 +26,8 @@ public class Utilizadores {
     @GET
     @Path("/{nome}")
     public Utilizador getUtilizador(@PathParam("nome") String nome){
-        return utilizadores.get(nome);
+        Utilizador u = utilizadores.get(nome);
+        if(u == null) return null;
+        return new Utilizador(u);
     }
 }
