@@ -16,8 +16,8 @@ public class Importador extends Utilizador{
         encomendas = new ArrayList<>();
     }
 
-    public Importador(String name, String password, String tipo){
-        super(name, password, tipo);
+    public Importador(String name, String password){
+        super(name, password, "importador");
         encomendas = new ArrayList<>();
     }
 

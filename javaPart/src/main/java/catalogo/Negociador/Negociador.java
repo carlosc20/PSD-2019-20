@@ -52,9 +52,9 @@ public class Negociador {
                                 tipo = LoginResponse.TipoUtilizador.ERRO;
                                 break;
                             }
-                            if(utilizador.tipo.equals("fabricante")){
+                            if(utilizador.getTipo().equals("fabricante")){
                                 tipo = LoginResponse.TipoUtilizador.FABRICANTE;
-                            } else if(utilizador.tipo.equals("importador")){
+                            } else if(utilizador.getTipo().equals("importador")){
                                 tipo = LoginResponse.TipoUtilizador.IMPORTADOR;
                             }
                             LoginResponse response = LoginResponse.newBuilder()

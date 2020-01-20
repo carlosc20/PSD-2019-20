@@ -20,8 +20,8 @@ public class Fabricante extends Utilizador{
         encomendasPorProducao = new HashMap<>();
     }
 
-    public Fabricante(String nome, String password, String tipo) {
-        super(nome,password, tipo);
+    public Fabricante(String nome, String password) {
+        super(nome,password, "fabricante");
         producaoPorProduto = new HashMap<>();
         encomendasPorProducao = new HashMap<>();
     }

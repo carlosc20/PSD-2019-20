@@ -20,10 +20,10 @@ public class Producoes {
         this.utilizadores = utilizadores;
 
         //------Teste------
-        Fabricante f1 = new Fabricante("Carlos", "123", "fabricante");
-        Fabricante f2 = new Fabricante("Daniel", "123", "fabricante");
-        Fabricante f3 = new Fabricante("Maria", "123", "fabricante");
-        Fabricante f4 = new Fabricante("Luís", "123", "fabricante");
+        Fabricante f1 = new Fabricante("Carlos", "123");
+        Fabricante f2 = new Fabricante("Daniel", "123");
+        Fabricante f3 = new Fabricante("Maria", "123");
+        Fabricante f4 = new Fabricante("Luís", "123");
 
         Periodo periodo = new Periodo(LocalDateTime.now(), LocalDateTime.now());
 
