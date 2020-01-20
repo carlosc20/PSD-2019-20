@@ -26,9 +26,12 @@ public class Fabricante extends Negociador<Producao>{
         encomendasPorProducao = new HashMap<>();
     }
 
-    public void addProducao(String produto, Producao p){
+    public boolean addProducao(String produto, Producao p){
+        if(producaoPorProduto.containsKey(produto))
+            return false;
         producaoPorProduto.put(produto, p);
         encomendasPorProducao.put(produto, null);
+        return true;
     }
 
     public Producao removeProducao(String produto){

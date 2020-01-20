@@ -22,18 +22,11 @@
         }).
 -endif.
 
--ifndef('AUTHOPERATIONREQUEST_PB_H').
--define('AUTHOPERATIONREQUEST_PB_H', true).
--record('AuthOperationRequest',
-        {password = []          :: iodata() | undefined, % = 1
-         request = undefined    :: protos:'OperationRequest'() | undefined % = 2
-        }).
--endif.
-
 -ifndef('OPERATIONREQUEST_PB_H').
 -define('OPERATIONREQUEST_PB_H', true).
 -record('OperationRequest',
         {nome = []              :: iodata() | undefined, % = 1
+         password = []          :: iodata() | undefined, % = 2
          request                :: {producao, protos:'OfertaProducaoRequest'()} | {encomenda, protos:'OfertaEncomendaRequest'()} | undefined % oneof
         }).
 -endif.
@@ -66,24 +59,26 @@
         }).
 -endif.
 
--ifndef('NOTIFICACAOFERTAPRODUCAO_PB_H').
--define('NOTIFICACAOFERTAPRODUCAO_PB_H', true).
--record('NotificacaOfertaProducao',
+-ifndef('NOTIFICACAOOFERTAPRODUCAO_PB_H').
+-define('NOTIFICACAOOFERTAPRODUCAO_PB_H', true).
+-record('NotificacaoOfertaProducao',
         {produto = []           :: iodata() | undefined, % = 1
          quantMin = 0           :: integer() | undefined, % = 2, 32 bits
          quantMax = 0           :: integer() | undefined, % = 3, 32 bits
          precoUniMin = 0        :: integer() | undefined, % = 4, 32 bits
-         duracaoS = 0           :: integer() | undefined % = 5, 32 bits
+         dataInicial = []       :: iodata() | undefined, % = 5
+         dataFinal = []         :: iodata() | undefined % = 6
         }).
 -endif.
 
 -ifndef('NOTIFICACAORESULTADOSIMPORTADOR_PB_H').
 -define('NOTIFICACAORESULTADOSIMPORTADOR_PB_H', true).
 -record('NotificacaoResultadosImportador',
-        {fabricante = []        :: iodata() | undefined, % = 1
-         produto = []           :: iodata() | undefined, % = 2
-         quant = 0              :: integer() | undefined, % = 3, 32 bits
-         preco = 0              :: integer() | undefined % = 4, 32 bits
+        {aceite = false         :: boolean() | 0 | 1 | undefined, % = 1
+         fabricante = []        :: iodata() | undefined, % = 2
+         produto = []           :: iodata() | undefined, % = 3
+         quant = 0              :: integer() | undefined, % = 4, 32 bits
+         preco = 0              :: integer() | undefined % = 5, 32 bits
         }).
 -endif.
 

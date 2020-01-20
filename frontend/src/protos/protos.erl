@@ -59,8 +59,6 @@
 
 -type 'LoginResponse'() :: #'LoginResponse'{}.
 
--type 'AuthOperationRequest'() :: #'AuthOperationRequest'{}.
-
 -type 'OperationRequest'() :: #'OperationRequest'{}.
 
 -type 'OperationResponse'() :: #'OperationResponse'{}.
@@ -69,26 +67,26 @@
 
 -type 'OfertaEncomendaRequest'() :: #'OfertaEncomendaRequest'{}.
 
--type 'NotificacaOfertaProducao'() :: #'NotificacaOfertaProducao'{}.
+-type 'NotificacaoOfertaProducao'() :: #'NotificacaoOfertaProducao'{}.
 
 -type 'NotificacaoResultadosImportador'() :: #'NotificacaoResultadosImportador'{}.
 
 -type 'NotificacaoResultadosFabricante'() :: #'NotificacaoResultadosFabricante'{}.
 
--export_type(['LoginRequest'/0, 'LoginResponse'/0, 'AuthOperationRequest'/0, 'OperationRequest'/0, 'OperationResponse'/0, 'OfertaProducaoRequest'/0, 'OfertaEncomendaRequest'/0, 'NotificacaOfertaProducao'/0, 'NotificacaoResultadosImportador'/0, 'NotificacaoResultadosFabricante'/0]).
+-export_type(['LoginRequest'/0, 'LoginResponse'/0, 'OperationRequest'/0, 'OperationResponse'/0, 'OfertaProducaoRequest'/0, 'OfertaEncomendaRequest'/0, 'NotificacaoOfertaProducao'/0, 'NotificacaoResultadosImportador'/0, 'NotificacaoResultadosFabricante'/0]).
 
--spec encode_msg(#'LoginRequest'{} | #'LoginResponse'{} | #'AuthOperationRequest'{} | #'OperationRequest'{} | #'OperationResponse'{} | #'OfertaProducaoRequest'{} | #'OfertaEncomendaRequest'{} | #'NotificacaOfertaProducao'{} | #'NotificacaoResultadosImportador'{} | #'NotificacaoResultadosFabricante'{}) -> binary().
+-spec encode_msg(#'LoginRequest'{} | #'LoginResponse'{} | #'OperationRequest'{} | #'OperationResponse'{} | #'OfertaProducaoRequest'{} | #'OfertaEncomendaRequest'{} | #'NotificacaoOfertaProducao'{} | #'NotificacaoResultadosImportador'{} | #'NotificacaoResultadosFabricante'{}) -> binary().
 encode_msg(Msg) when tuple_size(Msg) >= 1 ->
     encode_msg(Msg, element(1, Msg), []).
 
--spec encode_msg(#'LoginRequest'{} | #'LoginResponse'{} | #'AuthOperationRequest'{} | #'OperationRequest'{} | #'OperationResponse'{} | #'OfertaProducaoRequest'{} | #'OfertaEncomendaRequest'{} | #'NotificacaOfertaProducao'{} | #'NotificacaoResultadosImportador'{} | #'NotificacaoResultadosFabricante'{}, atom() | list()) -> binary().
+-spec encode_msg(#'LoginRequest'{} | #'LoginResponse'{} | #'OperationRequest'{} | #'OperationResponse'{} | #'OfertaProducaoRequest'{} | #'OfertaEncomendaRequest'{} | #'NotificacaoOfertaProducao'{} | #'NotificacaoResultadosImportador'{} | #'NotificacaoResultadosFabricante'{}, atom() | list()) -> binary().
 encode_msg(Msg, MsgName) when is_atom(MsgName) ->
     encode_msg(Msg, MsgName, []);
 encode_msg(Msg, Opts)
     when tuple_size(Msg) >= 1, is_list(Opts) ->
     encode_msg(Msg, element(1, Msg), Opts).
 
--spec encode_msg(#'LoginRequest'{} | #'LoginResponse'{} | #'AuthOperationRequest'{} | #'OperationRequest'{} | #'OperationResponse'{} | #'OfertaProducaoRequest'{} | #'OfertaEncomendaRequest'{} | #'NotificacaOfertaProducao'{} | #'NotificacaoResultadosImportador'{} | #'NotificacaoResultadosFabricante'{}, atom(), list()) -> binary().
+-spec encode_msg(#'LoginRequest'{} | #'LoginResponse'{} | #'OperationRequest'{} | #'OperationResponse'{} | #'OfertaProducaoRequest'{} | #'OfertaEncomendaRequest'{} | #'NotificacaoOfertaProducao'{} | #'NotificacaoResultadosImportador'{} | #'NotificacaoResultadosFabricante'{}, atom(), list()) -> binary().
 encode_msg(Msg, MsgName, Opts) ->
     case proplists:get_bool(verify, Opts) of
       true -> verify_msg(Msg, MsgName, Opts);
@@ -102,9 +100,6 @@ encode_msg(Msg, MsgName, Opts) ->
       'LoginResponse' ->
 	  encode_msg_LoginResponse(id(Msg, TrUserData),
 				   TrUserData);
-      'AuthOperationRequest' ->
-	  encode_msg_AuthOperationRequest(id(Msg, TrUserData),
-					  TrUserData);
       'OperationRequest' ->
 	  encode_msg_OperationRequest(id(Msg, TrUserData),
 				      TrUserData);
@@ -117,9 +112,10 @@ encode_msg(Msg, MsgName, Opts) ->
       'OfertaEncomendaRequest' ->
 	  encode_msg_OfertaEncomendaRequest(id(Msg, TrUserData),
 					    TrUserData);
-      'NotificacaOfertaProducao' ->
-	  encode_msg_NotificacaOfertaProducao(id(Msg, TrUserData),
-					      TrUserData);
+      'NotificacaoOfertaProducao' ->
+	  encode_msg_NotificacaoOfertaProducao(id(Msg,
+						  TrUserData),
+					       TrUserData);
       'NotificacaoResultadosImportador' ->
 	  encode_msg_NotificacaoResultadosImportador(id(Msg,
 							TrUserData),
@@ -180,45 +176,13 @@ encode_msg_LoginResponse(#'LoginResponse'{tipo = F1},
 	   end
     end.
 
-encode_msg_AuthOperationRequest(Msg, TrUserData) ->
-    encode_msg_AuthOperationRequest(Msg, <<>>, TrUserData).
-
-
-encode_msg_AuthOperationRequest(#'AuthOperationRequest'{password
-							    = F1,
-							request = F2},
-				Bin, TrUserData) ->
-    B1 = if F1 == undefined -> Bin;
-	    true ->
-		begin
-		  TrF1 = id(F1, TrUserData),
-		  case is_empty_string(TrF1) of
-		    true -> Bin;
-		    false ->
-			e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData)
-		  end
-		end
-	 end,
-    if F2 == undefined -> B1;
-       true ->
-	   begin
-	     TrF2 = id(F2, TrUserData),
-	     if TrF2 =:= undefined -> B1;
-		true ->
-		    e_mfield_AuthOperationRequest_request(TrF2,
-							  <<B1/binary, 18>>,
-							  TrUserData)
-	     end
-	   end
-    end.
-
 encode_msg_OperationRequest(Msg, TrUserData) ->
     encode_msg_OperationRequest(Msg, <<>>, TrUserData).
 
 
 encode_msg_OperationRequest(#'OperationRequest'{nome =
 						    F1,
-						request = F2},
+						password = F2, request = F3},
 			    Bin, TrUserData) ->
     B1 = if F1 == undefined -> Bin;
 	    true ->
@@ -231,21 +195,32 @@ encode_msg_OperationRequest(#'OperationRequest'{nome =
 		  end
 		end
 	 end,
-    if F2 =:= undefined -> B1;
+    B2 = if F2 == undefined -> B1;
+	    true ->
+		begin
+		  TrF2 = id(F2, TrUserData),
+		  case is_empty_string(TrF2) of
+		    true -> B1;
+		    false ->
+			e_type_string(TrF2, <<B1/binary, 18>>, TrUserData)
+		  end
+		end
+	 end,
+    if F3 =:= undefined -> B2;
        true ->
-	   case id(F2, TrUserData) of
-	     {producao, TF2} ->
+	   case id(F3, TrUserData) of
+	     {producao, TF3} ->
 		 begin
-		   TrTF2 = id(TF2, TrUserData),
-		   e_mfield_OperationRequest_producao(TrTF2,
-						      <<B1/binary, 18>>,
+		   TrTF3 = id(TF3, TrUserData),
+		   e_mfield_OperationRequest_producao(TrTF3,
+						      <<B2/binary, 26>>,
 						      TrUserData)
 		 end;
-	     {encomenda, TF2} ->
+	     {encomenda, TF3} ->
 		 begin
-		   TrTF2 = id(TF2, TrUserData),
-		   e_mfield_OperationRequest_encomenda(TrTF2,
-						       <<B1/binary, 26>>,
+		   TrTF3 = id(TF3, TrUserData),
+		   e_mfield_OperationRequest_encomenda(TrTF3,
+						       <<B2/binary, 34>>,
 						       TrUserData)
 		 end
 	   end
@@ -389,19 +364,22 @@ encode_msg_OfertaEncomendaRequest(#'OfertaEncomendaRequest'{fabricante
 	   end
     end.
 
-encode_msg_NotificacaOfertaProducao(Msg, TrUserData) ->
-    encode_msg_NotificacaOfertaProducao(Msg, <<>>,
-					TrUserData).
+encode_msg_NotificacaoOfertaProducao(Msg, TrUserData) ->
+    encode_msg_NotificacaoOfertaProducao(Msg, <<>>,
+					 TrUserData).
 
 
-encode_msg_NotificacaOfertaProducao(#'NotificacaOfertaProducao'{produto
-								    = F1,
-								quantMin = F2,
-								quantMax = F3,
-								precoUniMin =
-								    F4,
-								duracaoS = F5},
-				    Bin, TrUserData) ->
+encode_msg_NotificacaoOfertaProducao(#'NotificacaoOfertaProducao'{produto
+								      = F1,
+								  quantMin = F2,
+								  quantMax = F3,
+								  precoUniMin =
+								      F4,
+								  dataInicial =
+								      F5,
+								  dataFinal =
+								      F6},
+				     Bin, TrUserData) ->
     B1 = if F1 == undefined -> Bin;
 	    true ->
 		begin
@@ -443,13 +421,25 @@ encode_msg_NotificacaOfertaProducao(#'NotificacaOfertaProducao'{produto
 		  end
 		end
 	 end,
-    if F5 == undefined -> B4;
+    B5 = if F5 == undefined -> B4;
+	    true ->
+		begin
+		  TrF5 = id(F5, TrUserData),
+		  case is_empty_string(TrF5) of
+		    true -> B4;
+		    false ->
+			e_type_string(TrF5, <<B4/binary, 42>>, TrUserData)
+		  end
+		end
+	 end,
+    if F6 == undefined -> B5;
        true ->
 	   begin
-	     TrF5 = id(F5, TrUserData),
-	     if TrF5 =:= 0 -> B4;
-		true ->
-		    e_type_int64(TrF5, <<B4/binary, 40>>, TrUserData)
+	     TrF6 = id(F6, TrUserData),
+	     case is_empty_string(TrF6) of
+	       true -> B5;
+	       false ->
+		   e_type_string(TrF6, <<B5/binary, 50>>, TrUserData)
 	     end
 	   end
     end.
@@ -460,27 +450,28 @@ encode_msg_NotificacaoResultadosImportador(Msg,
 					       TrUserData).
 
 
-encode_msg_NotificacaoResultadosImportador(#'NotificacaoResultadosImportador'{fabricante
+encode_msg_NotificacaoResultadosImportador(#'NotificacaoResultadosImportador'{aceite
 										  =
 										  F1,
-									      produto
+									      fabricante
 										  =
 										  F2,
-									      quant
+									      produto
 										  =
 										  F3,
+									      quant
+										  =
+										  F4,
 									      preco
 										  =
-										  F4},
+										  F5},
 					   Bin, TrUserData) ->
     B1 = if F1 == undefined -> Bin;
 	    true ->
 		begin
 		  TrF1 = id(F1, TrUserData),
-		  case is_empty_string(TrF1) of
-		    true -> Bin;
-		    false ->
-			e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData)
+		  if TrF1 =:= false -> Bin;
+		     true -> e_type_bool(TrF1, <<Bin/binary, 8>>, TrUserData)
 		  end
 		end
 	 end,
@@ -499,19 +490,30 @@ encode_msg_NotificacaoResultadosImportador(#'NotificacaoResultadosImportador'{fa
 	    true ->
 		begin
 		  TrF3 = id(F3, TrUserData),
-		  if TrF3 =:= 0 -> B2;
-		     true ->
-			 e_type_int32(TrF3, <<B2/binary, 24>>, TrUserData)
+		  case is_empty_string(TrF3) of
+		    true -> B2;
+		    false ->
+			e_type_string(TrF3, <<B2/binary, 26>>, TrUserData)
 		  end
 		end
 	 end,
-    if F4 == undefined -> B3;
+    B4 = if F4 == undefined -> B3;
+	    true ->
+		begin
+		  TrF4 = id(F4, TrUserData),
+		  if TrF4 =:= 0 -> B3;
+		     true ->
+			 e_type_int32(TrF4, <<B3/binary, 32>>, TrUserData)
+		  end
+		end
+	 end,
+    if F5 == undefined -> B4;
        true ->
 	   begin
-	     TrF4 = id(F4, TrUserData),
-	     if TrF4 =:= 0 -> B3;
+	     TrF5 = id(F5, TrUserData),
+	     if TrF5 =:= 0 -> B4;
 		true ->
-		    e_type_int32(TrF4, <<B3/binary, 32>>, TrUserData)
+		    e_type_int32(TrF5, <<B4/binary, 40>>, TrUserData)
 	     end
 	   end
     end.
@@ -534,13 +536,6 @@ encode_msg_NotificacaoResultadosFabricante(#'NotificacaoResultadosFabricante'{en
 								Bin, TrUserData)
       end
     end.
-
-e_mfield_AuthOperationRequest_request(Msg, Bin,
-				      TrUserData) ->
-    SubBin = encode_msg_OperationRequest(Msg, <<>>,
-					 TrUserData),
-    Bin2 = e_varint(byte_size(SubBin), Bin),
-    <<Bin2/binary, SubBin/binary>>.
 
 e_mfield_OperationRequest_producao(Msg, Bin,
 				   TrUserData) ->
@@ -739,10 +734,6 @@ decode_msg_2_doit('LoginRequest', Bin, TrUserData) ->
 decode_msg_2_doit('LoginResponse', Bin, TrUserData) ->
     id(decode_msg_LoginResponse(Bin, TrUserData),
        TrUserData);
-decode_msg_2_doit('AuthOperationRequest', Bin,
-		  TrUserData) ->
-    id(decode_msg_AuthOperationRequest(Bin, TrUserData),
-       TrUserData);
 decode_msg_2_doit('OperationRequest', Bin,
 		  TrUserData) ->
     id(decode_msg_OperationRequest(Bin, TrUserData),
@@ -759,9 +750,10 @@ decode_msg_2_doit('OfertaEncomendaRequest', Bin,
 		  TrUserData) ->
     id(decode_msg_OfertaEncomendaRequest(Bin, TrUserData),
        TrUserData);
-decode_msg_2_doit('NotificacaOfertaProducao', Bin,
+decode_msg_2_doit('NotificacaoOfertaProducao', Bin,
 		  TrUserData) ->
-    id(decode_msg_NotificacaOfertaProducao(Bin, TrUserData),
+    id(decode_msg_NotificacaoOfertaProducao(Bin,
+					    TrUserData),
        TrUserData);
 decode_msg_2_doit('NotificacaoResultadosImportador',
 		  Bin, TrUserData) ->
@@ -1014,237 +1006,91 @@ skip_64_LoginResponse(<<_:64, Rest/binary>>, Z1, Z2,
     dfp_read_field_def_LoginResponse(Rest, Z1, Z2, F@_1,
 				     TrUserData).
 
-decode_msg_AuthOperationRequest(Bin, TrUserData) ->
-    dfp_read_field_def_AuthOperationRequest(Bin, 0, 0,
-					    id([], TrUserData),
-					    id(undefined, TrUserData),
-					    TrUserData).
-
-dfp_read_field_def_AuthOperationRequest(<<10,
-					  Rest/binary>>,
-					Z1, Z2, F@_1, F@_2, TrUserData) ->
-    d_field_AuthOperationRequest_password(Rest, Z1, Z2,
-					  F@_1, F@_2, TrUserData);
-dfp_read_field_def_AuthOperationRequest(<<18,
-					  Rest/binary>>,
-					Z1, Z2, F@_1, F@_2, TrUserData) ->
-    d_field_AuthOperationRequest_request(Rest, Z1, Z2, F@_1,
-					 F@_2, TrUserData);
-dfp_read_field_def_AuthOperationRequest(<<>>, 0, 0,
-					F@_1, F@_2, _) ->
-    #'AuthOperationRequest'{password = F@_1,
-			    request = F@_2};
-dfp_read_field_def_AuthOperationRequest(Other, Z1, Z2,
-					F@_1, F@_2, TrUserData) ->
-    dg_read_field_def_AuthOperationRequest(Other, Z1, Z2,
-					   F@_1, F@_2, TrUserData).
-
-dg_read_field_def_AuthOperationRequest(<<1:1, X:7,
-					 Rest/binary>>,
-				       N, Acc, F@_1, F@_2, TrUserData)
-    when N < 32 - 7 ->
-    dg_read_field_def_AuthOperationRequest(Rest, N + 7,
-					   X bsl N + Acc, F@_1, F@_2,
-					   TrUserData);
-dg_read_field_def_AuthOperationRequest(<<0:1, X:7,
-					 Rest/binary>>,
-				       N, Acc, F@_1, F@_2, TrUserData) ->
-    Key = X bsl N + Acc,
-    case Key of
-      10 ->
-	  d_field_AuthOperationRequest_password(Rest, 0, 0, F@_1,
-						F@_2, TrUserData);
-      18 ->
-	  d_field_AuthOperationRequest_request(Rest, 0, 0, F@_1,
-					       F@_2, TrUserData);
-      _ ->
-	  case Key band 7 of
-	    0 ->
-		skip_varint_AuthOperationRequest(Rest, 0, 0, F@_1, F@_2,
-						 TrUserData);
-	    1 ->
-		skip_64_AuthOperationRequest(Rest, 0, 0, F@_1, F@_2,
-					     TrUserData);
-	    2 ->
-		skip_length_delimited_AuthOperationRequest(Rest, 0, 0,
-							   F@_1, F@_2,
-							   TrUserData);
-	    3 ->
-		skip_group_AuthOperationRequest(Rest, Key bsr 3, 0,
-						F@_1, F@_2, TrUserData);
-	    5 ->
-		skip_32_AuthOperationRequest(Rest, 0, 0, F@_1, F@_2,
-					     TrUserData)
-	  end
-    end;
-dg_read_field_def_AuthOperationRequest(<<>>, 0, 0, F@_1,
-				       F@_2, _) ->
-    #'AuthOperationRequest'{password = F@_1,
-			    request = F@_2}.
-
-d_field_AuthOperationRequest_password(<<1:1, X:7,
-					Rest/binary>>,
-				      N, Acc, F@_1, F@_2, TrUserData)
-    when N < 57 ->
-    d_field_AuthOperationRequest_password(Rest, N + 7,
-					  X bsl N + Acc, F@_1, F@_2,
-					  TrUserData);
-d_field_AuthOperationRequest_password(<<0:1, X:7,
-					Rest/binary>>,
-				      N, Acc, _, F@_2, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {id(unicode:characters_to_list(Utf8, unicode),
-			       TrUserData),
-			    Rest2}
-			 end,
-    dfp_read_field_def_AuthOperationRequest(RestF, 0, 0,
-					    NewFValue, F@_2, TrUserData).
-
-d_field_AuthOperationRequest_request(<<1:1, X:7,
-				       Rest/binary>>,
-				     N, Acc, F@_1, F@_2, TrUserData)
-    when N < 57 ->
-    d_field_AuthOperationRequest_request(Rest, N + 7,
-					 X bsl N + Acc, F@_1, F@_2, TrUserData);
-d_field_AuthOperationRequest_request(<<0:1, X:7,
-				       Rest/binary>>,
-				     N, Acc, F@_1, Prev, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Bs:Len/binary, Rest2/binary>> = Rest,
-			   {id(decode_msg_OperationRequest(Bs, TrUserData),
-			       TrUserData),
-			    Rest2}
-			 end,
-    dfp_read_field_def_AuthOperationRequest(RestF, 0, 0,
-					    F@_1,
-					    if Prev == undefined -> NewFValue;
-					       true ->
-						   merge_msg_OperationRequest(Prev,
-									      NewFValue,
-									      TrUserData)
-					    end,
-					    TrUserData).
-
-skip_varint_AuthOperationRequest(<<1:1, _:7,
-				   Rest/binary>>,
-				 Z1, Z2, F@_1, F@_2, TrUserData) ->
-    skip_varint_AuthOperationRequest(Rest, Z1, Z2, F@_1,
-				     F@_2, TrUserData);
-skip_varint_AuthOperationRequest(<<0:1, _:7,
-				   Rest/binary>>,
-				 Z1, Z2, F@_1, F@_2, TrUserData) ->
-    dfp_read_field_def_AuthOperationRequest(Rest, Z1, Z2,
-					    F@_1, F@_2, TrUserData).
-
-skip_length_delimited_AuthOperationRequest(<<1:1, X:7,
-					     Rest/binary>>,
-					   N, Acc, F@_1, F@_2, TrUserData)
-    when N < 57 ->
-    skip_length_delimited_AuthOperationRequest(Rest, N + 7,
-					       X bsl N + Acc, F@_1, F@_2,
-					       TrUserData);
-skip_length_delimited_AuthOperationRequest(<<0:1, X:7,
-					     Rest/binary>>,
-					   N, Acc, F@_1, F@_2, TrUserData) ->
-    Length = X bsl N + Acc,
-    <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_AuthOperationRequest(Rest2, 0, 0,
-					    F@_1, F@_2, TrUserData).
-
-skip_group_AuthOperationRequest(Bin, FNum, Z2, F@_1,
-				F@_2, TrUserData) ->
-    {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_AuthOperationRequest(Rest, 0, Z2,
-					    F@_1, F@_2, TrUserData).
-
-skip_32_AuthOperationRequest(<<_:32, Rest/binary>>, Z1,
-			     Z2, F@_1, F@_2, TrUserData) ->
-    dfp_read_field_def_AuthOperationRequest(Rest, Z1, Z2,
-					    F@_1, F@_2, TrUserData).
-
-skip_64_AuthOperationRequest(<<_:64, Rest/binary>>, Z1,
-			     Z2, F@_1, F@_2, TrUserData) ->
-    dfp_read_field_def_AuthOperationRequest(Rest, Z1, Z2,
-					    F@_1, F@_2, TrUserData).
-
 decode_msg_OperationRequest(Bin, TrUserData) ->
     dfp_read_field_def_OperationRequest(Bin, 0, 0,
-					id([], TrUserData),
+					id([], TrUserData), id([], TrUserData),
 					id(undefined, TrUserData), TrUserData).
 
 dfp_read_field_def_OperationRequest(<<10, Rest/binary>>,
-				    Z1, Z2, F@_1, F@_2, TrUserData) ->
+				    Z1, Z2, F@_1, F@_2, F@_3, TrUserData) ->
     d_field_OperationRequest_nome(Rest, Z1, Z2, F@_1, F@_2,
-				  TrUserData);
+				  F@_3, TrUserData);
 dfp_read_field_def_OperationRequest(<<18, Rest/binary>>,
-				    Z1, Z2, F@_1, F@_2, TrUserData) ->
-    d_field_OperationRequest_producao(Rest, Z1, Z2, F@_1,
-				      F@_2, TrUserData);
+				    Z1, Z2, F@_1, F@_2, F@_3, TrUserData) ->
+    d_field_OperationRequest_password(Rest, Z1, Z2, F@_1,
+				      F@_2, F@_3, TrUserData);
 dfp_read_field_def_OperationRequest(<<26, Rest/binary>>,
-				    Z1, Z2, F@_1, F@_2, TrUserData) ->
+				    Z1, Z2, F@_1, F@_2, F@_3, TrUserData) ->
+    d_field_OperationRequest_producao(Rest, Z1, Z2, F@_1,
+				      F@_2, F@_3, TrUserData);
+dfp_read_field_def_OperationRequest(<<34, Rest/binary>>,
+				    Z1, Z2, F@_1, F@_2, F@_3, TrUserData) ->
     d_field_OperationRequest_encomenda(Rest, Z1, Z2, F@_1,
-				       F@_2, TrUserData);
+				       F@_2, F@_3, TrUserData);
 dfp_read_field_def_OperationRequest(<<>>, 0, 0, F@_1,
-				    F@_2, _) ->
-    #'OperationRequest'{nome = F@_1, request = F@_2};
+				    F@_2, F@_3, _) ->
+    #'OperationRequest'{nome = F@_1, password = F@_2,
+			request = F@_3};
 dfp_read_field_def_OperationRequest(Other, Z1, Z2, F@_1,
-				    F@_2, TrUserData) ->
+				    F@_2, F@_3, TrUserData) ->
     dg_read_field_def_OperationRequest(Other, Z1, Z2, F@_1,
-				       F@_2, TrUserData).
+				       F@_2, F@_3, TrUserData).
 
 dg_read_field_def_OperationRequest(<<1:1, X:7,
 				     Rest/binary>>,
-				   N, Acc, F@_1, F@_2, TrUserData)
+				   N, Acc, F@_1, F@_2, F@_3, TrUserData)
     when N < 32 - 7 ->
     dg_read_field_def_OperationRequest(Rest, N + 7,
-				       X bsl N + Acc, F@_1, F@_2, TrUserData);
+				       X bsl N + Acc, F@_1, F@_2, F@_3,
+				       TrUserData);
 dg_read_field_def_OperationRequest(<<0:1, X:7,
 				     Rest/binary>>,
-				   N, Acc, F@_1, F@_2, TrUserData) ->
+				   N, Acc, F@_1, F@_2, F@_3, TrUserData) ->
     Key = X bsl N + Acc,
     case Key of
       10 ->
 	  d_field_OperationRequest_nome(Rest, 0, 0, F@_1, F@_2,
-					TrUserData);
+					F@_3, TrUserData);
       18 ->
-	  d_field_OperationRequest_producao(Rest, 0, 0, F@_1,
-					    F@_2, TrUserData);
+	  d_field_OperationRequest_password(Rest, 0, 0, F@_1,
+					    F@_2, F@_3, TrUserData);
       26 ->
+	  d_field_OperationRequest_producao(Rest, 0, 0, F@_1,
+					    F@_2, F@_3, TrUserData);
+      34 ->
 	  d_field_OperationRequest_encomenda(Rest, 0, 0, F@_1,
-					     F@_2, TrUserData);
+					     F@_2, F@_3, TrUserData);
       _ ->
 	  case Key band 7 of
 	    0 ->
 		skip_varint_OperationRequest(Rest, 0, 0, F@_1, F@_2,
-					     TrUserData);
+					     F@_3, TrUserData);
 	    1 ->
-		skip_64_OperationRequest(Rest, 0, 0, F@_1, F@_2,
+		skip_64_OperationRequest(Rest, 0, 0, F@_1, F@_2, F@_3,
 					 TrUserData);
 	    2 ->
 		skip_length_delimited_OperationRequest(Rest, 0, 0, F@_1,
-						       F@_2, TrUserData);
+						       F@_2, F@_3, TrUserData);
 	    3 ->
 		skip_group_OperationRequest(Rest, Key bsr 3, 0, F@_1,
-					    F@_2, TrUserData);
+					    F@_2, F@_3, TrUserData);
 	    5 ->
-		skip_32_OperationRequest(Rest, 0, 0, F@_1, F@_2,
+		skip_32_OperationRequest(Rest, 0, 0, F@_1, F@_2, F@_3,
 					 TrUserData)
 	  end
     end;
 dg_read_field_def_OperationRequest(<<>>, 0, 0, F@_1,
-				   F@_2, _) ->
-    #'OperationRequest'{nome = F@_1, request = F@_2}.
+				   F@_2, F@_3, _) ->
+    #'OperationRequest'{nome = F@_1, password = F@_2,
+			request = F@_3}.
 
 d_field_OperationRequest_nome(<<1:1, X:7, Rest/binary>>,
-			      N, Acc, F@_1, F@_2, TrUserData)
+			      N, Acc, F@_1, F@_2, F@_3, TrUserData)
     when N < 57 ->
     d_field_OperationRequest_nome(Rest, N + 7,
-				  X bsl N + Acc, F@_1, F@_2, TrUserData);
+				  X bsl N + Acc, F@_1, F@_2, F@_3, TrUserData);
 d_field_OperationRequest_nome(<<0:1, X:7, Rest/binary>>,
-			      N, Acc, _, F@_2, TrUserData) ->
+			      N, Acc, _, F@_2, F@_3, TrUserData) ->
     {NewFValue, RestF} = begin
 			   Len = X bsl N + Acc,
 			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
@@ -1253,17 +1099,38 @@ d_field_OperationRequest_nome(<<0:1, X:7, Rest/binary>>,
 			    Rest2}
 			 end,
     dfp_read_field_def_OperationRequest(RestF, 0, 0,
-					NewFValue, F@_2, TrUserData).
+					NewFValue, F@_2, F@_3, TrUserData).
+
+d_field_OperationRequest_password(<<1:1, X:7,
+				    Rest/binary>>,
+				  N, Acc, F@_1, F@_2, F@_3, TrUserData)
+    when N < 57 ->
+    d_field_OperationRequest_password(Rest, N + 7,
+				      X bsl N + Acc, F@_1, F@_2, F@_3,
+				      TrUserData);
+d_field_OperationRequest_password(<<0:1, X:7,
+				    Rest/binary>>,
+				  N, Acc, F@_1, _, F@_3, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {id(unicode:characters_to_list(Utf8, unicode),
+			       TrUserData),
+			    Rest2}
+			 end,
+    dfp_read_field_def_OperationRequest(RestF, 0, 0, F@_1,
+					NewFValue, F@_3, TrUserData).
 
 d_field_OperationRequest_producao(<<1:1, X:7,
 				    Rest/binary>>,
-				  N, Acc, F@_1, F@_2, TrUserData)
+				  N, Acc, F@_1, F@_2, F@_3, TrUserData)
     when N < 57 ->
     d_field_OperationRequest_producao(Rest, N + 7,
-				      X bsl N + Acc, F@_1, F@_2, TrUserData);
+				      X bsl N + Acc, F@_1, F@_2, F@_3,
+				      TrUserData);
 d_field_OperationRequest_producao(<<0:1, X:7,
 				    Rest/binary>>,
-				  N, Acc, F@_1, Prev, TrUserData) ->
+				  N, Acc, F@_1, F@_2, Prev, TrUserData) ->
     {NewFValue, RestF} = begin
 			   Len = X bsl N + Acc,
 			   <<Bs:Len/binary, Rest2/binary>> = Rest,
@@ -1272,6 +1139,7 @@ d_field_OperationRequest_producao(<<0:1, X:7,
 			    Rest2}
 			 end,
     dfp_read_field_def_OperationRequest(RestF, 0, 0, F@_1,
+					F@_2,
 					case Prev of
 					  undefined ->
 					      id({producao, NewFValue},
@@ -1290,13 +1158,14 @@ d_field_OperationRequest_producao(<<0:1, X:7,
 
 d_field_OperationRequest_encomenda(<<1:1, X:7,
 				     Rest/binary>>,
-				   N, Acc, F@_1, F@_2, TrUserData)
+				   N, Acc, F@_1, F@_2, F@_3, TrUserData)
     when N < 57 ->
     d_field_OperationRequest_encomenda(Rest, N + 7,
-				       X bsl N + Acc, F@_1, F@_2, TrUserData);
+				       X bsl N + Acc, F@_1, F@_2, F@_3,
+				       TrUserData);
 d_field_OperationRequest_encomenda(<<0:1, X:7,
 				     Rest/binary>>,
-				   N, Acc, F@_1, Prev, TrUserData) ->
+				   N, Acc, F@_1, F@_2, Prev, TrUserData) ->
     {NewFValue, RestF} = begin
 			   Len = X bsl N + Acc,
 			   <<Bs:Len/binary, Rest2/binary>> = Rest,
@@ -1306,6 +1175,7 @@ d_field_OperationRequest_encomenda(<<0:1, X:7,
 			    Rest2}
 			 end,
     dfp_read_field_def_OperationRequest(RestF, 0, 0, F@_1,
+					F@_2,
 					case Prev of
 					  undefined ->
 					      id({encomenda, NewFValue},
@@ -1323,44 +1193,44 @@ d_field_OperationRequest_encomenda(<<0:1, X:7,
 					TrUserData).
 
 skip_varint_OperationRequest(<<1:1, _:7, Rest/binary>>,
-			     Z1, Z2, F@_1, F@_2, TrUserData) ->
+			     Z1, Z2, F@_1, F@_2, F@_3, TrUserData) ->
     skip_varint_OperationRequest(Rest, Z1, Z2, F@_1, F@_2,
-				 TrUserData);
+				 F@_3, TrUserData);
 skip_varint_OperationRequest(<<0:1, _:7, Rest/binary>>,
-			     Z1, Z2, F@_1, F@_2, TrUserData) ->
+			     Z1, Z2, F@_1, F@_2, F@_3, TrUserData) ->
     dfp_read_field_def_OperationRequest(Rest, Z1, Z2, F@_1,
-					F@_2, TrUserData).
+					F@_2, F@_3, TrUserData).
 
 skip_length_delimited_OperationRequest(<<1:1, X:7,
 					 Rest/binary>>,
-				       N, Acc, F@_1, F@_2, TrUserData)
+				       N, Acc, F@_1, F@_2, F@_3, TrUserData)
     when N < 57 ->
     skip_length_delimited_OperationRequest(Rest, N + 7,
-					   X bsl N + Acc, F@_1, F@_2,
+					   X bsl N + Acc, F@_1, F@_2, F@_3,
 					   TrUserData);
 skip_length_delimited_OperationRequest(<<0:1, X:7,
 					 Rest/binary>>,
-				       N, Acc, F@_1, F@_2, TrUserData) ->
+				       N, Acc, F@_1, F@_2, F@_3, TrUserData) ->
     Length = X bsl N + Acc,
     <<_:Length/binary, Rest2/binary>> = Rest,
     dfp_read_field_def_OperationRequest(Rest2, 0, 0, F@_1,
-					F@_2, TrUserData).
+					F@_2, F@_3, TrUserData).
 
 skip_group_OperationRequest(Bin, FNum, Z2, F@_1, F@_2,
-			    TrUserData) ->
+			    F@_3, TrUserData) ->
     {_, Rest} = read_group(Bin, FNum),
     dfp_read_field_def_OperationRequest(Rest, 0, Z2, F@_1,
-					F@_2, TrUserData).
+					F@_2, F@_3, TrUserData).
 
 skip_32_OperationRequest(<<_:32, Rest/binary>>, Z1, Z2,
-			 F@_1, F@_2, TrUserData) ->
+			 F@_1, F@_2, F@_3, TrUserData) ->
     dfp_read_field_def_OperationRequest(Rest, Z1, Z2, F@_1,
-					F@_2, TrUserData).
+					F@_2, F@_3, TrUserData).
 
 skip_64_OperationRequest(<<_:64, Rest/binary>>, Z1, Z2,
-			 F@_1, F@_2, TrUserData) ->
+			 F@_1, F@_2, F@_3, TrUserData) ->
     dfp_read_field_def_OperationRequest(Rest, Z1, Z2, F@_1,
-					F@_2, TrUserData).
+					F@_2, F@_3, TrUserData).
 
 decode_msg_OperationResponse(Bin, TrUserData) ->
     dfp_read_field_def_OperationResponse(Bin, 0, 0,
@@ -1986,136 +1856,158 @@ skip_64_OfertaEncomendaRequest(<<_:64, Rest/binary>>,
 					      F@_1, F@_2, F@_3, F@_4,
 					      TrUserData).
 
-decode_msg_NotificacaOfertaProducao(Bin, TrUserData) ->
-    dfp_read_field_def_NotificacaOfertaProducao(Bin, 0, 0,
-						id([], TrUserData),
-						id(0, TrUserData),
-						id(0, TrUserData),
-						id(0, TrUserData),
-						id(0, TrUserData), TrUserData).
+decode_msg_NotificacaoOfertaProducao(Bin, TrUserData) ->
+    dfp_read_field_def_NotificacaoOfertaProducao(Bin, 0, 0,
+						 id([], TrUserData),
+						 id(0, TrUserData),
+						 id(0, TrUserData),
+						 id(0, TrUserData),
+						 id([], TrUserData),
+						 id([], TrUserData),
+						 TrUserData).
 
-dfp_read_field_def_NotificacaOfertaProducao(<<10,
-					      Rest/binary>>,
-					    Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					    F@_5, TrUserData) ->
-    d_field_NotificacaOfertaProducao_produto(Rest, Z1, Z2,
-					     F@_1, F@_2, F@_3, F@_4, F@_5,
-					     TrUserData);
-dfp_read_field_def_NotificacaOfertaProducao(<<16,
-					      Rest/binary>>,
-					    Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					    F@_5, TrUserData) ->
-    d_field_NotificacaOfertaProducao_quantMin(Rest, Z1, Z2,
+dfp_read_field_def_NotificacaoOfertaProducao(<<10,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, F@_6, TrUserData) ->
+    d_field_NotificacaoOfertaProducao_produto(Rest, Z1, Z2,
 					      F@_1, F@_2, F@_3, F@_4, F@_5,
-					      TrUserData);
-dfp_read_field_def_NotificacaOfertaProducao(<<24,
-					      Rest/binary>>,
-					    Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					    F@_5, TrUserData) ->
-    d_field_NotificacaOfertaProducao_quantMax(Rest, Z1, Z2,
-					      F@_1, F@_2, F@_3, F@_4, F@_5,
-					      TrUserData);
-dfp_read_field_def_NotificacaOfertaProducao(<<32,
-					      Rest/binary>>,
-					    Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					    F@_5, TrUserData) ->
-    d_field_NotificacaOfertaProducao_precoUniMin(Rest, Z1,
-						 Z2, F@_1, F@_2, F@_3, F@_4,
-						 F@_5, TrUserData);
-dfp_read_field_def_NotificacaOfertaProducao(<<40,
-					      Rest/binary>>,
-					    Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					    F@_5, TrUserData) ->
-    d_field_NotificacaOfertaProducao_duracaoS(Rest, Z1, Z2,
-					      F@_1, F@_2, F@_3, F@_4, F@_5,
-					      TrUserData);
-dfp_read_field_def_NotificacaOfertaProducao(<<>>, 0, 0,
-					    F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
-    #'NotificacaOfertaProducao'{produto = F@_1,
-				quantMin = F@_2, quantMax = F@_3,
-				precoUniMin = F@_4, duracaoS = F@_5};
-dfp_read_field_def_NotificacaOfertaProducao(Other, Z1,
-					    Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-					    TrUserData) ->
-    dg_read_field_def_NotificacaOfertaProducao(Other, Z1,
-					       Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-					       TrUserData).
+					      F@_6, TrUserData);
+dfp_read_field_def_NotificacaoOfertaProducao(<<16,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, F@_6, TrUserData) ->
+    d_field_NotificacaoOfertaProducao_quantMin(Rest, Z1, Z2,
+					       F@_1, F@_2, F@_3, F@_4, F@_5,
+					       F@_6, TrUserData);
+dfp_read_field_def_NotificacaoOfertaProducao(<<24,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, F@_6, TrUserData) ->
+    d_field_NotificacaoOfertaProducao_quantMax(Rest, Z1, Z2,
+					       F@_1, F@_2, F@_3, F@_4, F@_5,
+					       F@_6, TrUserData);
+dfp_read_field_def_NotificacaoOfertaProducao(<<32,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, F@_6, TrUserData) ->
+    d_field_NotificacaoOfertaProducao_precoUniMin(Rest, Z1,
+						  Z2, F@_1, F@_2, F@_3, F@_4,
+						  F@_5, F@_6, TrUserData);
+dfp_read_field_def_NotificacaoOfertaProducao(<<42,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, F@_6, TrUserData) ->
+    d_field_NotificacaoOfertaProducao_dataInicial(Rest, Z1,
+						  Z2, F@_1, F@_2, F@_3, F@_4,
+						  F@_5, F@_6, TrUserData);
+dfp_read_field_def_NotificacaoOfertaProducao(<<50,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, F@_6, TrUserData) ->
+    d_field_NotificacaoOfertaProducao_dataFinal(Rest, Z1,
+						Z2, F@_1, F@_2, F@_3, F@_4,
+						F@_5, F@_6, TrUserData);
+dfp_read_field_def_NotificacaoOfertaProducao(<<>>, 0, 0,
+					     F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+					     _) ->
+    #'NotificacaoOfertaProducao'{produto = F@_1,
+				 quantMin = F@_2, quantMax = F@_3,
+				 precoUniMin = F@_4, dataInicial = F@_5,
+				 dataFinal = F@_6};
+dfp_read_field_def_NotificacaoOfertaProducao(Other, Z1,
+					     Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
+					     F@_6, TrUserData) ->
+    dg_read_field_def_NotificacaoOfertaProducao(Other, Z1,
+						Z2, F@_1, F@_2, F@_3, F@_4,
+						F@_5, F@_6, TrUserData).
 
-dg_read_field_def_NotificacaOfertaProducao(<<1:1, X:7,
-					     Rest/binary>>,
-					   N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					   TrUserData)
+dg_read_field_def_NotificacaoOfertaProducao(<<1:1, X:7,
+					      Rest/binary>>,
+					    N, Acc, F@_1, F@_2, F@_3, F@_4,
+					    F@_5, F@_6, TrUserData)
     when N < 32 - 7 ->
-    dg_read_field_def_NotificacaOfertaProducao(Rest, N + 7,
-					       X bsl N + Acc, F@_1, F@_2, F@_3,
-					       F@_4, F@_5, TrUserData);
-dg_read_field_def_NotificacaOfertaProducao(<<0:1, X:7,
-					     Rest/binary>>,
-					   N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					   TrUserData) ->
+    dg_read_field_def_NotificacaoOfertaProducao(Rest, N + 7,
+						X bsl N + Acc, F@_1, F@_2, F@_3,
+						F@_4, F@_5, F@_6, TrUserData);
+dg_read_field_def_NotificacaoOfertaProducao(<<0:1, X:7,
+					      Rest/binary>>,
+					    N, Acc, F@_1, F@_2, F@_3, F@_4,
+					    F@_5, F@_6, TrUserData) ->
     Key = X bsl N + Acc,
     case Key of
       10 ->
-	  d_field_NotificacaOfertaProducao_produto(Rest, 0, 0,
-						   F@_1, F@_2, F@_3, F@_4, F@_5,
-						   TrUserData);
+	  d_field_NotificacaoOfertaProducao_produto(Rest, 0, 0,
+						    F@_1, F@_2, F@_3, F@_4,
+						    F@_5, F@_6, TrUserData);
       16 ->
-	  d_field_NotificacaOfertaProducao_quantMin(Rest, 0, 0,
-						    F@_1, F@_2, F@_3, F@_4,
-						    F@_5, TrUserData);
+	  d_field_NotificacaoOfertaProducao_quantMin(Rest, 0, 0,
+						     F@_1, F@_2, F@_3, F@_4,
+						     F@_5, F@_6, TrUserData);
       24 ->
-	  d_field_NotificacaOfertaProducao_quantMax(Rest, 0, 0,
-						    F@_1, F@_2, F@_3, F@_4,
-						    F@_5, TrUserData);
+	  d_field_NotificacaoOfertaProducao_quantMax(Rest, 0, 0,
+						     F@_1, F@_2, F@_3, F@_4,
+						     F@_5, F@_6, TrUserData);
       32 ->
-	  d_field_NotificacaOfertaProducao_precoUniMin(Rest, 0, 0,
-						       F@_1, F@_2, F@_3, F@_4,
-						       F@_5, TrUserData);
-      40 ->
-	  d_field_NotificacaOfertaProducao_duracaoS(Rest, 0, 0,
-						    F@_1, F@_2, F@_3, F@_4,
-						    F@_5, TrUserData);
+	  d_field_NotificacaoOfertaProducao_precoUniMin(Rest, 0,
+							0, F@_1, F@_2, F@_3,
+							F@_4, F@_5, F@_6,
+							TrUserData);
+      42 ->
+	  d_field_NotificacaoOfertaProducao_dataInicial(Rest, 0,
+							0, F@_1, F@_2, F@_3,
+							F@_4, F@_5, F@_6,
+							TrUserData);
+      50 ->
+	  d_field_NotificacaoOfertaProducao_dataFinal(Rest, 0, 0,
+						      F@_1, F@_2, F@_3, F@_4,
+						      F@_5, F@_6, TrUserData);
       _ ->
 	  case Key band 7 of
 	    0 ->
-		skip_varint_NotificacaOfertaProducao(Rest, 0, 0, F@_1,
-						     F@_2, F@_3, F@_4, F@_5,
-						     TrUserData);
+		skip_varint_NotificacaoOfertaProducao(Rest, 0, 0, F@_1,
+						      F@_2, F@_3, F@_4, F@_5,
+						      F@_6, TrUserData);
 	    1 ->
-		skip_64_NotificacaOfertaProducao(Rest, 0, 0, F@_1, F@_2,
-						 F@_3, F@_4, F@_5, TrUserData);
+		skip_64_NotificacaoOfertaProducao(Rest, 0, 0, F@_1,
+						  F@_2, F@_3, F@_4, F@_5, F@_6,
+						  TrUserData);
 	    2 ->
-		skip_length_delimited_NotificacaOfertaProducao(Rest, 0,
-							       0, F@_1, F@_2,
-							       F@_3, F@_4, F@_5,
-							       TrUserData);
+		skip_length_delimited_NotificacaoOfertaProducao(Rest, 0,
+								0, F@_1, F@_2,
+								F@_3, F@_4,
+								F@_5, F@_6,
+								TrUserData);
 	    3 ->
-		skip_group_NotificacaOfertaProducao(Rest, Key bsr 3, 0,
-						    F@_1, F@_2, F@_3, F@_4,
-						    F@_5, TrUserData);
+		skip_group_NotificacaoOfertaProducao(Rest, Key bsr 3, 0,
+						     F@_1, F@_2, F@_3, F@_4,
+						     F@_5, F@_6, TrUserData);
 	    5 ->
-		skip_32_NotificacaOfertaProducao(Rest, 0, 0, F@_1, F@_2,
-						 F@_3, F@_4, F@_5, TrUserData)
+		skip_32_NotificacaoOfertaProducao(Rest, 0, 0, F@_1,
+						  F@_2, F@_3, F@_4, F@_5, F@_6,
+						  TrUserData)
 	  end
     end;
-dg_read_field_def_NotificacaOfertaProducao(<<>>, 0, 0,
-					   F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
-    #'NotificacaOfertaProducao'{produto = F@_1,
-				quantMin = F@_2, quantMax = F@_3,
-				precoUniMin = F@_4, duracaoS = F@_5}.
+dg_read_field_def_NotificacaoOfertaProducao(<<>>, 0, 0,
+					    F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+					    _) ->
+    #'NotificacaoOfertaProducao'{produto = F@_1,
+				 quantMin = F@_2, quantMax = F@_3,
+				 precoUniMin = F@_4, dataInicial = F@_5,
+				 dataFinal = F@_6}.
 
-d_field_NotificacaOfertaProducao_produto(<<1:1, X:7,
-					   Rest/binary>>,
-					 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					 TrUserData)
+d_field_NotificacaoOfertaProducao_produto(<<1:1, X:7,
+					    Rest/binary>>,
+					  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					  F@_6, TrUserData)
     when N < 57 ->
-    d_field_NotificacaOfertaProducao_produto(Rest, N + 7,
-					     X bsl N + Acc, F@_1, F@_2, F@_3,
-					     F@_4, F@_5, TrUserData);
-d_field_NotificacaOfertaProducao_produto(<<0:1, X:7,
-					   Rest/binary>>,
-					 N, Acc, _, F@_2, F@_3, F@_4, F@_5,
-					 TrUserData) ->
+    d_field_NotificacaoOfertaProducao_produto(Rest, N + 7,
+					      X bsl N + Acc, F@_1, F@_2, F@_3,
+					      F@_4, F@_5, F@_6, TrUserData);
+d_field_NotificacaoOfertaProducao_produto(<<0:1, X:7,
+					    Rest/binary>>,
+					  N, Acc, _, F@_2, F@_3, F@_4, F@_5,
+					  F@_6, TrUserData) ->
     {NewFValue, RestF} = begin
 			   Len = X bsl N + Acc,
 			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
@@ -2123,245 +2015,288 @@ d_field_NotificacaOfertaProducao_produto(<<0:1, X:7,
 			       TrUserData),
 			    Rest2}
 			 end,
-    dfp_read_field_def_NotificacaOfertaProducao(RestF, 0, 0,
-						NewFValue, F@_2, F@_3, F@_4,
-						F@_5, TrUserData).
+    dfp_read_field_def_NotificacaoOfertaProducao(RestF, 0,
+						 0, NewFValue, F@_2, F@_3, F@_4,
+						 F@_5, F@_6, TrUserData).
 
-d_field_NotificacaOfertaProducao_quantMin(<<1:1, X:7,
-					    Rest/binary>>,
-					  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					  TrUserData)
+d_field_NotificacaoOfertaProducao_quantMin(<<1:1, X:7,
+					     Rest/binary>>,
+					   N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					   F@_6, TrUserData)
     when N < 57 ->
-    d_field_NotificacaOfertaProducao_quantMin(Rest, N + 7,
-					      X bsl N + Acc, F@_1, F@_2, F@_3,
-					      F@_4, F@_5, TrUserData);
-d_field_NotificacaOfertaProducao_quantMin(<<0:1, X:7,
-					    Rest/binary>>,
-					  N, Acc, F@_1, _, F@_3, F@_4, F@_5,
-					  TrUserData) ->
+    d_field_NotificacaoOfertaProducao_quantMin(Rest, N + 7,
+					       X bsl N + Acc, F@_1, F@_2, F@_3,
+					       F@_4, F@_5, F@_6, TrUserData);
+d_field_NotificacaoOfertaProducao_quantMin(<<0:1, X:7,
+					     Rest/binary>>,
+					   N, Acc, F@_1, _, F@_3, F@_4, F@_5,
+					   F@_6, TrUserData) ->
     {NewFValue, RestF} = {begin
 			    <<Res:32/signed-native>> = <<(X bsl N +
 							    Acc):32/unsigned-native>>,
 			    id(Res, TrUserData)
 			  end,
 			  Rest},
-    dfp_read_field_def_NotificacaOfertaProducao(RestF, 0, 0,
-						F@_1, NewFValue, F@_3, F@_4,
-						F@_5, TrUserData).
+    dfp_read_field_def_NotificacaoOfertaProducao(RestF, 0,
+						 0, F@_1, NewFValue, F@_3, F@_4,
+						 F@_5, F@_6, TrUserData).
 
-d_field_NotificacaOfertaProducao_quantMax(<<1:1, X:7,
-					    Rest/binary>>,
-					  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					  TrUserData)
+d_field_NotificacaoOfertaProducao_quantMax(<<1:1, X:7,
+					     Rest/binary>>,
+					   N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					   F@_6, TrUserData)
     when N < 57 ->
-    d_field_NotificacaOfertaProducao_quantMax(Rest, N + 7,
-					      X bsl N + Acc, F@_1, F@_2, F@_3,
-					      F@_4, F@_5, TrUserData);
-d_field_NotificacaOfertaProducao_quantMax(<<0:1, X:7,
-					    Rest/binary>>,
-					  N, Acc, F@_1, F@_2, _, F@_4, F@_5,
-					  TrUserData) ->
+    d_field_NotificacaoOfertaProducao_quantMax(Rest, N + 7,
+					       X bsl N + Acc, F@_1, F@_2, F@_3,
+					       F@_4, F@_5, F@_6, TrUserData);
+d_field_NotificacaoOfertaProducao_quantMax(<<0:1, X:7,
+					     Rest/binary>>,
+					   N, Acc, F@_1, F@_2, _, F@_4, F@_5,
+					   F@_6, TrUserData) ->
     {NewFValue, RestF} = {begin
 			    <<Res:32/signed-native>> = <<(X bsl N +
 							    Acc):32/unsigned-native>>,
 			    id(Res, TrUserData)
 			  end,
 			  Rest},
-    dfp_read_field_def_NotificacaOfertaProducao(RestF, 0, 0,
-						F@_1, F@_2, NewFValue, F@_4,
-						F@_5, TrUserData).
+    dfp_read_field_def_NotificacaoOfertaProducao(RestF, 0,
+						 0, F@_1, F@_2, NewFValue, F@_4,
+						 F@_5, F@_6, TrUserData).
 
-d_field_NotificacaOfertaProducao_precoUniMin(<<1:1, X:7,
-					       Rest/binary>>,
-					     N, Acc, F@_1, F@_2, F@_3, F@_4,
-					     F@_5, TrUserData)
+d_field_NotificacaoOfertaProducao_precoUniMin(<<1:1,
+						X:7, Rest/binary>>,
+					      N, Acc, F@_1, F@_2, F@_3, F@_4,
+					      F@_5, F@_6, TrUserData)
     when N < 57 ->
-    d_field_NotificacaOfertaProducao_precoUniMin(Rest,
-						 N + 7, X bsl N + Acc, F@_1,
-						 F@_2, F@_3, F@_4, F@_5,
-						 TrUserData);
-d_field_NotificacaOfertaProducao_precoUniMin(<<0:1, X:7,
-					       Rest/binary>>,
-					     N, Acc, F@_1, F@_2, F@_3, _, F@_5,
-					     TrUserData) ->
+    d_field_NotificacaoOfertaProducao_precoUniMin(Rest,
+						  N + 7, X bsl N + Acc, F@_1,
+						  F@_2, F@_3, F@_4, F@_5, F@_6,
+						  TrUserData);
+d_field_NotificacaoOfertaProducao_precoUniMin(<<0:1,
+						X:7, Rest/binary>>,
+					      N, Acc, F@_1, F@_2, F@_3, _, F@_5,
+					      F@_6, TrUserData) ->
     {NewFValue, RestF} = {begin
 			    <<Res:32/signed-native>> = <<(X bsl N +
 							    Acc):32/unsigned-native>>,
 			    id(Res, TrUserData)
 			  end,
 			  Rest},
-    dfp_read_field_def_NotificacaOfertaProducao(RestF, 0, 0,
-						F@_1, F@_2, F@_3, NewFValue,
-						F@_5, TrUserData).
+    dfp_read_field_def_NotificacaoOfertaProducao(RestF, 0,
+						 0, F@_1, F@_2, F@_3, NewFValue,
+						 F@_5, F@_6, TrUserData).
 
-d_field_NotificacaOfertaProducao_duracaoS(<<1:1, X:7,
-					    Rest/binary>>,
-					  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					  TrUserData)
+d_field_NotificacaoOfertaProducao_dataInicial(<<1:1,
+						X:7, Rest/binary>>,
+					      N, Acc, F@_1, F@_2, F@_3, F@_4,
+					      F@_5, F@_6, TrUserData)
     when N < 57 ->
-    d_field_NotificacaOfertaProducao_duracaoS(Rest, N + 7,
-					      X bsl N + Acc, F@_1, F@_2, F@_3,
-					      F@_4, F@_5, TrUserData);
-d_field_NotificacaOfertaProducao_duracaoS(<<0:1, X:7,
-					    Rest/binary>>,
-					  N, Acc, F@_1, F@_2, F@_3, F@_4, _,
-					  TrUserData) ->
-    {NewFValue, RestF} = {begin
-			    <<Res:64/signed-native>> = <<(X bsl N +
-							    Acc):64/unsigned-native>>,
-			    id(Res, TrUserData)
-			  end,
-			  Rest},
-    dfp_read_field_def_NotificacaOfertaProducao(RestF, 0, 0,
-						F@_1, F@_2, F@_3, F@_4,
-						NewFValue, TrUserData).
+    d_field_NotificacaoOfertaProducao_dataInicial(Rest,
+						  N + 7, X bsl N + Acc, F@_1,
+						  F@_2, F@_3, F@_4, F@_5, F@_6,
+						  TrUserData);
+d_field_NotificacaoOfertaProducao_dataInicial(<<0:1,
+						X:7, Rest/binary>>,
+					      N, Acc, F@_1, F@_2, F@_3, F@_4, _,
+					      F@_6, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {id(unicode:characters_to_list(Utf8, unicode),
+			       TrUserData),
+			    Rest2}
+			 end,
+    dfp_read_field_def_NotificacaoOfertaProducao(RestF, 0,
+						 0, F@_1, F@_2, F@_3, F@_4,
+						 NewFValue, F@_6, TrUserData).
 
-skip_varint_NotificacaOfertaProducao(<<1:1, _:7,
-				       Rest/binary>>,
-				     Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-				     TrUserData) ->
-    skip_varint_NotificacaOfertaProducao(Rest, Z1, Z2, F@_1,
-					 F@_2, F@_3, F@_4, F@_5, TrUserData);
-skip_varint_NotificacaOfertaProducao(<<0:1, _:7,
-				       Rest/binary>>,
-				     Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-				     TrUserData) ->
-    dfp_read_field_def_NotificacaOfertaProducao(Rest, Z1,
-						Z2, F@_1, F@_2, F@_3, F@_4,
-						F@_5, TrUserData).
-
-skip_length_delimited_NotificacaOfertaProducao(<<1:1,
-						 X:7, Rest/binary>>,
-					       N, Acc, F@_1, F@_2, F@_3, F@_4,
-					       F@_5, TrUserData)
+d_field_NotificacaoOfertaProducao_dataFinal(<<1:1, X:7,
+					      Rest/binary>>,
+					    N, Acc, F@_1, F@_2, F@_3, F@_4,
+					    F@_5, F@_6, TrUserData)
     when N < 57 ->
-    skip_length_delimited_NotificacaOfertaProducao(Rest,
-						   N + 7, X bsl N + Acc, F@_1,
-						   F@_2, F@_3, F@_4, F@_5,
-						   TrUserData);
-skip_length_delimited_NotificacaOfertaProducao(<<0:1,
-						 X:7, Rest/binary>>,
-					       N, Acc, F@_1, F@_2, F@_3, F@_4,
-					       F@_5, TrUserData) ->
+    d_field_NotificacaoOfertaProducao_dataFinal(Rest, N + 7,
+						X bsl N + Acc, F@_1, F@_2, F@_3,
+						F@_4, F@_5, F@_6, TrUserData);
+d_field_NotificacaoOfertaProducao_dataFinal(<<0:1, X:7,
+					      Rest/binary>>,
+					    N, Acc, F@_1, F@_2, F@_3, F@_4,
+					    F@_5, _, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {id(unicode:characters_to_list(Utf8, unicode),
+			       TrUserData),
+			    Rest2}
+			 end,
+    dfp_read_field_def_NotificacaoOfertaProducao(RestF, 0,
+						 0, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, NewFValue, TrUserData).
+
+skip_varint_NotificacaoOfertaProducao(<<1:1, _:7,
+					Rest/binary>>,
+				      Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
+				      F@_6, TrUserData) ->
+    skip_varint_NotificacaoOfertaProducao(Rest, Z1, Z2,
+					  F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+					  TrUserData);
+skip_varint_NotificacaoOfertaProducao(<<0:1, _:7,
+					Rest/binary>>,
+				      Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
+				      F@_6, TrUserData) ->
+    dfp_read_field_def_NotificacaoOfertaProducao(Rest, Z1,
+						 Z2, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, F@_6, TrUserData).
+
+skip_length_delimited_NotificacaoOfertaProducao(<<1:1,
+						  X:7, Rest/binary>>,
+						N, Acc, F@_1, F@_2, F@_3, F@_4,
+						F@_5, F@_6, TrUserData)
+    when N < 57 ->
+    skip_length_delimited_NotificacaoOfertaProducao(Rest,
+						    N + 7, X bsl N + Acc, F@_1,
+						    F@_2, F@_3, F@_4, F@_5,
+						    F@_6, TrUserData);
+skip_length_delimited_NotificacaoOfertaProducao(<<0:1,
+						  X:7, Rest/binary>>,
+						N, Acc, F@_1, F@_2, F@_3, F@_4,
+						F@_5, F@_6, TrUserData) ->
     Length = X bsl N + Acc,
     <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_NotificacaOfertaProducao(Rest2, 0, 0,
-						F@_1, F@_2, F@_3, F@_4, F@_5,
-						TrUserData).
+    dfp_read_field_def_NotificacaoOfertaProducao(Rest2, 0,
+						 0, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, F@_6, TrUserData).
 
-skip_group_NotificacaOfertaProducao(Bin, FNum, Z2, F@_1,
-				    F@_2, F@_3, F@_4, F@_5, TrUserData) ->
+skip_group_NotificacaoOfertaProducao(Bin, FNum, Z2,
+				     F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				     TrUserData) ->
     {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_NotificacaOfertaProducao(Rest, 0, Z2,
-						F@_1, F@_2, F@_3, F@_4, F@_5,
-						TrUserData).
+    dfp_read_field_def_NotificacaoOfertaProducao(Rest, 0,
+						 Z2, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, F@_6, TrUserData).
 
-skip_32_NotificacaOfertaProducao(<<_:32, Rest/binary>>,
-				 Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-				 TrUserData) ->
-    dfp_read_field_def_NotificacaOfertaProducao(Rest, Z1,
-						Z2, F@_1, F@_2, F@_3, F@_4,
-						F@_5, TrUserData).
+skip_32_NotificacaoOfertaProducao(<<_:32, Rest/binary>>,
+				  Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				  TrUserData) ->
+    dfp_read_field_def_NotificacaoOfertaProducao(Rest, Z1,
+						 Z2, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, F@_6, TrUserData).
 
-skip_64_NotificacaOfertaProducao(<<_:64, Rest/binary>>,
-				 Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-				 TrUserData) ->
-    dfp_read_field_def_NotificacaOfertaProducao(Rest, Z1,
-						Z2, F@_1, F@_2, F@_3, F@_4,
-						F@_5, TrUserData).
+skip_64_NotificacaoOfertaProducao(<<_:64, Rest/binary>>,
+				  Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				  TrUserData) ->
+    dfp_read_field_def_NotificacaoOfertaProducao(Rest, Z1,
+						 Z2, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, F@_6, TrUserData).
 
 decode_msg_NotificacaoResultadosImportador(Bin,
 					   TrUserData) ->
     dfp_read_field_def_NotificacaoResultadosImportador(Bin,
-						       0, 0, id([], TrUserData),
+						       0, 0,
+						       id(false, TrUserData),
+						       id([], TrUserData),
 						       id([], TrUserData),
 						       id(0, TrUserData),
 						       id(0, TrUserData),
 						       TrUserData).
 
-dfp_read_field_def_NotificacaoResultadosImportador(<<10,
+dfp_read_field_def_NotificacaoResultadosImportador(<<8,
 						     Rest/binary>>,
 						   Z1, Z2, F@_1, F@_2, F@_3,
-						   F@_4, TrUserData) ->
-    d_field_NotificacaoResultadosImportador_fabricante(Rest,
-						       Z1, Z2, F@_1, F@_2, F@_3,
-						       F@_4, TrUserData);
+						   F@_4, F@_5, TrUserData) ->
+    d_field_NotificacaoResultadosImportador_aceite(Rest, Z1,
+						   Z2, F@_1, F@_2, F@_3, F@_4,
+						   F@_5, TrUserData);
 dfp_read_field_def_NotificacaoResultadosImportador(<<18,
 						     Rest/binary>>,
 						   Z1, Z2, F@_1, F@_2, F@_3,
-						   F@_4, TrUserData) ->
-    d_field_NotificacaoResultadosImportador_produto(Rest,
-						    Z1, Z2, F@_1, F@_2, F@_3,
-						    F@_4, TrUserData);
-dfp_read_field_def_NotificacaoResultadosImportador(<<24,
+						   F@_4, F@_5, TrUserData) ->
+    d_field_NotificacaoResultadosImportador_fabricante(Rest,
+						       Z1, Z2, F@_1, F@_2, F@_3,
+						       F@_4, F@_5, TrUserData);
+dfp_read_field_def_NotificacaoResultadosImportador(<<26,
 						     Rest/binary>>,
 						   Z1, Z2, F@_1, F@_2, F@_3,
-						   F@_4, TrUserData) ->
-    d_field_NotificacaoResultadosImportador_quant(Rest, Z1,
-						  Z2, F@_1, F@_2, F@_3, F@_4,
-						  TrUserData);
+						   F@_4, F@_5, TrUserData) ->
+    d_field_NotificacaoResultadosImportador_produto(Rest,
+						    Z1, Z2, F@_1, F@_2, F@_3,
+						    F@_4, F@_5, TrUserData);
 dfp_read_field_def_NotificacaoResultadosImportador(<<32,
 						     Rest/binary>>,
 						   Z1, Z2, F@_1, F@_2, F@_3,
-						   F@_4, TrUserData) ->
+						   F@_4, F@_5, TrUserData) ->
+    d_field_NotificacaoResultadosImportador_quant(Rest, Z1,
+						  Z2, F@_1, F@_2, F@_3, F@_4,
+						  F@_5, TrUserData);
+dfp_read_field_def_NotificacaoResultadosImportador(<<40,
+						     Rest/binary>>,
+						   Z1, Z2, F@_1, F@_2, F@_3,
+						   F@_4, F@_5, TrUserData) ->
     d_field_NotificacaoResultadosImportador_preco(Rest, Z1,
 						  Z2, F@_1, F@_2, F@_3, F@_4,
-						  TrUserData);
+						  F@_5, TrUserData);
 dfp_read_field_def_NotificacaoResultadosImportador(<<>>,
 						   0, 0, F@_1, F@_2, F@_3, F@_4,
-						   _) ->
-    #'NotificacaoResultadosImportador'{fabricante = F@_1,
-				       produto = F@_2, quant = F@_3,
-				       preco = F@_4};
+						   F@_5, _) ->
+    #'NotificacaoResultadosImportador'{aceite = F@_1,
+				       fabricante = F@_2, produto = F@_3,
+				       quant = F@_4, preco = F@_5};
 dfp_read_field_def_NotificacaoResultadosImportador(Other,
 						   Z1, Z2, F@_1, F@_2, F@_3,
-						   F@_4, TrUserData) ->
+						   F@_4, F@_5, TrUserData) ->
     dg_read_field_def_NotificacaoResultadosImportador(Other,
 						      Z1, Z2, F@_1, F@_2, F@_3,
-						      F@_4, TrUserData).
+						      F@_4, F@_5, TrUserData).
 
 dg_read_field_def_NotificacaoResultadosImportador(<<1:1,
 						    X:7, Rest/binary>>,
 						  N, Acc, F@_1, F@_2, F@_3,
-						  F@_4, TrUserData)
+						  F@_4, F@_5, TrUserData)
     when N < 32 - 7 ->
     dg_read_field_def_NotificacaoResultadosImportador(Rest,
 						      N + 7, X bsl N + Acc,
 						      F@_1, F@_2, F@_3, F@_4,
-						      TrUserData);
+						      F@_5, TrUserData);
 dg_read_field_def_NotificacaoResultadosImportador(<<0:1,
 						    X:7, Rest/binary>>,
 						  N, Acc, F@_1, F@_2, F@_3,
-						  F@_4, TrUserData) ->
+						  F@_4, F@_5, TrUserData) ->
     Key = X bsl N + Acc,
     case Key of
-      10 ->
+      8 ->
+	  d_field_NotificacaoResultadosImportador_aceite(Rest, 0,
+							 0, F@_1, F@_2, F@_3,
+							 F@_4, F@_5,
+							 TrUserData);
+      18 ->
 	  d_field_NotificacaoResultadosImportador_fabricante(Rest,
 							     0, 0, F@_1, F@_2,
-							     F@_3, F@_4,
+							     F@_3, F@_4, F@_5,
 							     TrUserData);
-      18 ->
+      26 ->
 	  d_field_NotificacaoResultadosImportador_produto(Rest, 0,
 							  0, F@_1, F@_2, F@_3,
-							  F@_4, TrUserData);
-      24 ->
+							  F@_4, F@_5,
+							  TrUserData);
+      32 ->
 	  d_field_NotificacaoResultadosImportador_quant(Rest, 0,
 							0, F@_1, F@_2, F@_3,
-							F@_4, TrUserData);
-      32 ->
+							F@_4, F@_5, TrUserData);
+      40 ->
 	  d_field_NotificacaoResultadosImportador_preco(Rest, 0,
 							0, F@_1, F@_2, F@_3,
-							F@_4, TrUserData);
+							F@_4, F@_5, TrUserData);
       _ ->
 	  case Key band 7 of
 	    0 ->
 		skip_varint_NotificacaoResultadosImportador(Rest, 0, 0,
 							    F@_1, F@_2, F@_3,
-							    F@_4, TrUserData);
+							    F@_4, F@_5,
+							    TrUserData);
 	    1 ->
 		skip_64_NotificacaoResultadosImportador(Rest, 0, 0,
 							F@_1, F@_2, F@_3, F@_4,
-							TrUserData);
+							F@_5, TrUserData);
 	    2 ->
 		skip_length_delimited_NotificacaoResultadosImportador(Rest,
 								      0, 0,
@@ -2369,62 +2304,60 @@ dg_read_field_def_NotificacaoResultadosImportador(<<0:1,
 								      F@_2,
 								      F@_3,
 								      F@_4,
+								      F@_5,
 								      TrUserData);
 	    3 ->
 		skip_group_NotificacaoResultadosImportador(Rest,
 							   Key bsr 3, 0, F@_1,
 							   F@_2, F@_3, F@_4,
-							   TrUserData);
+							   F@_5, TrUserData);
 	    5 ->
 		skip_32_NotificacaoResultadosImportador(Rest, 0, 0,
 							F@_1, F@_2, F@_3, F@_4,
-							TrUserData)
+							F@_5, TrUserData)
 	  end
     end;
 dg_read_field_def_NotificacaoResultadosImportador(<<>>,
 						  0, 0, F@_1, F@_2, F@_3, F@_4,
-						  _) ->
-    #'NotificacaoResultadosImportador'{fabricante = F@_1,
-				       produto = F@_2, quant = F@_3,
-				       preco = F@_4}.
+						  F@_5, _) ->
+    #'NotificacaoResultadosImportador'{aceite = F@_1,
+				       fabricante = F@_2, produto = F@_3,
+				       quant = F@_4, preco = F@_5}.
+
+d_field_NotificacaoResultadosImportador_aceite(<<1:1,
+						 X:7, Rest/binary>>,
+					       N, Acc, F@_1, F@_2, F@_3, F@_4,
+					       F@_5, TrUserData)
+    when N < 57 ->
+    d_field_NotificacaoResultadosImportador_aceite(Rest,
+						   N + 7, X bsl N + Acc, F@_1,
+						   F@_2, F@_3, F@_4, F@_5,
+						   TrUserData);
+d_field_NotificacaoResultadosImportador_aceite(<<0:1,
+						 X:7, Rest/binary>>,
+					       N, Acc, _, F@_2, F@_3, F@_4,
+					       F@_5, TrUserData) ->
+    {NewFValue, RestF} = {id(X bsl N + Acc =/= 0,
+			     TrUserData),
+			  Rest},
+    dfp_read_field_def_NotificacaoResultadosImportador(RestF,
+						       0, 0, NewFValue, F@_2,
+						       F@_3, F@_4, F@_5,
+						       TrUserData).
 
 d_field_NotificacaoResultadosImportador_fabricante(<<1:1,
 						     X:7, Rest/binary>>,
 						   N, Acc, F@_1, F@_2, F@_3,
-						   F@_4, TrUserData)
+						   F@_4, F@_5, TrUserData)
     when N < 57 ->
     d_field_NotificacaoResultadosImportador_fabricante(Rest,
 						       N + 7, X bsl N + Acc,
 						       F@_1, F@_2, F@_3, F@_4,
-						       TrUserData);
+						       F@_5, TrUserData);
 d_field_NotificacaoResultadosImportador_fabricante(<<0:1,
 						     X:7, Rest/binary>>,
-						   N, Acc, _, F@_2, F@_3, F@_4,
-						   TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {id(unicode:characters_to_list(Utf8, unicode),
-			       TrUserData),
-			    Rest2}
-			 end,
-    dfp_read_field_def_NotificacaoResultadosImportador(RestF,
-						       0, 0, NewFValue, F@_2,
-						       F@_3, F@_4, TrUserData).
-
-d_field_NotificacaoResultadosImportador_produto(<<1:1,
-						  X:7, Rest/binary>>,
-						N, Acc, F@_1, F@_2, F@_3, F@_4,
-						TrUserData)
-    when N < 57 ->
-    d_field_NotificacaoResultadosImportador_produto(Rest,
-						    N + 7, X bsl N + Acc, F@_1,
-						    F@_2, F@_3, F@_4,
-						    TrUserData);
-d_field_NotificacaoResultadosImportador_produto(<<0:1,
-						  X:7, Rest/binary>>,
-						N, Acc, F@_1, _, F@_3, F@_4,
-						TrUserData) ->
+						   N, Acc, F@_1, _, F@_3, F@_4,
+						   F@_5, TrUserData) ->
     {NewFValue, RestF} = begin
 			   Len = X bsl N + Acc,
 			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
@@ -2434,19 +2367,46 @@ d_field_NotificacaoResultadosImportador_produto(<<0:1,
 			 end,
     dfp_read_field_def_NotificacaoResultadosImportador(RestF,
 						       0, 0, F@_1, NewFValue,
-						       F@_3, F@_4, TrUserData).
+						       F@_3, F@_4, F@_5,
+						       TrUserData).
+
+d_field_NotificacaoResultadosImportador_produto(<<1:1,
+						  X:7, Rest/binary>>,
+						N, Acc, F@_1, F@_2, F@_3, F@_4,
+						F@_5, TrUserData)
+    when N < 57 ->
+    d_field_NotificacaoResultadosImportador_produto(Rest,
+						    N + 7, X bsl N + Acc, F@_1,
+						    F@_2, F@_3, F@_4, F@_5,
+						    TrUserData);
+d_field_NotificacaoResultadosImportador_produto(<<0:1,
+						  X:7, Rest/binary>>,
+						N, Acc, F@_1, F@_2, _, F@_4,
+						F@_5, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {id(unicode:characters_to_list(Utf8, unicode),
+			       TrUserData),
+			    Rest2}
+			 end,
+    dfp_read_field_def_NotificacaoResultadosImportador(RestF,
+						       0, 0, F@_1, F@_2,
+						       NewFValue, F@_4, F@_5,
+						       TrUserData).
 
 d_field_NotificacaoResultadosImportador_quant(<<1:1,
 						X:7, Rest/binary>>,
 					      N, Acc, F@_1, F@_2, F@_3, F@_4,
-					      TrUserData)
+					      F@_5, TrUserData)
     when N < 57 ->
     d_field_NotificacaoResultadosImportador_quant(Rest,
 						  N + 7, X bsl N + Acc, F@_1,
-						  F@_2, F@_3, F@_4, TrUserData);
+						  F@_2, F@_3, F@_4, F@_5,
+						  TrUserData);
 d_field_NotificacaoResultadosImportador_quant(<<0:1,
 						X:7, Rest/binary>>,
-					      N, Acc, F@_1, F@_2, _, F@_4,
+					      N, Acc, F@_1, F@_2, F@_3, _, F@_5,
 					      TrUserData) ->
     {NewFValue, RestF} = {begin
 			    <<Res:32/signed-native>> = <<(X bsl N +
@@ -2455,21 +2415,22 @@ d_field_NotificacaoResultadosImportador_quant(<<0:1,
 			  end,
 			  Rest},
     dfp_read_field_def_NotificacaoResultadosImportador(RestF,
-						       0, 0, F@_1, F@_2,
-						       NewFValue, F@_4,
+						       0, 0, F@_1, F@_2, F@_3,
+						       NewFValue, F@_5,
 						       TrUserData).
 
 d_field_NotificacaoResultadosImportador_preco(<<1:1,
 						X:7, Rest/binary>>,
 					      N, Acc, F@_1, F@_2, F@_3, F@_4,
-					      TrUserData)
+					      F@_5, TrUserData)
     when N < 57 ->
     d_field_NotificacaoResultadosImportador_preco(Rest,
 						  N + 7, X bsl N + Acc, F@_1,
-						  F@_2, F@_3, F@_4, TrUserData);
+						  F@_2, F@_3, F@_4, F@_5,
+						  TrUserData);
 d_field_NotificacaoResultadosImportador_preco(<<0:1,
 						X:7, Rest/binary>>,
-					      N, Acc, F@_1, F@_2, F@_3, _,
+					      N, Acc, F@_1, F@_2, F@_3, F@_4, _,
 					      TrUserData) ->
     {NewFValue, RestF} = {begin
 			    <<Res:32/signed-native>> = <<(X bsl N +
@@ -2479,65 +2440,67 @@ d_field_NotificacaoResultadosImportador_preco(<<0:1,
 			  Rest},
     dfp_read_field_def_NotificacaoResultadosImportador(RestF,
 						       0, 0, F@_1, F@_2, F@_3,
-						       NewFValue, TrUserData).
+						       F@_4, NewFValue,
+						       TrUserData).
 
 skip_varint_NotificacaoResultadosImportador(<<1:1, _:7,
 					      Rest/binary>>,
 					    Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					    TrUserData) ->
+					    F@_5, TrUserData) ->
     skip_varint_NotificacaoResultadosImportador(Rest, Z1,
 						Z2, F@_1, F@_2, F@_3, F@_4,
-						TrUserData);
+						F@_5, TrUserData);
 skip_varint_NotificacaoResultadosImportador(<<0:1, _:7,
 					      Rest/binary>>,
 					    Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					    TrUserData) ->
+					    F@_5, TrUserData) ->
     dfp_read_field_def_NotificacaoResultadosImportador(Rest,
 						       Z1, Z2, F@_1, F@_2, F@_3,
-						       F@_4, TrUserData).
+						       F@_4, F@_5, TrUserData).
 
 skip_length_delimited_NotificacaoResultadosImportador(<<1:1,
 							X:7, Rest/binary>>,
 						      N, Acc, F@_1, F@_2, F@_3,
-						      F@_4, TrUserData)
+						      F@_4, F@_5, TrUserData)
     when N < 57 ->
     skip_length_delimited_NotificacaoResultadosImportador(Rest,
 							  N + 7, X bsl N + Acc,
 							  F@_1, F@_2, F@_3,
-							  F@_4, TrUserData);
+							  F@_4, F@_5,
+							  TrUserData);
 skip_length_delimited_NotificacaoResultadosImportador(<<0:1,
 							X:7, Rest/binary>>,
 						      N, Acc, F@_1, F@_2, F@_3,
-						      F@_4, TrUserData) ->
+						      F@_4, F@_5, TrUserData) ->
     Length = X bsl N + Acc,
     <<_:Length/binary, Rest2/binary>> = Rest,
     dfp_read_field_def_NotificacaoResultadosImportador(Rest2,
 						       0, 0, F@_1, F@_2, F@_3,
-						       F@_4, TrUserData).
+						       F@_4, F@_5, TrUserData).
 
 skip_group_NotificacaoResultadosImportador(Bin, FNum,
-					   Z2, F@_1, F@_2, F@_3, F@_4,
+					   Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
 					   TrUserData) ->
     {_, Rest} = read_group(Bin, FNum),
     dfp_read_field_def_NotificacaoResultadosImportador(Rest,
 						       0, Z2, F@_1, F@_2, F@_3,
-						       F@_4, TrUserData).
+						       F@_4, F@_5, TrUserData).
 
 skip_32_NotificacaoResultadosImportador(<<_:32,
 					  Rest/binary>>,
-					Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
 					TrUserData) ->
     dfp_read_field_def_NotificacaoResultadosImportador(Rest,
 						       Z1, Z2, F@_1, F@_2, F@_3,
-						       F@_4, TrUserData).
+						       F@_4, F@_5, TrUserData).
 
 skip_64_NotificacaoResultadosImportador(<<_:64,
 					  Rest/binary>>,
-					Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
 					TrUserData) ->
     dfp_read_field_def_NotificacaoResultadosImportador(Rest,
 						       Z1, Z2, F@_1, F@_2, F@_3,
-						       F@_4, TrUserData).
+						       F@_4, F@_5, TrUserData).
 
 decode_msg_NotificacaoResultadosFabricante(Bin,
 					   TrUserData) ->
@@ -2764,8 +2727,6 @@ merge_msgs(Prev, New, MsgName, Opts) ->
 	  merge_msg_LoginRequest(Prev, New, TrUserData);
       'LoginResponse' ->
 	  merge_msg_LoginResponse(Prev, New, TrUserData);
-      'AuthOperationRequest' ->
-	  merge_msg_AuthOperationRequest(Prev, New, TrUserData);
       'OperationRequest' ->
 	  merge_msg_OperationRequest(Prev, New, TrUserData);
       'OperationResponse' ->
@@ -2774,9 +2735,9 @@ merge_msgs(Prev, New, MsgName, Opts) ->
 	  merge_msg_OfertaProducaoRequest(Prev, New, TrUserData);
       'OfertaEncomendaRequest' ->
 	  merge_msg_OfertaEncomendaRequest(Prev, New, TrUserData);
-      'NotificacaOfertaProducao' ->
-	  merge_msg_NotificacaOfertaProducao(Prev, New,
-					     TrUserData);
+      'NotificacaoOfertaProducao' ->
+	  merge_msg_NotificacaoOfertaProducao(Prev, New,
+					      TrUserData);
       'NotificacaoResultadosImportador' ->
 	  merge_msg_NotificacaoResultadosImportador(Prev, New,
 						    TrUserData);
@@ -2807,37 +2768,22 @@ merge_msg_LoginResponse(#'LoginResponse'{tipo = PFtipo},
 			    true -> NFtipo
 			 end}.
 
--compile({nowarn_unused_function,merge_msg_AuthOperationRequest/3}).
-merge_msg_AuthOperationRequest(#'AuthOperationRequest'{password
-							   = PFpassword,
-						       request = PFrequest},
-			       #'AuthOperationRequest'{password = NFpassword,
-						       request = NFrequest},
-			       TrUserData) ->
-    #'AuthOperationRequest'{password =
-				if NFpassword =:= undefined -> PFpassword;
-				   true -> NFpassword
-				end,
-			    request =
-				if PFrequest /= undefined,
-				   NFrequest /= undefined ->
-				       merge_msg_OperationRequest(PFrequest,
-								  NFrequest,
-								  TrUserData);
-				   PFrequest == undefined -> NFrequest;
-				   NFrequest == undefined -> PFrequest
-				end}.
-
 -compile({nowarn_unused_function,merge_msg_OperationRequest/3}).
 merge_msg_OperationRequest(#'OperationRequest'{nome =
 						   PFnome,
+					       password = PFpassword,
 					       request = PFrequest},
 			   #'OperationRequest'{nome = NFnome,
+					       password = NFpassword,
 					       request = NFrequest},
 			   TrUserData) ->
     #'OperationRequest'{nome =
 			    if NFnome =:= undefined -> PFnome;
 			       true -> NFnome
+			    end,
+			password =
+			    if NFpassword =:= undefined -> PFpassword;
+			       true -> NFpassword
 			    end,
 			request =
 			    case {PFrequest, NFrequest} of
@@ -2932,52 +2878,66 @@ merge_msg_OfertaEncomendaRequest(#'OfertaEncomendaRequest'{fabricante
 				     true -> NFpreco
 				  end}.
 
--compile({nowarn_unused_function,merge_msg_NotificacaOfertaProducao/3}).
-merge_msg_NotificacaOfertaProducao(#'NotificacaOfertaProducao'{produto
-								   = PFproduto,
-							       quantMin =
-								   PFquantMin,
-							       quantMax =
-								   PFquantMax,
-							       precoUniMin =
-								   PFprecoUniMin,
-							       duracaoS =
-								   PFduracaoS},
-				   #'NotificacaOfertaProducao'{produto =
-								   NFproduto,
-							       quantMin =
-								   NFquantMin,
-							       quantMax =
-								   NFquantMax,
-							       precoUniMin =
-								   NFprecoUniMin,
-							       duracaoS =
-								   NFduracaoS},
-				   _) ->
-    #'NotificacaOfertaProducao'{produto =
-				    if NFproduto =:= undefined -> PFproduto;
-				       true -> NFproduto
-				    end,
-				quantMin =
-				    if NFquantMin =:= undefined -> PFquantMin;
-				       true -> NFquantMin
-				    end,
-				quantMax =
-				    if NFquantMax =:= undefined -> PFquantMax;
-				       true -> NFquantMax
-				    end,
-				precoUniMin =
-				    if NFprecoUniMin =:= undefined ->
-					   PFprecoUniMin;
-				       true -> NFprecoUniMin
-				    end,
-				duracaoS =
-				    if NFduracaoS =:= undefined -> PFduracaoS;
-				       true -> NFduracaoS
-				    end}.
+-compile({nowarn_unused_function,merge_msg_NotificacaoOfertaProducao/3}).
+merge_msg_NotificacaoOfertaProducao(#'NotificacaoOfertaProducao'{produto
+								     =
+								     PFproduto,
+								 quantMin =
+								     PFquantMin,
+								 quantMax =
+								     PFquantMax,
+								 precoUniMin =
+								     PFprecoUniMin,
+								 dataInicial =
+								     PFdataInicial,
+								 dataFinal =
+								     PFdataFinal},
+				    #'NotificacaoOfertaProducao'{produto =
+								     NFproduto,
+								 quantMin =
+								     NFquantMin,
+								 quantMax =
+								     NFquantMax,
+								 precoUniMin =
+								     NFprecoUniMin,
+								 dataInicial =
+								     NFdataInicial,
+								 dataFinal =
+								     NFdataFinal},
+				    _) ->
+    #'NotificacaoOfertaProducao'{produto =
+				     if NFproduto =:= undefined -> PFproduto;
+					true -> NFproduto
+				     end,
+				 quantMin =
+				     if NFquantMin =:= undefined -> PFquantMin;
+					true -> NFquantMin
+				     end,
+				 quantMax =
+				     if NFquantMax =:= undefined -> PFquantMax;
+					true -> NFquantMax
+				     end,
+				 precoUniMin =
+				     if NFprecoUniMin =:= undefined ->
+					    PFprecoUniMin;
+					true -> NFprecoUniMin
+				     end,
+				 dataInicial =
+				     if NFdataInicial =:= undefined ->
+					    PFdataInicial;
+					true -> NFdataInicial
+				     end,
+				 dataFinal =
+				     if NFdataFinal =:= undefined ->
+					    PFdataFinal;
+					true -> NFdataFinal
+				     end}.
 
 -compile({nowarn_unused_function,merge_msg_NotificacaoResultadosImportador/3}).
-merge_msg_NotificacaoResultadosImportador(#'NotificacaoResultadosImportador'{fabricante
+merge_msg_NotificacaoResultadosImportador(#'NotificacaoResultadosImportador'{aceite
+										 =
+										 PFaceite,
+									     fabricante
 										 =
 										 PFfabricante,
 									     produto
@@ -2989,7 +2949,10 @@ merge_msg_NotificacaoResultadosImportador(#'NotificacaoResultadosImportador'{fab
 									     preco
 										 =
 										 PFpreco},
-					  #'NotificacaoResultadosImportador'{fabricante
+					  #'NotificacaoResultadosImportador'{aceite
+										 =
+										 NFaceite,
+									     fabricante
 										 =
 										 NFfabricante,
 									     produto
@@ -3002,7 +2965,12 @@ merge_msg_NotificacaoResultadosImportador(#'NotificacaoResultadosImportador'{fab
 										 =
 										 NFpreco},
 					  _) ->
-    #'NotificacaoResultadosImportador'{fabricante =
+    #'NotificacaoResultadosImportador'{aceite =
+					   if NFaceite =:= undefined ->
+						  PFaceite;
+					      true -> NFaceite
+					   end,
+				       fabricante =
 					   if NFfabricante =:= undefined ->
 						  PFfabricante;
 					      true -> NFfabricante
@@ -3061,8 +3029,6 @@ verify_msg(Msg, MsgName, Opts) ->
 	  v_msg_LoginRequest(Msg, [MsgName], TrUserData);
       'LoginResponse' ->
 	  v_msg_LoginResponse(Msg, [MsgName], TrUserData);
-      'AuthOperationRequest' ->
-	  v_msg_AuthOperationRequest(Msg, [MsgName], TrUserData);
       'OperationRequest' ->
 	  v_msg_OperationRequest(Msg, [MsgName], TrUserData);
       'OperationResponse' ->
@@ -3072,9 +3038,9 @@ verify_msg(Msg, MsgName, Opts) ->
       'OfertaEncomendaRequest' ->
 	  v_msg_OfertaEncomendaRequest(Msg, [MsgName],
 				       TrUserData);
-      'NotificacaOfertaProducao' ->
-	  v_msg_NotificacaOfertaProducao(Msg, [MsgName],
-					 TrUserData);
+      'NotificacaoOfertaProducao' ->
+	  v_msg_NotificacaoOfertaProducao(Msg, [MsgName],
+					  TrUserData);
       'NotificacaoResultadosImportador' ->
 	  v_msg_NotificacaoResultadosImportador(Msg, [MsgName],
 						TrUserData);
@@ -3113,41 +3079,26 @@ v_msg_LoginResponse(#'LoginResponse'{tipo = F1}, Path,
 v_msg_LoginResponse(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'LoginResponse'}, X, Path).
 
--compile({nowarn_unused_function,v_msg_AuthOperationRequest/3}).
--dialyzer({nowarn_function,v_msg_AuthOperationRequest/3}).
-v_msg_AuthOperationRequest(#'AuthOperationRequest'{password
-						       = F1,
-						   request = F2},
-			   Path, TrUserData) ->
-    if F1 == undefined -> ok;
-       true -> v_type_string(F1, [password | Path], TrUserData)
-    end,
-    if F2 == undefined -> ok;
-       true ->
-	   v_msg_OperationRequest(F2, [request | Path], TrUserData)
-    end,
-    ok;
-v_msg_AuthOperationRequest(X, Path, _TrUserData) ->
-    mk_type_error({expected_msg, 'AuthOperationRequest'}, X,
-		  Path).
-
 -compile({nowarn_unused_function,v_msg_OperationRequest/3}).
 -dialyzer({nowarn_function,v_msg_OperationRequest/3}).
 v_msg_OperationRequest(#'OperationRequest'{nome = F1,
-					   request = F2},
+					   password = F2, request = F3},
 		       Path, TrUserData) ->
     if F1 == undefined -> ok;
        true -> v_type_string(F1, [nome | Path], TrUserData)
     end,
-    case F2 of
+    if F2 == undefined -> ok;
+       true -> v_type_string(F2, [password | Path], TrUserData)
+    end,
+    case F3 of
       undefined -> ok;
-      {producao, OF2} ->
-	  v_msg_OfertaProducaoRequest(OF2,
+      {producao, OF3} ->
+	  v_msg_OfertaProducaoRequest(OF3,
 				      [producao, request | Path], TrUserData);
-      {encomenda, OF2} ->
-	  v_msg_OfertaEncomendaRequest(OF2,
+      {encomenda, OF3} ->
+	  v_msg_OfertaEncomendaRequest(OF3,
 				       [encomenda, request | Path], TrUserData);
-      _ -> mk_type_error(invalid_oneof, F2, [request | Path])
+      _ -> mk_type_error(invalid_oneof, F3, [request | Path])
     end,
     ok;
 v_msg_OperationRequest(X, Path, _TrUserData) ->
@@ -3224,15 +3175,16 @@ v_msg_OfertaEncomendaRequest(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'OfertaEncomendaRequest'},
 		  X, Path).
 
--compile({nowarn_unused_function,v_msg_NotificacaOfertaProducao/3}).
--dialyzer({nowarn_function,v_msg_NotificacaOfertaProducao/3}).
-v_msg_NotificacaOfertaProducao(#'NotificacaOfertaProducao'{produto
-							       = F1,
-							   quantMin = F2,
-							   quantMax = F3,
-							   precoUniMin = F4,
-							   duracaoS = F5},
-			       Path, TrUserData) ->
+-compile({nowarn_unused_function,v_msg_NotificacaoOfertaProducao/3}).
+-dialyzer({nowarn_function,v_msg_NotificacaoOfertaProducao/3}).
+v_msg_NotificacaoOfertaProducao(#'NotificacaoOfertaProducao'{produto
+								 = F1,
+							     quantMin = F2,
+							     quantMax = F3,
+							     precoUniMin = F4,
+							     dataInicial = F5,
+							     dataFinal = F6},
+				Path, TrUserData) ->
     if F1 == undefined -> ok;
        true -> v_type_string(F1, [produto | Path], TrUserData)
     end,
@@ -3247,39 +3199,50 @@ v_msg_NotificacaOfertaProducao(#'NotificacaOfertaProducao'{produto
 	   v_type_int32(F4, [precoUniMin | Path], TrUserData)
     end,
     if F5 == undefined -> ok;
-       true -> v_type_int64(F5, [duracaoS | Path], TrUserData)
+       true ->
+	   v_type_string(F5, [dataInicial | Path], TrUserData)
+    end,
+    if F6 == undefined -> ok;
+       true ->
+	   v_type_string(F6, [dataFinal | Path], TrUserData)
     end,
     ok;
-v_msg_NotificacaOfertaProducao(X, Path, _TrUserData) ->
+v_msg_NotificacaoOfertaProducao(X, Path, _TrUserData) ->
     mk_type_error({expected_msg,
-		   'NotificacaOfertaProducao'},
+		   'NotificacaoOfertaProducao'},
 		  X, Path).
 
 -compile({nowarn_unused_function,v_msg_NotificacaoResultadosImportador/3}).
 -dialyzer({nowarn_function,v_msg_NotificacaoResultadosImportador/3}).
-v_msg_NotificacaoResultadosImportador(#'NotificacaoResultadosImportador'{fabricante
+v_msg_NotificacaoResultadosImportador(#'NotificacaoResultadosImportador'{aceite
 									     =
 									     F1,
-									 produto
+									 fabricante
 									     =
 									     F2,
-									 quant =
+									 produto
+									     =
 									     F3,
+									 quant =
+									     F4,
 									 preco =
-									     F4},
+									     F5},
 				      Path, TrUserData) ->
     if F1 == undefined -> ok;
-       true ->
-	   v_type_string(F1, [fabricante | Path], TrUserData)
+       true -> v_type_bool(F1, [aceite | Path], TrUserData)
     end,
     if F2 == undefined -> ok;
-       true -> v_type_string(F2, [produto | Path], TrUserData)
+       true ->
+	   v_type_string(F2, [fabricante | Path], TrUserData)
     end,
     if F3 == undefined -> ok;
-       true -> v_type_int32(F3, [quant | Path], TrUserData)
+       true -> v_type_string(F3, [produto | Path], TrUserData)
     end,
     if F4 == undefined -> ok;
-       true -> v_type_int32(F4, [preco | Path], TrUserData)
+       true -> v_type_int32(F4, [quant | Path], TrUserData)
+    end,
+    if F5 == undefined -> ok;
+       true -> v_type_int32(F5, [preco | Path], TrUserData)
     end,
     ok;
 v_msg_NotificacaoResultadosImportador(X, Path,
@@ -3388,6 +3351,15 @@ v_type_int64(X, Path, _TrUserData) ->
     mk_type_error({bad_integer, int64, signed, 64}, X,
 		  Path).
 
+-compile({nowarn_unused_function,v_type_bool/3}).
+-dialyzer({nowarn_function,v_type_bool/3}).
+v_type_bool(false, _Path, _TrUserData) -> ok;
+v_type_bool(true, _Path, _TrUserData) -> ok;
+v_type_bool(0, _Path, _TrUserData) -> ok;
+v_type_bool(1, _Path, _TrUserData) -> ok;
+v_type_bool(X, Path, _TrUserData) ->
+    mk_type_error(bad_boolean_value, X, Path).
+
 -compile({nowarn_unused_function,v_type_string/3}).
 -dialyzer({nowarn_function,v_type_string/3}).
 v_type_string(S, Path, _TrUserData)
@@ -3458,21 +3430,17 @@ get_msg_defs() ->
       [#field{name = tipo, fnum = 1, rnum = 2,
 	      type = {enum, 'LoginResponse.TipoUtilizador'},
 	      occurrence = optional, opts = []}]},
-     {{msg, 'AuthOperationRequest'},
-      [#field{name = password, fnum = 1, rnum = 2,
-	      type = string, occurrence = optional, opts = []},
-       #field{name = request, fnum = 2, rnum = 3,
-	      type = {msg, 'OperationRequest'}, occurrence = optional,
-	      opts = []}]},
      {{msg, 'OperationRequest'},
       [#field{name = nome, fnum = 1, rnum = 2, type = string,
 	      occurrence = optional, opts = []},
-       #gpb_oneof{name = request, rnum = 3,
+       #field{name = password, fnum = 2, rnum = 3,
+	      type = string, occurrence = optional, opts = []},
+       #gpb_oneof{name = request, rnum = 4,
 		  fields =
-		      [#field{name = producao, fnum = 2, rnum = 3,
+		      [#field{name = producao, fnum = 3, rnum = 4,
 			      type = {msg, 'OfertaProducaoRequest'},
 			      occurrence = optional, opts = []},
-		       #field{name = encomenda, fnum = 3, rnum = 3,
+		       #field{name = encomenda, fnum = 4, rnum = 4,
 			      type = {msg, 'OfertaEncomendaRequest'},
 			      occurrence = optional, opts = []}]}]},
      {{msg, 'OperationResponse'},
@@ -3499,7 +3467,7 @@ get_msg_defs() ->
 	      occurrence = optional, opts = []},
        #field{name = preco, fnum = 4, rnum = 5, type = int32,
 	      occurrence = optional, opts = []}]},
-     {{msg, 'NotificacaOfertaProducao'},
+     {{msg, 'NotificacaoOfertaProducao'},
       [#field{name = produto, fnum = 1, rnum = 2,
 	      type = string, occurrence = optional, opts = []},
        #field{name = quantMin, fnum = 2, rnum = 3,
@@ -3508,16 +3476,20 @@ get_msg_defs() ->
 	      type = int32, occurrence = optional, opts = []},
        #field{name = precoUniMin, fnum = 4, rnum = 5,
 	      type = int32, occurrence = optional, opts = []},
-       #field{name = duracaoS, fnum = 5, rnum = 6,
-	      type = int64, occurrence = optional, opts = []}]},
+       #field{name = dataInicial, fnum = 5, rnum = 6,
+	      type = string, occurrence = optional, opts = []},
+       #field{name = dataFinal, fnum = 6, rnum = 7,
+	      type = string, occurrence = optional, opts = []}]},
      {{msg, 'NotificacaoResultadosImportador'},
-      [#field{name = fabricante, fnum = 1, rnum = 2,
-	      type = string, occurrence = optional, opts = []},
-       #field{name = produto, fnum = 2, rnum = 3,
-	      type = string, occurrence = optional, opts = []},
-       #field{name = quant, fnum = 3, rnum = 4, type = int32,
+      [#field{name = aceite, fnum = 1, rnum = 2, type = bool,
 	      occurrence = optional, opts = []},
-       #field{name = preco, fnum = 4, rnum = 5, type = int32,
+       #field{name = fabricante, fnum = 2, rnum = 3,
+	      type = string, occurrence = optional, opts = []},
+       #field{name = produto, fnum = 3, rnum = 4,
+	      type = string, occurrence = optional, opts = []},
+       #field{name = quant, fnum = 4, rnum = 5, type = int32,
+	      occurrence = optional, opts = []},
+       #field{name = preco, fnum = 5, rnum = 6, type = int32,
 	      occurrence = optional, opts = []}]},
      {{msg, 'NotificacaoResultadosFabricante'},
       [#field{name = encomendas, fnum = 1, rnum = 2,
@@ -3526,10 +3498,9 @@ get_msg_defs() ->
 
 
 get_msg_names() ->
-    ['LoginRequest', 'LoginResponse',
-     'AuthOperationRequest', 'OperationRequest',
+    ['LoginRequest', 'LoginResponse', 'OperationRequest',
      'OperationResponse', 'OfertaProducaoRequest',
-     'OfertaEncomendaRequest', 'NotificacaOfertaProducao',
+     'OfertaEncomendaRequest', 'NotificacaoOfertaProducao',
      'NotificacaoResultadosImportador',
      'NotificacaoResultadosFabricante'].
 
@@ -3538,10 +3509,9 @@ get_group_names() -> [].
 
 
 get_msg_or_group_names() ->
-    ['LoginRequest', 'LoginResponse',
-     'AuthOperationRequest', 'OperationRequest',
+    ['LoginRequest', 'LoginResponse', 'OperationRequest',
      'OperationResponse', 'OfertaProducaoRequest',
-     'OfertaEncomendaRequest', 'NotificacaOfertaProducao',
+     'OfertaEncomendaRequest', 'NotificacaoOfertaProducao',
      'NotificacaoResultadosImportador',
      'NotificacaoResultadosFabricante'].
 
@@ -3574,21 +3544,17 @@ find_msg_def('LoginResponse') ->
     [#field{name = tipo, fnum = 1, rnum = 2,
 	    type = {enum, 'LoginResponse.TipoUtilizador'},
 	    occurrence = optional, opts = []}];
-find_msg_def('AuthOperationRequest') ->
-    [#field{name = password, fnum = 1, rnum = 2,
-	    type = string, occurrence = optional, opts = []},
-     #field{name = request, fnum = 2, rnum = 3,
-	    type = {msg, 'OperationRequest'}, occurrence = optional,
-	    opts = []}];
 find_msg_def('OperationRequest') ->
     [#field{name = nome, fnum = 1, rnum = 2, type = string,
 	    occurrence = optional, opts = []},
-     #gpb_oneof{name = request, rnum = 3,
+     #field{name = password, fnum = 2, rnum = 3,
+	    type = string, occurrence = optional, opts = []},
+     #gpb_oneof{name = request, rnum = 4,
 		fields =
-		    [#field{name = producao, fnum = 2, rnum = 3,
+		    [#field{name = producao, fnum = 3, rnum = 4,
 			    type = {msg, 'OfertaProducaoRequest'},
 			    occurrence = optional, opts = []},
-		     #field{name = encomenda, fnum = 3, rnum = 3,
+		     #field{name = encomenda, fnum = 4, rnum = 4,
 			    type = {msg, 'OfertaEncomendaRequest'},
 			    occurrence = optional, opts = []}]}];
 find_msg_def('OperationResponse') ->
@@ -3615,7 +3581,7 @@ find_msg_def('OfertaEncomendaRequest') ->
 	    occurrence = optional, opts = []},
      #field{name = preco, fnum = 4, rnum = 5, type = int32,
 	    occurrence = optional, opts = []}];
-find_msg_def('NotificacaOfertaProducao') ->
+find_msg_def('NotificacaoOfertaProducao') ->
     [#field{name = produto, fnum = 1, rnum = 2,
 	    type = string, occurrence = optional, opts = []},
      #field{name = quantMin, fnum = 2, rnum = 3,
@@ -3624,16 +3590,20 @@ find_msg_def('NotificacaOfertaProducao') ->
 	    type = int32, occurrence = optional, opts = []},
      #field{name = precoUniMin, fnum = 4, rnum = 5,
 	    type = int32, occurrence = optional, opts = []},
-     #field{name = duracaoS, fnum = 5, rnum = 6,
-	    type = int64, occurrence = optional, opts = []}];
+     #field{name = dataInicial, fnum = 5, rnum = 6,
+	    type = string, occurrence = optional, opts = []},
+     #field{name = dataFinal, fnum = 6, rnum = 7,
+	    type = string, occurrence = optional, opts = []}];
 find_msg_def('NotificacaoResultadosImportador') ->
-    [#field{name = fabricante, fnum = 1, rnum = 2,
-	    type = string, occurrence = optional, opts = []},
-     #field{name = produto, fnum = 2, rnum = 3,
-	    type = string, occurrence = optional, opts = []},
-     #field{name = quant, fnum = 3, rnum = 4, type = int32,
+    [#field{name = aceite, fnum = 1, rnum = 2, type = bool,
 	    occurrence = optional, opts = []},
-     #field{name = preco, fnum = 4, rnum = 5, type = int32,
+     #field{name = fabricante, fnum = 2, rnum = 3,
+	    type = string, occurrence = optional, opts = []},
+     #field{name = produto, fnum = 3, rnum = 4,
+	    type = string, occurrence = optional, opts = []},
+     #field{name = quant, fnum = 4, rnum = 5, type = int32,
+	    occurrence = optional, opts = []},
+     #field{name = preco, fnum = 5, rnum = 6, type = int32,
 	    occurrence = optional, opts = []}];
 find_msg_def('NotificacaoResultadosFabricante') ->
     [#field{name = encomendas, fnum = 1, rnum = 2,
@@ -3742,13 +3712,12 @@ service_and_rpc_name_to_fqbins(S, R) ->
 
 fqbin_to_msg_name(<<"ProtoBuffers.LoginRequest">>) -> 'LoginRequest';
 fqbin_to_msg_name(<<"ProtoBuffers.LoginResponse">>) -> 'LoginResponse';
-fqbin_to_msg_name(<<"ProtoBuffers.AuthOperationRequest">>) -> 'AuthOperationRequest';
 fqbin_to_msg_name(<<"ProtoBuffers.OperationRequest">>) -> 'OperationRequest';
 fqbin_to_msg_name(<<"ProtoBuffers.OperationResponse">>) -> 'OperationResponse';
 fqbin_to_msg_name(<<"ProtoBuffers.OfertaProducaoRequest">>) -> 'OfertaProducaoRequest';
 fqbin_to_msg_name(<<"ProtoBuffers.OfertaEncomendaRequest">>) -> 'OfertaEncomendaRequest';
-fqbin_to_msg_name(<<"ProtoBuffers.NotificacaOfertaProducao">>) ->
-    'NotificacaOfertaProducao';
+fqbin_to_msg_name(<<"ProtoBuffers.NotificacaoOfertaProducao">>) ->
+    'NotificacaoOfertaProducao';
 fqbin_to_msg_name(<<"ProtoBuffers.NotificacaoResultadosImportador">>) ->
     'NotificacaoResultadosImportador';
 fqbin_to_msg_name(<<"ProtoBuffers.NotificacaoResultadosFabricante">>) ->
@@ -3758,13 +3727,12 @@ fqbin_to_msg_name(E) -> error({gpb_error, {badmsg, E}}).
 
 msg_name_to_fqbin('LoginRequest') -> <<"ProtoBuffers.LoginRequest">>;
 msg_name_to_fqbin('LoginResponse') -> <<"ProtoBuffers.LoginResponse">>;
-msg_name_to_fqbin('AuthOperationRequest') -> <<"ProtoBuffers.AuthOperationRequest">>;
 msg_name_to_fqbin('OperationRequest') -> <<"ProtoBuffers.OperationRequest">>;
 msg_name_to_fqbin('OperationResponse') -> <<"ProtoBuffers.OperationResponse">>;
 msg_name_to_fqbin('OfertaProducaoRequest') -> <<"ProtoBuffers.OfertaProducaoRequest">>;
 msg_name_to_fqbin('OfertaEncomendaRequest') -> <<"ProtoBuffers.OfertaEncomendaRequest">>;
-msg_name_to_fqbin('NotificacaOfertaProducao') ->
-    <<"ProtoBuffers.NotificacaOfertaProducao">>;
+msg_name_to_fqbin('NotificacaoOfertaProducao') ->
+    <<"ProtoBuffers.NotificacaoOfertaProducao">>;
 msg_name_to_fqbin('NotificacaoResultadosImportador') ->
     <<"ProtoBuffers.NotificacaoResultadosImportador">>;
 msg_name_to_fqbin('NotificacaoResultadosFabricante') ->
@@ -3816,8 +3784,8 @@ get_all_proto_names() -> ["protos"].
 
 
 get_msg_containment("protos") ->
-    ['AuthOperationRequest', 'LoginRequest',
-     'LoginResponse', 'NotificacaOfertaProducao',
+    ['LoginRequest', 'LoginResponse',
+     'NotificacaoOfertaProducao',
      'NotificacaoResultadosFabricante',
      'NotificacaoResultadosImportador',
      'OfertaEncomendaRequest', 'OfertaProducaoRequest',
@@ -3853,11 +3821,10 @@ get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.OperationRequest">>) -> "protos";
 get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.OfertaProducaoRequest">>) -> "protos";
 get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.OfertaEncomendaRequest">>) -> "protos";
 get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.LoginRequest">>) -> "protos";
-get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.AuthOperationRequest">>) -> "protos";
 get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.OperationResponse">>) -> "protos";
 get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.NotificacaoResultadosFabricante">>) -> "protos";
 get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.LoginResponse">>) -> "protos";
-get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.NotificacaOfertaProducao">>) -> "protos";
+get_proto_by_msg_name_as_fqbin(<<"ProtoBuffers.NotificacaoOfertaProducao">>) -> "protos";
 get_proto_by_msg_name_as_fqbin(E) ->
     error({gpb_error, {badmsg, E}}).
 
