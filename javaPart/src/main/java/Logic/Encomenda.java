@@ -1,10 +1,12 @@
 package Logic;
 
+import ProtoBuffers.Protos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
 public class Encomenda {
+
     private String importador;
     private String fabricante;
     private String produto;
@@ -19,6 +21,11 @@ public class Encomenda {
         this.produto = produto;
         this.quantidade = quantidade;
         this.precoPorUnidade = precoUni;
+    }
+
+    public static Encomenda fromProtoRequest(Protos.OperationRequest request) {
+        Protos.OfertaEncomendaRequest r = request.getEncomenda();
+        return new Encomenda(request.getNome(), r.getFabricante(), r.getProduto(), r.getQuant(), r.getPreco());
     }
 
     @JsonProperty
@@ -54,5 +61,15 @@ public class Encomenda {
         Encomenda encomenda = (Encomenda) o;
         return Objects.equals(fabricante, encomenda.fabricante) &&
                 Objects.equals(produto, encomenda.produto);
+    }
+
+    public String toString() {
+        return "Encomenda{" +
+                "importador = '" + importador + "', " +
+                "fabricante = '" + fabricante + "', " +
+                "produto = " + produto + ", " +
+                "quantidade = " + quantidade + ", " +
+                "precoPorUnidade = " + precoPorUnidade +
+                '}';
     }
 }

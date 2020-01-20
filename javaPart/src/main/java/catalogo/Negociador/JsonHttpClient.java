@@ -32,6 +32,7 @@ public class JsonHttpClient {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println("GET " + scheme + "://" + authority + "/" + path);
         return response.body();
     }
 
@@ -58,7 +59,9 @@ public class JsonHttpClient {
                 .build();
 
         HttpResponse<?> response = client.send(request, HttpResponse.BodyHandlers.discarding());
-        return response.statusCode();
+        int statusCode = response.statusCode();
+        System.out.println("POST " + scheme + "://" + authority + "/" + path + "  " + statusCode);
+        return statusCode;
     }
 
     public <T> int put(String path, T obj) throws IOException, InterruptedException {
@@ -70,6 +73,8 @@ public class JsonHttpClient {
                 .build();
 
         HttpResponse<?> response = client.send(request, HttpResponse.BodyHandlers.discarding());
-        return response.statusCode();
+        int statusCode = response.statusCode();
+        System.out.println("PUT " + scheme + "://" + authority + "/" + path + "  " + statusCode);
+        return statusCode;
     }
 }

@@ -29,7 +29,7 @@ public class Negociador {
             final ZMQ.Socket socketREP = context.createSocket(ZMQ.REP);
             socketREP.bind("tcp://*:5555");
             socketPUB = context.createSocket(ZMQ.PUB);
-            socketPUB.bind("tcp://*:5561");
+            socketPUB.bind("tcp://*:6666");
 
             OperationResponse reply;
             while (!Thread.currentThread().isInterrupted()) {
@@ -37,27 +37,33 @@ public class Negociador {
                 try {
                     OperationRequest request = OperationRequest.parseFrom(data);
                     String nome = request.getNome();
-                    System.out.println("Received from " + nome);
-
+                    System.out.println("=========================================================");
+                    System.out.print("Recebe de " + nome + ": ");
                     switch (request.getRequestCase().getNumber()){
                         case OperationRequest.PRODUCAO_FIELD_NUMBER: // OFERTA DE PRODUÇÃO
+                            System.out.println("Oferta de produção");
                             OfertaProducaoRequest prodRequest = request.getProducao();
-                            Producao producao = requestToObj(prodRequest, nome);
+                            Producao producao = Producao.fromProtoRequest(request);
+                            System.out.println(producao);
 
-                            // avisa os importadores subscritos
+                            reply = processProducao(producao);
+                            if(reply != REPLY_OK) break;
+
                             NotificacaoOfertaProducao notif = prodRequestToNotif(prodRequest);
                             socketPUB.sendMore(nome);
                             socketPUB.send(notif.toByteArray());
+                            System.out.println("Envia notificação: PUB " + nome);
 
                             // cria thread que dorme até acabar o período de negociação
                             // quando acorda determina encomendas aceites e notifica participantes
                             long waitSeconds = prodRequest.getDuracaoS();
+                            System.out.println("Começa período de negociação, duração: " + waitSeconds + "s");
                             periodoNegociacao(waitSeconds, producao, nome).start();
-
-                            reply = processProducao(producao);
                             break;
                         case OperationRequest.ENCOMENDA_FIELD_NUMBER: // OFERTA DE ENCOMENDA
-                            Encomenda encomenda = requestToObj(request.getEncomenda(), nome);
+                            System.out.println("Oferta de encomenda");
+                            Encomenda encomenda = Encomenda.fromProtoRequest(request);
+                            System.out.println(encomenda);
                             reply = processEncomenda(encomenda);
                             break;
                         default:
@@ -68,13 +74,14 @@ public class Negociador {
                     reply = REPLY_INVALID;
                 }
                 socketREP.send(reply.toByteArray(), 0);
+                System.out.println("Enviou resposta: " + reply.getCode());
+                System.out.println("=========================================================");
             }
         }
     }
 
 
     private static OperationResponse processProducao(Producao producao) throws IOException, InterruptedException {
-        // guarda oferta de produção no catalogo
         int statusCode = jhc.post("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto(), producao);
         if (statusCode >= 200 && statusCode < 300) {
             return REPLY_OK;
@@ -83,18 +90,18 @@ public class Negociador {
     }
 
     private static OperationResponse processEncomenda(Encomenda encomenda) throws IOException, InterruptedException {
-        // vai buscar oferta ao catalogo
         Producao prod = jhc.getObject("producoes/" + encomenda.getNomeFabricante() + "/" + encomenda.getNomeProduto(), Producao.class);
         if(prod != null) {
+            System.out.println(prod);
             if(encomenda.getPrecoPorUnidade() < prod.getPrecoPorUnidade()) {
-                // nao atinge preco minimo
+                System.out.println("Oferta não atingiu preço mínimo");
                 return REPLY_INVALID;
             }
             if(encomenda.getQuantidade() > prod.getQuantidadeMax()) {
-                // quantidade demasiado grande
+                System.out.println("Oferta tem quantidade demasiado grande");
                 return REPLY_INVALID;
             }
-            // tudo ok, envia para catalogo
+            System.out.println("Oferta OK");
             int statusCode = jhc.post("producoes/" + encomenda.getNomeFabricante() + "/" + encomenda.getNomeProduto() + "/encomendas", encomenda);
             if (statusCode >= 200 && statusCode < 300) {
                 return REPLY_OK;
@@ -102,7 +109,7 @@ public class Negociador {
             return REPLY_INVALID;
         }
         else {
-            // não existem ofertas de produção
+            System.out.println("Mão existem ofertas de produção correspondentes");
             return REPLY_INVALID;
         }
     }
@@ -120,70 +127,98 @@ public class Negociador {
         return new Thread(() -> {
             try {
                 Thread.sleep(1000 * waitSeconds);
-                // vai buscar ofertas ao catalogo
+                System.out.println("=========================================================");
+                System.out.println("Período de negociação acabou");
                 Collection<Encomenda> encomendas = jhc.getCollection(
                         "producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/encomendas", Encomenda.class);
                 // Heurística da razão para determinar encomendas aceites
+
+                ArrayList<Encomenda> aceites = new ArrayList<>();
+                ArrayList<Encomenda> recusadas = new ArrayList<>();
+                int quantMin = producao.getQuantidadeMin();
+                int quantMax = producao.getQuantidadeMax();
+                int quantTotal = 0;
+
+                if(encomendas == null) {
+                    System.out.println("Nenhuma oferta de encomenda feita");
+
+                    System.out.println("Notifica fabricante:");
+                    NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.newBuilder().build();
+                    socketPUB.sendMore(nomeFabricante);
+                    socketPUB.send(n.toByteArray());
+                    System.out.println("Enviou notificação: PUB " + nomeFabricante);
+
+                    jhc.put("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/canceladas", producao);
+                    return;
+                }
+
                 ArrayList<Encomenda> list = new ArrayList<>(encomendas);
                 list.sort((Encomenda a,Encomenda b) -> {
                     float ratioA = (float) a.getPrecoPorUnidade() / a.getQuantidade();
                     float ratioB = (float) b.getPrecoPorUnidade() / b.getQuantidade();
                     return Float.compare(ratioA, ratioB);
                 });
-                int quantMin = producao.getQuantidadeMin();
-                int quantMax = producao.getQuantidadeMax();
-                int quantTotal = 0;
-                int naceites = 0;
+
+
                 for (Encomenda e : list) {
                     int quant = e.getQuantidade();
-                    if (quant > quantMax) continue;
-                    if (quantTotal + quant > quantMax) break;
-                    quantTotal += quant;
-                    naceites++;
+                    if (quant > quantMax) {
+                        recusadas.add(e);
+                        continue;
+                    }
+                    if (quantTotal + quant > quantMax) {
+                        recusadas.add(e);
+                    } else {
+                        quantTotal += quant;
+                        aceites.add(e);
+                    }
                 }
-                if(quantTotal < quantMin) {
-                    // mínimo não atingido -> cancelada
 
-                    // notifica importadores participantes e guarda no catalogo
+                if(quantTotal < quantMin) {
+                    System.out.println("Quantidade mínima não atingida");
+
+                    System.out.println("Notifica importadores participantes:");
                     for (Encomenda e : encomendas) {
                         NotificacaoResultadosImportador n = encomendaToNotif(e, false);
                         socketPUB.sendMore(e.getNomeImportador());
                         socketPUB.send(n.toByteArray());
+                        System.out.println("Enviou notificação: PUB " + e.getNomeImportador());
                         jhc.put("producoes/" + e.getNomeFabricante() + "/" + e.getNomeProduto() + "/encomendas/recusadas", e);
                     }
 
-                    // notifica fabricante
+                    System.out.println("Notifica fabricante:");
                     NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.newBuilder().build();
                     socketPUB.sendMore(nomeFabricante);
                     socketPUB.send(n.toByteArray());
+                    System.out.println("Enviou notificação: PUB " + nomeFabricante);
 
-                    // guarda no catalogo
-                    // TODO guardar cancelada no catalogo
                     jhc.put("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/canceladas", producao);
                 } else {
-                    // mínimo atingido, encomendas aceites
+                    System.out.println("Quantidade a produzir: " + quantTotal);
+                    System.out.println("Encomendas aceites: " + aceites.size());
+                    System.out.println("Encomendas recusadas: " + recusadas.size());
 
-                    // notifica importadores participantes
-                    int j = 0;
-                    for (Encomenda e : list) {
-                        if(j < naceites) { // encomenda aceite
-                            NotificacaoResultadosImportador n = encomendaToNotif(e, true);
-                            socketPUB.sendMore(e.getNomeImportador());
-                            socketPUB.send(n.toByteArray());
-                            jhc.put("producoes/" + e.getNomeFabricante() + "/" + e.getNomeProduto() + "/encomendas/aceites", e);
-                            j++;
-                        } else { // encomenda não aceite
-                            NotificacaoResultadosImportador n = encomendaToNotif(e, false);
-                            socketPUB.sendMore(e.getNomeImportador());
-                            socketPUB.send(n.toByteArray());
-                            jhc.put("producoes/" + e.getNomeFabricante() + "/" + e.getNomeProduto() + "/encomendas/recusadas", e);
-                        }
+                    for (Encomenda e : aceites) {
+                        System.out.println("Notifica importadores participantes aceites:");
+                        NotificacaoResultadosImportador n = encomendaToNotif(e, true);
+                        socketPUB.sendMore(e.getNomeImportador());
+                        socketPUB.send(n.toByteArray());
+                        System.out.println("Enviou notificação: PUB " + e.getNomeImportador());
+                        jhc.put("producoes/" + e.getNomeFabricante() + "/" + e.getNomeProduto() + "/encomendas/aceites", e);
+                    }
+                    for (Encomenda e : recusadas) {
+                        System.out.println("Notifica importadores participantes recusados:");
+                        NotificacaoResultadosImportador n = encomendaToNotif(e, false);
+                        socketPUB.sendMore(e.getNomeImportador());
+                        socketPUB.send(n.toByteArray());
+                        System.out.println("Enviou notificação: PUB " + e.getNomeImportador());
+                        jhc.put("producoes/" + e.getNomeFabricante() + "/" + e.getNomeProduto() + "/encomendas/recusadas", e);
                     }
 
-                    // notifica fabricante, envia lista de encomendas aceites
-                    ArrayList<OfertaEncomendaRequest> aceites = new ArrayList<>(naceites);
-                    for (Encomenda e : list.subList(0, naceites)) {
-                        aceites.add(OfertaEncomendaRequest.newBuilder()
+                    System.out.println("Notifica fabricante:");
+                    ArrayList<OfertaEncomendaRequest> aceitesR = new ArrayList<>();
+                    for (Encomenda e : aceites) {
+                        aceitesR.add(OfertaEncomendaRequest.newBuilder()
                                 .setFabricante(e.getNomeFabricante())
                                 .setPreco(e.getPrecoPorUnidade())
                                 .setProduto(e.getNomeProduto())
@@ -192,14 +227,15 @@ public class Negociador {
                         );
                     }
                     NotificacaoResultadosFabricante n = NotificacaoResultadosFabricante.newBuilder()
-                            .addAllEncomendas(aceites)
+                            .addAllEncomendas(aceitesR)
                             .build();
                     socketPUB.sendMore(nomeFabricante);
                     socketPUB.send(n.toByteArray());
+                    System.out.println("Enviou notificação: PUB " + nomeFabricante);
 
-                    // guarda resultado no catalogo
                     jhc.put("producoes/" + producao.getNomeFabricante() + "/" + producao.getNomeProduto() + "/aceites", producao);
                 }
+                System.out.println("=========================================================");
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -229,13 +265,5 @@ public class Negociador {
                 .build();
     }
 
-    private static Encomenda requestToObj(OfertaEncomendaRequest r, String nome) {
-        return new Encomenda(nome, r.getFabricante(), r.getProduto(), r.getQuant(), r.getPreco());
-    }
 
-    private static Producao requestToObj(OfertaProducaoRequest r, String nome) {
-        LocalDateTime inicio = LocalDateTime.now();
-        LocalDateTime fim = inicio.plusSeconds(r.getDuracaoS());
-        return new Producao(nome, r.getProduto(), r.getQuantMin(), r.getQuantMax(), r.getPrecoUniMin(), new Periodo(inicio, fim));
-    }
 }

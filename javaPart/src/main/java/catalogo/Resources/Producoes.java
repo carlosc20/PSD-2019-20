@@ -27,10 +27,10 @@ public class Producoes {
 
         Periodo periodo = new Periodo(LocalDateTime.now(), LocalDateTime.now());
 
-        Producao p1 = new Producao("Carlos", "chouriço", 20, 40, 2.5, periodo);
+        Producao p1 = new Producao("Carlos", "chouriço", 20, 40, 2, periodo);
         Producao p2 = new Producao("Carlos", "linguiça", 20, 40, 1, periodo);
         Producao p3 = new Producao("Daniel", "chouriço", 2000, 4000, 10, periodo);
-        Producao p4 = new Producao("Maria", "bolachas", 21000, 40000, 0.5, periodo);
+        Producao p4 = new Producao("Maria", "bolachas", 21000, 40000, 5, periodo);
         Producao p5 = new Producao("Maria", "sal", 20, 40, 25, periodo);
         Producao p6 = new Producao("Luís", "foguetes", 1, 2, 25000, periodo);
 
@@ -41,8 +41,8 @@ public class Producoes {
         f3.addProducao("sal", p5);
         f4.addProducao("foguetes", p6);
 
-        Encomenda e1 = new Encomenda("Marco", "Carlos", "chouriço", 1, 2.5);
-        Encomenda e2 = new Encomenda("Marco", "Daniel", "chouriço", 1, 2.5);
+        Encomenda e1 = new Encomenda("Marco", "Carlos", "chouriço", 1, 2);
+        Encomenda e2 = new Encomenda("Marco", "Daniel", "chouriço", 1, 2);
 
         f1.addEncomenda("chouriço", e1);
         f2.addEncomenda("chouriço", e2);
