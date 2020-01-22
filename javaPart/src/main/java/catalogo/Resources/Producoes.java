@@ -165,25 +165,25 @@ public class Producoes {
     }
 
     @PUT
-    @Path("/{nome}/aceite")
-    public Response putAceitesFabricante(@PathParam("nome") String nome,  Producao producao){
+    @Path("/{nome}/{produto}/aceites")
+    public Response putAceitesFabricante(@PathParam("nome") String nome, @PathParam("produto") String produto,  Producao producao){
         Fabricante f = (Fabricante) utilizadores.get(nome);
         if(f == null)
             return Response.status(405).build();
         producao.setEstado("aceite");
-        f.addProducao(nome, producao);
+        f.addProducao(produto, producao);
         return Response.status(201).build();
     }
 
 
-    @POST
-    @Path("/{nome}/cancelada")
-    public Response postCanceladasFabricante(@PathParam("nome") String nome, Producao producao){
+    @PUT
+    @Path("/{nome}/{produto}/canceladas")
+    public Response postCanceladasFabricante(@PathParam("nome") String nome, @PathParam("produto") String produto, Producao producao){
         Fabricante f = (Fabricante) utilizadores.get(nome);
         if(f == null)
             return Response.status(405).build();
         producao.setEstado("cancelada");
-        f.addProducao(nome, producao);
+        f.addProducao(produto, producao);
         return Response.status(201).build();
     }
 

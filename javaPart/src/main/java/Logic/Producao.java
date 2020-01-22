@@ -70,7 +70,8 @@ public class Producao {
     public boolean estado(String e){
         return estado.equals(e);
     }
-    
+
+    @JsonProperty
     public void setEstado(String estado) {
         this.estado = estado;
     }

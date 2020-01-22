@@ -29,7 +29,7 @@ public class Negociador {
     public Negociador() {}
 
     public static void main(String[] args) {
-        new Negociador().start("tcp://localhost:5556", "tcp://localhost:6666", "X");
+        new Negociador().start("tcp://localhost:5557", "tcp://localhost:6667", "Y");
     }
 
     public void start(String addrREP, String addrPUB, String identity) {

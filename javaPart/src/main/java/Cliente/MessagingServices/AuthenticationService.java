@@ -5,6 +5,8 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
+import java.util.UUID;
+
 public class AuthenticationService {
 
     private ZMQ.Socket socket;
@@ -14,7 +16,8 @@ public class AuthenticationService {
         context = new ZContext();
         socket = context.createSocket(ZMQ.REQ);
         socket.connect(server);
-        socket.setIdentity("1".getBytes(ZMQ.CHARSET));
+        String identity = UUID.randomUUID().toString();
+        socket.setIdentity(identity.getBytes(ZMQ.CHARSET));
     }
 
     public static final int IMPORTADOR = 0;

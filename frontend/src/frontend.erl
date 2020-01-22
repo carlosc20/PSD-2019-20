@@ -47,12 +47,12 @@ request_loop(Socket, Parent, Workers, N) ->
     %%gera número aleatório
     case N of
         0 -> Worker = maps:get("A", Workers);
-        1 -> Worker = maps:get("B", Workers);
-        2 -> Worker = maps:get("C", Workers)
+        1 -> Worker = maps:get("B", Workers)
+        %2 -> Worker = maps:get("C", Workers)
     end,
     Worker ! {Identity, Message},
-    R = mod(N+1, 3),
-    request_loop(Socket, Parent, Workers, N). 
+    R = mod(N+1, 2),
+    request_loop(Socket, Parent, Workers, R). 
 
 %encarrega-se de devolver respostas aos clientes
 reply_loop(Socket) -> 
@@ -83,10 +83,10 @@ main(Args) ->
     Reply = spawn(fun() -> reply_loop(Socket) end),    
     W1 = spawn(fun() -> start_worker("A", <<"X">>, 5556, Reply) end),
     W2 = spawn(fun() -> start_worker("B", <<"Y">>, 5557, Reply) end),
-    W3 = spawn(fun() -> start_worker("C", <<"Z">>, 5558, Reply) end),
+    %W3 = spawn(fun() -> start_worker("C", <<"Z">>, 5558, Reply) end),
     Workers=#{"A" => W1,
-              "B" => W2,
-              "C" => W3},
+              "B" => W2},
+              %"C" => W3
     Requests = spawn(fun() -> request_loop(Socket, Reply, Workers, 0) end),
     %%monitors
     RequestsRef =  erlang:monitor(process, Requests),
